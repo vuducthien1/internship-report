@@ -2,12 +2,11 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'; // [ĐÃ SỬA] Thêm Outlet vào đây
 import GuestLayout from '../components/layouts/GuestLayout';
 import AdminLayout from '../components/layouts/AdminLayout';
+import AdminDashboard from '../pages/admin/Dashboard';
+import EngineerTasks from '../pages/engineer/MyTasks';
 import Login from '../pages/guest/Login';
 import Register from '../pages/guest/Register';
 
-// Component trang giả định để test
-const AdminDashboard = () => <h2>Chào mừng Admin tới trang Quản trị</h2>;
-const EngineerTasks = () => <h2>Chào mừng Kỹ sư tới trang Công việc</h2>;
 
 function AppRouter() {
     return (
