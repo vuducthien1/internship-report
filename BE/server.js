@@ -1,17 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors'); // [1] Import thư viện cors
 
 dotenv.config();
 
-// Kích hoạt kết nối MySQL
 const db = require('./config/db');
-
-// Import bộ định tuyến Auth
 const authRouter = require('./routers/authRouter');
 
 const app = express();
 
-// Đọc dữ liệu định dạng JSON gửi lên từ Client
+// [2] MỞ CỬA CHO FRONTEND GỌI SANG (Phải đặt trước express.json và routes)
+app.use(cors()); 
+
 app.use(express.json());
 
 // Điều hướng các API liên quan đến tài khoản
