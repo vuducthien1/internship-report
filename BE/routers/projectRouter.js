@@ -3,15 +3,29 @@ const router = express.Router();
 const projectController = require('../controllers/projectController');
 const { verifyToken, authorizeRoles } = require('../middlewares/authMiddleware');
 
-// Route Lấy danh sách: Ai đã đăng nhập (có Token hợp lệ) đều xem được
 router.get('/', verifyToken, projectController.getAllProjects);
+router.get('/:id/workspace', verifyToken, authorizeRoles('admin', 'manager'), projectController.getProjectWorkspace);
+router.get('/:id', verifyToken, projectController.getProjectById);
 
-// Route Tạo dự án: Phải có Token hợp lệ VÀ Role phải là 'admin' hoặc 'manager'
 router.post(
-    '/', 
-    verifyToken, 
-    authorizeRoles('admin', 'manager'), 
+    '/',
+    verifyToken,
+    authorizeRoles('admin', 'manager'),
     projectController.createProject
+);
+
+router.put(
+    '/:id',
+    verifyToken,
+    authorizeRoles('admin', 'manager'),
+    projectController.updateProject
+);
+
+router.delete(
+    '/:id',
+    verifyToken,
+    authorizeRoles('admin'),
+    projectController.deleteProject
 );
 
 module.exports = router;

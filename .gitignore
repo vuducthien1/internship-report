@@ -1,3 +1,5 @@
 node_modules/
 .env
 *.log
+BE/uploads/
+smart_construction_db.sql

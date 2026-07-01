@@ -1,14 +1,12 @@
-const API_URL = "http://localhost:5000/api/tasks";
+import { apiGet, apiPatch, apiPost, apiPut } from './apiClient';
 
-// Hàm lấy danh sách công việc của riêng Kỹ sư đang đăng nhập
-export const getMyTasksApi = async () => {
-    const token = localStorage.getItem('accessToken');
-    const response = await fetch(`${API_URL}/my-tasks`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Trình thẻ Kỹ sư ra
-        }
-    });
-    return response.json();
-};
+export const getMyTasksApi = () => apiGet('/tasks/my-tasks');
+export const getEngineerDashboardApi = () => apiGet('/tasks/engineer-dashboard');
+export const getTasksApi = () => apiGet('/tasks');
+export const createTaskApi = (taskData) => apiPost('/tasks', taskData);
+export const updateTaskApi = (taskId, taskData) => apiPut(`/tasks/${taskId}`, taskData);
+export const getTaskDetailsApi = (taskId) => apiGet(`/tasks/${taskId}/details`);
+export const addTaskUpdateApi = (taskId, message) => apiPost(`/tasks/${taskId}/updates`, { message });
+export const getTaskChecklistApi = (taskId) => apiGet(`/tasks/${taskId}/checklist`);
+export const updateChecklistItemApi = (taskId, itemId, completed) =>
+    apiPatch(`/tasks/${taskId}/checklist/${itemId}`, { completed });

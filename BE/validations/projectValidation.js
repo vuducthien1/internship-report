@@ -23,7 +23,8 @@ const projectValidator = (data) => {
         end_date: Joi.date().iso().min(Joi.ref('start_date')).required().messages({
             'date.min': 'Ngày kết thúc không thể diễn ra trước ngày bắt đầu!',
             'any.required': 'Vui lòng chọn ngày kết thúc.'
-        })
+        }),
+        status: Joi.string().valid('planning', 'ongoing', 'completed').optional()
     });
 
     return schema.validate(data);

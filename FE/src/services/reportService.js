@@ -1,14 +1,18 @@
-const API_URL = "http://localhost:5000/api/reports";
+import { apiGet, apiPatch, apiPost, apiUpload, BASE_URL } from './apiClient';
 
-export const createReportApi = async (reportData) => {
-    const token = localStorage.getItem('accessToken');
-    const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(reportData)
-    });
-    return response.json();
+export const createReportApi = (reportData, attachment) => {
+    if (!attachment) return apiPost('/reports', reportData);
+    const formData = new FormData();
+    Object.entries(reportData).forEach(([key, value]) => formData.append(key, value ?? ''));
+    formData.append('attachment', attachment);
+    return apiUpload('/reports', formData);
+};
+export const getReportsApi = () => apiGet('/reports');
+export const reviewReportApi = (reportId, review) =>
+    apiPatch(`/reports/${reportId}/review`, review);
+
+export const getReportMediaUrl = (path) => {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    return `${BASE_URL.replace(/\/api\/?$/, '')}${path}`;
 };

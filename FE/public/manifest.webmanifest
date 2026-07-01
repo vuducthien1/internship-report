@@ -1,0 +1,12 @@
+{
+  "name": "Voice-Driven Construction Management System",
+  "short_name": "VDCMS",
+  "description": "Quản lý công trường, công việc và báo cáo hiện trường.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "icons": [
+    { "src": "/logo.png", "sizes": "any", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

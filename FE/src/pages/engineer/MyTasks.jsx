@@ -1,147 +1,360 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getMyTasksApi } from '../../services/taskService';
-import { createReportApi } from '../../services/reportService'; 
+import { addTaskUpdateApi, getMyTasksApi, getTaskChecklistApi, getTaskDetailsApi, updateChecklistItemApi } from '../../services/taskService';
+import { createReportApi } from '../../services/reportService';
+import { useLanguage } from '../../context/LanguageContext';
+import VoiceInput from '../../components/common/VoiceInput';
+import PageHeader from '../../components/common/PageHeader';
+import DataTable from '../../components/common/DataTable';
 
 function MyTasks() {
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState('');
-    const [refreshKey, setRefreshKey] = useState(0); 
-    const navigate = useNavigate();
+    const [refreshKey, setRefreshKey] = useState(0);
+    const { t } = useLanguage();
 
     const [showModal, setShowModal] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
-    const [reportData, setReportData] = useState({ content: '', status: 'in_progress' });
+    const [reportData, setReportData] = useState({
+        content: '',
+        status: 'in_progress',
+        work_quantity: '',
+        blockers: '',
+        safety_notes: '',
+        next_plan: '',
+        report_type: 'manual',
+    });
+    const [submitting, setSubmitting] = useState(false);
+    const [attachment, setAttachment] = useState(null);
+    const [checklistTask, setChecklistTask] = useState(null);
+    const [checklistItems, setChecklistItems] = useState([]);
+    const [checklistLoading, setChecklistLoading] = useState(false);
+    const [detail, setDetail] = useState(null);
+    const [detailLoading, setDetailLoading] = useState(false);
+    const [timelineNote, setTimelineNote] = useState('');
+    const [draftRestored, setDraftRestored] = useState(false);
 
-    // [ĐÃ SỬA] Đưa thẳng logic gọi API vào trong useEffect
+    useEffect(() => {
+        if (!showModal || !selectedTask) return;
+        localStorage.setItem(`vdcm_report_draft_${selectedTask.id}`, JSON.stringify(reportData));
+    }, [reportData, selectedTask, showModal]);
+
     useEffect(() => {
         const fetchMyTasks = async () => {
             const data = await getMyTasksApi();
             if (data.success) {
                 setTasks(data.data);
+                setError('');
             } else {
                 setError(data.message);
             }
         };
-        
         fetchMyTasks();
-    }, [refreshKey]); // Chỉ phụ thuộc vào biến refreshKey
-
-    const handleLogout = () => {
-        localStorage.clear();
-        navigate('/login');
-    };
+    }, [refreshKey]);
 
     const openReportModal = (task) => {
         setSelectedTask(task);
-        setReportData({ content: '', status: task.status === 'pending' ? 'in_progress' : task.status });
+        const initialData = {
+            content: '',
+            status: task.status === 'pending' ? 'in_progress' : task.status,
+            work_quantity: '',
+            blockers: '',
+            safety_notes: '',
+            next_plan: '',
+            report_type: 'manual',
+        };
+        const saved = localStorage.getItem(`vdcm_report_draft_${task.id}`);
+        try {
+            setReportData(saved ? { ...initialData, ...JSON.parse(saved) } : initialData);
+            setDraftRestored(Boolean(saved));
+        } catch {
+            setReportData(initialData);
+            setDraftRestored(false);
+        }
         setShowModal(true);
+        setAttachment(null);
     };
 
     const handleReportSubmit = async (e) => {
         e.preventDefault();
+        setSubmitting(true);
+
         const data = await createReportApi({
             task_id: selectedTask.id,
             content: reportData.content,
-            status: reportData.status
-        });
+            status: reportData.status,
+            work_quantity: reportData.work_quantity,
+            blockers: reportData.blockers,
+            safety_notes: reportData.safety_notes,
+            next_plan: reportData.next_plan,
+            report_type: reportData.report_type,
+        }, attachment);
 
         if (data.success) {
-            alert('✅ Báo cáo thành công!');
+            localStorage.removeItem(`vdcm_report_draft_${selectedTask.id}`);
             setShowModal(false);
-            setRefreshKey(old => old + 1); // Cập nhật lại UI ngay lập tức
+            setDraftRestored(false);
+            setRefreshKey((k) => k + 1);
         } else {
-            alert('❌ Lỗi: ' + data.message);
+            setError(data.message);
+        }
+        setSubmitting(false);
+    };
+
+    const openTaskDetail = async (task) => {
+        setDetailLoading(true);
+        setTimelineNote('');
+        const result = await getTaskDetailsApi(task.id);
+        if (result.success) setDetail(result.data);
+        else setError(result.message);
+        setDetailLoading(false);
+    };
+
+    const addTimelineNote = async (event) => {
+        event.preventDefault();
+        const result = await addTaskUpdateApi(detail.task.id, timelineNote);
+        if (!result.success) { setError(result.message); return; }
+        const refreshed = await getTaskDetailsApi(detail.task.id);
+        if (refreshed.success) setDetail(refreshed.data);
+        setTimelineNote('');
+    };
+
+    const openChecklist = async (task) => {
+        setChecklistTask(task);
+        setChecklistLoading(true);
+        const result = await getTaskChecklistApi(task.id);
+        if (result.success) setChecklistItems(result.data);
+        else setError(result.message);
+        setChecklistLoading(false);
+    };
+
+    const toggleChecklistItem = async (item) => {
+        const completed = !item.is_completed;
+        const result = await updateChecklistItemApi(checklistTask.id, item.id, completed);
+        if (result.success) {
+            setChecklistItems((current) => current.map((entry) => (
+                entry.id === item.id ? { ...entry, is_completed: completed ? 1 : 0 } : entry
+            )));
+        } else {
+            setError(result.message);
         }
     };
 
+    const getStatusBadge = (status) => {
+        if (status === 'pending') return { class: 'badge-warning', label: t('pending') };
+        if (status === 'in_progress') return { class: 'badge-info', label: t('inProgress') };
+        if (status === 'completed') return { class: 'badge-success', label: t('completed') };
+        if (status === 'on_hold') return { class: 'badge-warning', label: t('onHold') };
+        return { class: 'badge-danger', label: t('cancelled') };
+    };
+
+    const getPriorityLabel = (priority) => {
+        const labels = {
+            low: t('priorityLow'),
+            medium: t('priorityMedium'),
+            high: t('priorityHigh'),
+            urgent: t('priorityUrgent'),
+            critical: t('priorityCritical'),
+        };
+        return labels[priority] || priority;
+    };
+
+    const pendingCount = tasks.filter((t) => t.status === 'pending').length;
+    const inProgressCount = tasks.filter((t) => t.status === 'in_progress').length;
+    const completedCount = tasks.filter((t) => t.status === 'completed').length;
+
+    const columns = [
+        { key: 'project_name', label: t('project'), cellClassName: 'font-semibold text-slate-900' },
+        { key: 'title', label: t('taskTitle'), cellClassName: 'font-semibold text-slate-900' },
+        { key: 'description', label: t('description') },
+        {
+            key: 'due_date',
+            label: t('dueDate'),
+            sortValue: (row) => row.due_date ? new Date(row.due_date).getTime() : 0,
+            render: (row) => row.due_date ? new Date(row.due_date).toLocaleDateString() : '—',
+        },
+        {
+            key: 'priority',
+            label: t('priority'),
+            value: (row) => getPriorityLabel(row.priority),
+            render: (row) => getPriorityLabel(row.priority),
+        },
+        {
+            key: 'status',
+            label: t('status'),
+            value: (row) => getStatusBadge(row.status).label,
+            render: (row) => {
+                const badge = getStatusBadge(row.status);
+                return <span className={`badge ${badge.class}`}>{badge.label}</span>;
+            },
+        },
+        {
+            id: 'actions',
+            label: t('actions'),
+            sortable: false,
+            searchable: false,
+            render: (row) => (
+                <div className="flex min-w-max flex-wrap gap-2">
+                    <button className="btn btn-outline btn-sm" onClick={() => openTaskDetail(row)}>
+                        {t('viewDetails')}
+                    </button>
+                    <button className="btn btn-outline btn-sm" onClick={() => openChecklist(row)}>
+                        ☑ {t('taskChecklist')}
+                    </button>
+                    {row.has_pending_report ? (
+                        <span className="badge badge-warning">{t('approvalPending')}</span>
+                    ) : ['pending', 'in_progress'].includes(row.status) ? (
+                        <button className="btn btn-accent btn-sm" onClick={() => openReportModal(row)}>
+                            🎤 {t('voiceReport')}
+                        </button>
+                    ) : null}
+                </div>
+            ),
+        },
+    ];
+
     return (
-        <div style={{ backgroundColor: '#f4f7f6', minHeight: '100vh', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-            {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#007bff', padding: '15px 20px', borderRadius: '10px', color: 'white', marginBottom: '20px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: 0 }}>👷 Ký Sự Công Trường</h3>
-                <button onClick={handleLogout} style={{ background: '#dc3545', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '5px', fontWeight: 'bold', cursor: 'pointer' }}>
-                    Đăng xuất
-                </button>
-            </div>
+        <div className="space-y-8">
+            <PageHeader title={t('taskList')} subtitle={t('featureTaskDesc')} icon="📋" />
 
-            <h2 style={{ color: '#333', marginBottom: '20px' }}>📋 Danh sách công việc của tôi</h2>
-            
-            {error && <p style={{ color: 'red', fontWeight: 'bold' }}>Lỗi: {error}</p>}
+            {error && <div className="alert alert-error">{t('error')}: {error}</div>}
 
-            {/* Container Thẻ Card */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
-                {tasks.length > 0 ? (
-                    tasks.map(task => (
-                        <div key={task.id} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', borderLeft: task.status === 'completed' ? '5px solid #28a745' : '5px solid #007bff' }}>
-                            <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px', fontWeight: 'bold' }}>
-                                DỰ ÁN: {task.project_name.toUpperCase()}
-                            </div>
-                            <h3 style={{ margin: '0 0 10px 0', color: '#222' }}>{task.title}</h3>
-                            <p style={{ color: '#555', fontSize: '14px', marginBottom: '15px' }}>{task.description}</p>
-                            
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ 
-                                    padding: '5px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold',
-                                    backgroundColor: task.status === 'pending' ? '#ffc107' : (task.status === 'in_progress' ? '#17a2b8' : '#28a745'),
-                                    color: task.status === 'pending' ? '#000' : '#fff'
-                                }}>
-                                    {task.status === 'pending' ? '⏳ Chờ xử lý' : (task.status === 'in_progress' ? '🏃 Đang làm' : '✅ Hoàn thành')}
-                                </span>
-                                
-                                {/* Ẩn nút báo cáo nếu công việc đã hoàn thành */}
-                                {task.status !== 'completed' && (
-                                    <button 
-                                        onClick={() => openReportModal(task)}
-                                        style={{ background: '#28a745', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
-                                        Báo cáo 🎤
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <div style={{ textAlign: 'center', padding: '40px', background: 'white', borderRadius: '10px', gridColumn: '1 / -1' }}>
-                        <h3 style={{ color: '#666' }}>🎉 Bạn hiện chưa có công việc nào!</h3>
+            {tasks.length > 0 && (
+                <div className="grid gap-4 sm:grid-cols-3">
+                    <div className="rounded-[1.75rem] bg-white/95 p-6 shadow-sm shadow-slate-200/40">
+                        <p className="text-sm text-slate-500">{t('pending')}</p>
+                        <p className="mt-3 text-3xl font-semibold text-slate-900">{pendingCount}</p>
                     </div>
-                )}
-            </div>
+                    <div className="rounded-[1.75rem] bg-white/95 p-6 shadow-sm shadow-slate-200/40">
+                        <p className="text-sm text-slate-500">{t('inProgress')}</p>
+                        <p className="mt-3 text-3xl font-semibold text-slate-900">{inProgressCount}</p>
+                    </div>
+                    <div className="rounded-[1.75rem] bg-white/95 p-6 shadow-sm shadow-slate-200/40">
+                        <p className="text-sm text-slate-500">{t('completed')}</p>
+                        <p className="mt-3 text-3xl font-semibold text-slate-900">{completedCount}</p>
+                    </div>
+                </div>
+            )}
 
-            {/* --- KHU VỰC POPUP BÁO CÁO --- */}
+            <DataTable columns={columns} data={tasks} emptyText={t('noTasks')} />
+
             {showModal && (
-                <div style={{
-                    position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', 
-                    backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center'
-                }}>
-                    <div style={{ background: 'white', padding: '25px', borderRadius: '10px', width: '90%', maxWidth: '400px' }}>
-                        <h3 style={{ marginTop: 0, color: '#333' }}>Báo cáo: {selectedTask?.title}</h3>
-                        <form onSubmit={handleReportSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                            
-                            <label style={{ fontSize: '14px', fontWeight: 'bold' }}>Nội dung công việc hôm nay:</label>
-                            <textarea 
-                                required 
-                                rows="4" 
-                                value={reportData.content}
-                                placeholder="Nhập chi tiết khối lượng công việc..."
-                                onChange={(e) => setReportData({...reportData, content: e.target.value})}
-                                style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ccc', resize: 'vertical' }} 
-                            />
-
-                            <label style={{ fontSize: '14px', fontWeight: 'bold' }}>Cập nhật trạng thái:</label>
-                            <select 
-                                value={reportData.status} 
-                                onChange={(e) => setReportData({...reportData, status: e.target.value})}
-                                style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                            >
-                                <option value="in_progress">🏃 Vẫn đang tiến hành</option>
-                                <option value="completed">✅ Đã hoàn thành xong</option>
-                            </select>
-                            
-                            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                                <button type="submit" style={{ flex: 1, padding: '12px', background: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>Gửi Báo Cáo</button>
-                                <button type="button" onClick={() => setShowModal(false)} style={{ flex: 1, padding: '12px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>Hủy</button>
+                <div className="modal-overlay" onClick={() => setShowModal(false)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h3>🎤 {t('voiceReport')}: {selectedTask?.title}</h3>
+                        </div>
+                        <form onSubmit={handleReportSubmit} className="space-y-5">
+                            <div className={`rounded-2xl px-4 py-3 text-sm ${draftRestored ? 'bg-amber-50 text-amber-800' : 'bg-indigo-50 text-indigo-700'}`}>
+                                {draftRestored
+                                    ? (t('draftRestored') || 'Đã khôi phục bản nháp trên thiết bị. File đính kèm cần chọn lại.')
+                                    : (t('draftAutosave') || 'Nội dung được tự động lưu trên thiết bị.')}
+                            </div>
+                            <div>
+                                <label className="mb-2 block text-sm font-semibold text-slate-700">{t('reportContent')}</label>
+                                <VoiceInput
+                                    value={reportData.content}
+                                    onChange={(content) => setReportData({ ...reportData, content })}
+                                    onVoiceUsed={() => setReportData((current) => ({
+                                        ...current,
+                                        report_type: current.report_type === 'manual' ? 'voice' : current.report_type,
+                                    }))}
+                                />
+                            </div>
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <label className="space-y-2">
+                                    <span className="text-sm font-semibold text-slate-700">{t('workQuantity')}</span>
+                                    <input className="form-input" value={reportData.work_quantity} onChange={(e) => setReportData({ ...reportData, work_quantity: e.target.value })} placeholder={t('workQuantityHint')} />
+                                </label>
+                                <label className="space-y-2">
+                                    <span className="text-sm font-semibold text-slate-700">{t('nextPlan')}</span>
+                                    <input className="form-input" value={reportData.next_plan} onChange={(e) => setReportData({ ...reportData, next_plan: e.target.value })} placeholder={t('nextPlanHint')} />
+                                </label>
+                                <label className="space-y-2">
+                                    <span className="text-sm font-semibold text-slate-700">{t('blockers')}</span>
+                                    <textarea className="form-textarea" rows={2} value={reportData.blockers} onChange={(e) => setReportData({ ...reportData, blockers: e.target.value })} />
+                                </label>
+                                <label className="space-y-2">
+                                    <span className="text-sm font-semibold text-slate-700">{t('safetyNotes')}</span>
+                                    <textarea className="form-textarea" rows={2} value={reportData.safety_notes} onChange={(e) => setReportData({ ...reportData, safety_notes: e.target.value })} />
+                                </label>
+                            </div>
+                            <label className="block space-y-2">
+                                <span className="text-sm font-semibold text-slate-700">{t('fieldEvidence')}</span>
+                                <input
+                                    className="form-input"
+                                    type="file"
+                                    accept="image/jpeg,image/png,image/webp,application/pdf"
+                                    onChange={(event) => setAttachment(event.target.files?.[0] || null)}
+                                />
+                                <span className="block text-xs text-slate-500">{t('fieldEvidenceHint')}</span>
+                            </label>
+                            <div>
+                                <label className="mb-2 block text-sm font-semibold text-slate-700">{t('updateStatus')}</label>
+                                <select className="form-select" value={reportData.status} onChange={(e) => setReportData({ ...reportData, status: e.target.value })}>
+                                    <option value="in_progress">{t('inProgress')}</option>
+                                    <option value="completed">{t('completed')}</option>
+                                </select>
+                            </div>
+                            <div className="modal-actions">
+                                <button type="submit" className="btn btn-primary" disabled={submitting}>{submitting ? t('processing') : t('submitReport')}</button>
+                                <button type="button" className="btn btn-outline" onClick={() => setShowModal(false)}>{t('cancel')}</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {checklistTask && (
+                <div className="modal-overlay" onClick={() => setChecklistTask(null)}>
+                    <div className="modal-content max-w-xl" onClick={(event) => event.stopPropagation()}>
+                        <div className="modal-header">
+                            <div>
+                                <h3>{t('taskChecklist')}</h3>
+                                <p className="mt-1 text-sm text-slate-500">{checklistTask.title}</p>
+                            </div>
+                        </div>
+                        {checklistLoading ? (
+                            <p className="py-8 text-center text-slate-500">{t('loading')}</p>
+                        ) : checklistItems.length ? (
+                            <div className="space-y-3">
+                                <p className="text-sm font-semibold text-slate-700">
+                                    {t('checklistProgress')}: {checklistItems.filter((item) => item.is_completed).length}/{checklistItems.length}
+                                </p>
+                                {checklistItems.map((item) => (
+                                    <label key={item.id} className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                                        <input type="checkbox" className="mt-1 h-4 w-4" checked={Boolean(item.is_completed)} onChange={() => toggleChecklistItem(item)} />
+                                        <span className={item.is_completed ? 'text-slate-400 line-through' : 'text-slate-800'}>{item.title}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        ) : <p className="py-8 text-center text-slate-500">{t('noChecklistItems')}</p>}
+                        <div className="modal-actions mt-5">
+                            <button type="button" className="btn btn-outline" onClick={() => setChecklistTask(null)}>{t('cancel')}</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {(detail || detailLoading) && (
+                <div className="modal-overlay" onClick={() => setDetail(null)}>
+                    <div className="modal-content max-w-3xl" onClick={(event) => event.stopPropagation()}>
+                        {detailLoading && !detail ? <p className="py-10 text-center text-slate-500">{t('loading')}</p> : detail && (
+                            <>
+                                <div className="modal-header"><div><h3>{t('viewDetails')}: {detail.task.title}</h3><p className="mt-1 text-sm text-slate-500">{detail.task.project_name} · {detail.task.manager_name}</p></div></div>
+                                <div className="grid gap-4 sm:grid-cols-3">
+                                    <div className="rounded-2xl bg-slate-50 p-4"><p className="text-xs font-semibold uppercase text-slate-500">{t('status')}</p><p className="mt-2 font-semibold text-slate-900">{getStatusBadge(detail.task.status).label}</p></div>
+                                    <div className="rounded-2xl bg-slate-50 p-4"><p className="text-xs font-semibold uppercase text-slate-500">{t('priority')}</p><p className="mt-2 font-semibold text-slate-900">{getPriorityLabel(detail.task.priority)}</p></div>
+                                    <div className="rounded-2xl bg-slate-50 p-4"><p className="text-xs font-semibold uppercase text-slate-500">{t('dueDate')}</p><p className="mt-2 font-semibold text-slate-900">{detail.task.due_date ? new Date(detail.task.due_date).toLocaleDateString() : '—'}</p></div>
+                                </div>
+                                {detail.task.description && <p className="mt-4 whitespace-pre-wrap rounded-2xl border border-slate-200 p-4 text-slate-700">{detail.task.description}</p>}
+                                <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                                    <section><h4 className="mb-3 font-semibold text-slate-900">{t('taskChecklist')}</h4><div className="space-y-2">{detail.checklist.length ? detail.checklist.map((item) => <div key={item.id} className="flex gap-2 rounded-xl bg-slate-50 p-3 text-sm"><span>{item.is_completed ? '✓' : '○'}</span><span className={item.is_completed ? 'text-slate-400 line-through' : 'text-slate-700'}>{item.title}</span></div>) : <p className="text-sm text-slate-500">{t('noChecklistItems')}</p>}</div></section>
+                                    <section><h4 className="mb-3 font-semibold text-slate-900">{t('taskTimeline')}</h4><div className="max-h-64 space-y-3 overflow-y-auto pr-1">{detail.updates.length ? detail.updates.map((update) => <div key={update.id} className="border-l-2 border-indigo-200 pl-3"><p className="text-sm font-medium text-slate-800">{update.message}</p><p className="mt-1 text-xs text-slate-500">{update.user_name || 'Hệ thống'} · {new Date(update.created_at).toLocaleString()}</p></div>) : <p className="text-sm text-slate-500">{t('noTimelineUpdates')}</p>}</div></section>
+                                </div>
+                                <form className="mt-6 flex gap-2" onSubmit={addTimelineNote}><input required minLength={2} maxLength={1000} className="form-input" value={timelineNote} onChange={(event) => setTimelineNote(event.target.value)} placeholder={t('timelineNotePlaceholder')} /><button className="btn btn-primary" type="submit">{t('addUpdate')}</button></form>
+                                <div className="modal-actions mt-5"><button type="button" className="btn btn-outline" onClick={() => setDetail(null)}>{t('cancel')}</button></div>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
