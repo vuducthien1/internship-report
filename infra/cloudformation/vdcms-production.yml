@@ -389,7 +389,7 @@ Resources:
       UserPoolName: !Sub '${EnvironmentName}-users'
       AutoVerifiedAttributes: [email]
       MfaConfiguration: OPTIONAL
-      SoftwareTokenMfaConfiguration: {Enabled: true}
+      EnabledMfas: [SOFTWARE_TOKEN_MFA]
       UsernameConfiguration: {CaseSensitive: false}
       AccountRecoverySetting:
         RecoveryMechanisms:
@@ -690,7 +690,7 @@ Resources:
           FunctionAssociations:
             - EventType: viewer-request
               FunctionARN: !GetAtt SpaRewriteFunction.FunctionARN
-        OrderedCacheBehaviors:
+        CacheBehaviors:
           - PathPattern: /api/*
             TargetOriginId: BackendAlb
             ViewerProtocolPolicy: redirect-to-https

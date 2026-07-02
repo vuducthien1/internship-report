@@ -25,6 +25,19 @@ Thiết lập các biến `AWS_*` trong `BE/.env` theo [BE/.env.example](BE/.env
 
 Hạ tầng production nằm tại [infra/cloudformation/vdcms-production.yml](infra/cloudformation/vdcms-production.yml). Xem kiến trúc, chi phí và cách triển khai trong [docs/aws-architecture.md](docs/aws-architecture.md); script triển khai là [infra/deploy-aws.ps1](infra/deploy-aws.ps1).
 
+### Tài liệu kiến trúc và kiểm thử
+
+- Sơ đồ AWS chỉnh sửa được: [docs/architecture/vdcms-aws-architecture.drawio](docs/architecture/vdcms-aws-architecture.drawio)
+- Bản SVG để chèn báo cáo: [docs/architecture/vdcms-aws-architecture.svg](docs/architecture/vdcms-aws-architecture.svg)
+- Hướng dẫn vẽ và giải thích từng số: [docs/architecture/HUONG-DAN-VE-KIEN-TRUC-AWS.md](docs/architecture/HUONG-DAN-VE-KIEN-TRUC-AWS.md)
+- Hướng dẫn thực hành theo đúng nhóm và tên icon có sẵn trong draw.io: [docs/architecture/HUONG-DAN-THUC-HANH-DRAWIO.md](docs/architecture/HUONG-DAN-THUC-HANH-DRAWIO.md)
+- Danh sách từ khóa tìm icon AWS trong draw.io và file SVG dự phòng: [docs/architecture/DANH-SACH-ICON-AWS.md](docs/architecture/DANH-SACH-ICON-AWS.md)
+- Danh sách chính xác icon AWS cần dùng: [docs/architecture/DANH-SACH-ICON-AWS.md](docs/architecture/DANH-SACH-ICON-AWS.md)
+- Checklist 224 test case: [docs/TEST-CHECKLIST.md](docs/TEST-CHECKLIST.md)
+- Hướng dẫn triển khai kiểm thử từng dịch vụ AWS và dọn chi phí: [docs/AWS-TESTING-GUIDE.md](docs/AWS-TESTING-GUIDE.md)
+- Danh mục thư viện/công nghệ: [docs/THU-VIEN-SU-DUNG.md](docs/THU-VIEN-SU-DUNG.md)
+- Hồ sơ nộp gồm Worklog, Proposal, Project và Workshop AWS: [docs/submission/README.md](docs/submission/README.md)
+
 ## Nghiệp vụ hiện trường
 
 - Engineer có bảng điều khiển riêng, lịch hạn công việc, checklist, chi tiết và dòng thời gian cập nhật.
