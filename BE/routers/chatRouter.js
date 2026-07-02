@@ -6,6 +6,8 @@ const crypto = require('crypto');
 const { rateLimit } = require('express-rate-limit');
 const router = express.Router();
 const chatController = require('../controllers/chatController');
+const aws = require('../config/aws');
+const { deleteStoredFile, uploadStoredFile } = require('../utils/storageService');
 const { verifyToken, authorizeRoles } = require('../middlewares/authMiddleware');
 const {
     uploadChatAttachment,
@@ -145,7 +147,14 @@ router.post(
                 return res.status(400).json({ success: false, message: 'Nội dung file âm thanh không hợp lệ.' });
             }
 
-            const voiceUrl = `/uploads/voice/${req.file.filename}`;
+            let voiceUrl = `/uploads/voice/${req.file.filename}`;
+            if (aws.s3Enabled) {
+                const stored = await uploadStoredFile(
+                    req.file,
+                    `chat/${Number(req.params.id)}/voice`
+                );
+                voiceUrl = stored.location;
+            }
             return res.status(200).json({ success: true, data: { voice_url: voiceUrl } });
         } catch (error) {
             await fs.promises.unlink(req.file.path).catch(() => {});
@@ -162,15 +171,20 @@ router.post(
     uploadChatAttachment,
     validateChatAttachment,
     async (req, res, next) => {
+        let storedLocation;
         try {
             const originalName = path.basename(req.file.originalname)
                 .replace(/[\u0000-\u001f\u007f]/g, '')
                 .slice(0, 255) || 'attachment';
             const isImage = req.file.mimetype.startsWith('image/');
             const conversationId = Number(req.params.id);
+            if (aws.s3Enabled) {
+                const stored = await uploadStoredFile(req.file, `chat/${conversationId}/attachments`);
+                storedLocation = stored.location;
+            }
             const message = await chatController.saveMessage(conversationId, req.user.id, {
                 messageType: isImage ? 'image' : 'file',
-                fileUrl: `/uploads/chat/${req.file.filename}`,
+                fileUrl: storedLocation || `/uploads/chat/${req.file.filename}`,
                 fileName: originalName,
                 fileSize: req.file.size,
                 fileMime: req.file.mimetype,
@@ -184,7 +198,8 @@ router.post(
 
             return res.status(201).json({ success: true, data: message });
         } catch (error) {
-            await fs.promises.unlink(req.file.path).catch(() => {});
+            if (storedLocation) await deleteStoredFile(storedLocation).catch(() => {});
+            else if (req.file?.path) await fs.promises.unlink(req.file.path).catch(() => {});
             return next(error);
         }
     }

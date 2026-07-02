@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { DeleteObjectCommand, GetObjectCommand, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const aws = require('../config/aws');
 
 const sanitizeSegment = (value) => String(value || 'file').replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 120);
@@ -34,6 +35,17 @@ const getStoredFile = async (location) => {
     return { provider: 's3', body: object.Body, contentType: object.ContentType, contentLength: object.ContentLength };
 };
 
+const getStoredFileUrl = async (location, expiresIn = 3600) => {
+    if (!isS3Location(location)) return location;
+    const parsed = parseS3Location(location);
+    if (!parsed || parsed.bucket !== aws.s3Bucket) throw new Error('Invalid S3 storage location.');
+    return getSignedUrl(
+        aws.s3,
+        new GetObjectCommand({ Bucket: parsed.bucket, Key: parsed.key }),
+        { expiresIn: Math.min(3600, Math.max(60, Number(expiresIn) || 3600)) }
+    );
+};
+
 const deleteStoredFile = async (location) => {
     if (!location) return;
     if (isS3Location(location)) {
@@ -44,4 +56,10 @@ const deleteStoredFile = async (location) => {
     }
 };
 
-module.exports = { uploadStoredFile, getStoredFile, deleteStoredFile, isS3Location };
+module.exports = {
+    uploadStoredFile,
+    getStoredFile,
+    getStoredFileUrl,
+    deleteStoredFile,
+    isS3Location,
+};

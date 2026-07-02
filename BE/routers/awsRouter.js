@@ -6,5 +6,6 @@ const { uploadTranscribeAudio, validateTranscribeAudio } = require('../middlewar
 const router = express.Router();
 router.get('/status', verifyToken, authorizeRoles('admin', 'manager', 'engineer'), controller.getStatus);
 router.get('/health', verifyToken, authorizeRoles('admin'), controller.checkHealth);
+router.get('/transcribe/:id', verifyToken, authorizeRoles('engineer'), controller.getTranscriptionJob);
 router.post('/transcribe', verifyToken, authorizeRoles('engineer'), uploadTranscribeAudio, validateTranscribeAudio, controller.transcribeAudio);
 module.exports = router;

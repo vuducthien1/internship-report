@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Cloud, Database, Mail, Mic } from 'lucide-react';
+import { Cloud, Database, Globe2, Mail, MessageSquare, Mic, ShieldCheck } from 'lucide-react';
 import PageHeader from '../../components/common/PageHeader';
 import { useLanguage } from '../../context/LanguageContext';
 import { checkAwsHealthApi, getAwsStatusApi } from '../../services/awsService';
@@ -9,7 +9,15 @@ const AwsServices = () => {
     const [status,setStatus]=useState(null); const [health,setHealth]=useState(null); const [error,setError]=useState(''); const [checking,setChecking]=useState(false);
     useEffect(()=>{getAwsStatusApi().then(result=>result.success?setStatus(result.data):setError(result.message));},[]);
     const check=async()=>{setChecking(true);const result=await checkAwsHealthApi();if(result.success)setHealth(result.data);else setError(result.message);setChecking(false);};
-    const services=status?[{key:'s3',name:'Amazon S3',description:vi?'Lưu tài liệu dự án riêng tư, mã hóa SSE-S3.':'Private encrypted project document storage.',icon:Database},{key:'ses',name:'Amazon SES',description:vi?'Gửi email xác thực và khôi phục mật khẩu.':'Verification and password recovery emails.',icon:Mail},{key:'transcribe',name:'Amazon Transcribe',description:vi?'Chuyển giọng nói hiện trường thành văn bản.':'Convert field voice recordings to text.',icon:Mic}]:[];
+    const services=status?[
+        {key:'s3',name:'Amazon S3',description:vi?'Lưu tài liệu và file âm thanh riêng tư.':'Private document and audio storage.',icon:Database},
+        {key:'transcribe',name:'Amazon Transcribe',description:vi?'Chuyển giọng nói hiện trường thành văn bản.':'Convert field voice recordings to text.',icon:Mic},
+        {key:'sqs',name:'Amazon SQS',description:vi?'Xử lý Transcribe bất đồng bộ và chống nghẽn backend.':'Queue asynchronous transcription jobs.',icon:MessageSquare},
+        {key:'rds',name:'Amazon RDS MySQL',description:vi?'Cơ sở dữ liệu production trong private subnet.':'Production database in private subnets.',icon:Database},
+        {key:'cognito',name:'Amazon Cognito',description:vi?'User Pool sẵn sàng cho xác thực cloud và MFA.':'Cloud identity pool prepared for MFA.',icon:ShieldCheck},
+        {key:'cloudfront',name:'Amazon CloudFront',description:vi?'Phân phối frontend và proxy API qua HTTPS.':'Deliver the frontend and proxy API over HTTPS.',icon:Globe2},
+        {key:'ses',name:'Amazon SES',description:vi?'Gửi email xác thực và khôi phục mật khẩu.':'Verification and password recovery emails.',icon:Mail},
+    ]:[];
     return <div className="space-y-6"><PageHeader title={vi?'Dịch vụ AWS':'AWS Services'} subtitle={vi?'Trạng thái tích hợp cloud của hệ thống VDCMS.':'Cloud integration status for VDCMS.'} icon="cloud" action={<button className="btn btn-primary" onClick={check} disabled={checking||!status}>{checking?(vi?'Đang kiểm tra...':'Checking...'):(vi?'Kiểm tra kết nối AWS':'Check AWS connections')}</button>}/>{error&&<div className="alert alert-error">{error}</div>}
         {status&&<><div className="rounded-[1.75rem] bg-gradient-to-r from-slate-950 to-indigo-950 p-6 text-white"><div className="flex items-center gap-3"><Cloud size={28}/><div><p className="text-sm text-indigo-200">AWS Region</p><h2 className="text-xl font-semibold text-white">{status.region}</h2></div></div><p className="mt-4 text-sm text-slate-300">{vi?'Các dịch vụ chưa cấu hình sẽ tự động dùng chế độ local fallback để ứng dụng vẫn hoạt động.':'Unconfigured services automatically use local fallback so the app remains operational.'}</p></div><div className="grid gap-5 lg:grid-cols-3">{services.map(({key,name,description,icon:Icon})=>{const service=status.services[key];const checkResult=health?.[key];return <article key={key} className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm"><div className="flex items-center justify-between"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-600"><Icon size={23}/></span><span className={`badge ${service.configured?'badge-success':'badge-warning'}`}>{service.configured?(vi?'Đã cấu hình':'Configured'):(vi?'Fallback local':'Local fallback')}</span></div><h2 className="mt-5 text-lg font-semibold text-slate-900">{name}</h2><p className="mt-2 min-h-12 text-sm text-slate-500">{description}</p><div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm"><p><strong>Mode:</strong> {service.mode}</p>{checkResult&&<p className={`mt-2 font-semibold ${checkResult.healthy?'text-emerald-600':'text-rose-600'}`}>{checkResult.message}</p>}</div></article>;})}</div></>}
     </div>;

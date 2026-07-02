@@ -1,5 +1,12 @@
 const db = require('../config/db');
 const respondServerError = require('../utils/respondServerError');
+const { getStoredFileUrl } = require('../utils/storageService');
+
+const hydrateMessageMedia = async (message) => ({
+    ...message,
+    voice_url: message.voice_url ? await getStoredFileUrl(message.voice_url) : null,
+    file_url: message.file_url ? await getStoredFileUrl(message.file_url) : null,
+});
 
 const normalizePair = (userId1, userId2) => {
     const a = Number(userId1);
@@ -188,6 +195,7 @@ exports.getMessages = async (req, res) => {
             [conversationId]
         );
 
+        const hydratedMessages = await Promise.all(messages.map(hydrateMessageMedia));
         return res.status(200).json({
             success: true,
             data: {
@@ -199,7 +207,7 @@ exports.getMessages = async (req, res) => {
                     user1_name: conv.user1_name,
                     user2_name: conv.user2_name,
                 },
-                messages,
+                messages: hydratedMessages,
             },
         });
     } catch (error) {
@@ -280,7 +288,7 @@ exports.saveMessage = async (
         [result.insertId]
     );
 
-    return rows[0];
+    return hydrateMessageMedia(rows[0]);
 };
 
 exports.getConversationAccess = getConversationAccess;

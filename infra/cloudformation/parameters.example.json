@@ -1,0 +1,8 @@
+[
+  {"ParameterKey":"EnvironmentName","ParameterValue":"vdcms-prod"},
+  {"ParameterKey":"RepositoryUrl","ParameterValue":"https://github.com/your-account/your-repository.git"},
+  {"ParameterKey":"RepositoryBranch","ParameterValue":"main"},
+  {"ParameterKey":"BootstrapAdminEmail","ParameterValue":"admin@example.com"},
+  {"ParameterKey":"DatabaseMultiAZ","ParameterValue":"false"},
+  {"ParameterKey":"DatabaseDeletionProtection","ParameterValue":"true"}
+]

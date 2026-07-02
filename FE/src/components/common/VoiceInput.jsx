@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Cloud, Mic, Square } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import { getAwsStatusApi, transcribeWithAwsApi } from '../../services/awsService';
+import { getAwsStatusApi, transcribeWithAwsApi, waitForAwsTranscriptionApi } from '../../services/awsService';
 
 const SpeechRecognition = typeof window !== 'undefined' ? window.SpeechRecognition || window.webkitSpeechRecognition : null;
 
@@ -35,7 +35,9 @@ const VoiceInput = ({ value, onChange, onVoiceUsed, disabled = false }) => {
             recorder.onstop = async () => {
                 stream.getTracks().forEach((track) => track.stop()); streamRef.current = null; setRecordingMode(null);
                 const blob = new Blob(chunksRef.current, { type: 'audio/webm' }); if (blob.size < 1000) { setError(t('voiceTooShort')); return; }
-                setProcessing(true); const result = await transcribeWithAwsApi(blob, language === 'vi' ? 'vi-VN' : 'en-US'); setProcessing(false);
+                setProcessing(true); let result = await transcribeWithAwsApi(blob, language === 'vi' ? 'vi-VN' : 'en-US');
+                if (result.success && result.status === 202 && result.data?.job_id) result = await waitForAwsTranscriptionApi(result.data.job_id);
+                setProcessing(false);
                 if (result.success) appendTranscript(result.data.transcript); else setError(result.message);
             };
             recorder.start(); setRecordingMode('aws');

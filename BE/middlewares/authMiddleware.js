@@ -1,5 +1,4 @@
-const jwt = require('jsonwebtoken');
-const db = require('../config/db');
+const resolveAuthUser = require('../utils/resolveAuthUser');
 
 // Kiểm tra Access Token JWT gửi lên từ Client
 exports.verifyToken = async (req, res, next) => {
@@ -11,16 +10,8 @@ exports.verifyToken = async (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const [users] = await db.query(
-            `SELECT id, role, status
-             FROM users
-             WHERE id = ? AND deleted_at IS NULL
-             LIMIT 1`,
-            [decoded.id]
-        );
-
-        if (!users.length || users[0].status !== 'active') {
+        const user = await resolveAuthUser(token);
+        if (!user || user.status !== 'active') {
             return res.status(403).json({
                 success: false,
                 message: 'Tài khoản không còn hoạt động. Vui lòng liên hệ quản trị viên.',
@@ -28,7 +19,7 @@ exports.verifyToken = async (req, res, next) => {
         }
 
         // Luôn dùng role hiện tại trong DB thay vì role cũ được nhúng trong JWT.
-        req.user = { id: users[0].id, role: users[0].role };
+        req.user = { id: user.id, role: user.role };
         next();
     } catch (error) {
         return res.status(403).json({ success: false, message: "Phiên làm việc hết hạn hoặc token không hợp lệ!" });

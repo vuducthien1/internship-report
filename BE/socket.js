@@ -1,8 +1,9 @@
-const jwt = require('jsonwebtoken');
 const { Server } = require('socket.io');
 const chatController = require('./controllers/chatController');
 const db = require('./config/db');
+const aws = require('./config/aws');
 const { allowedOrigins } = require('./config/security');
+const resolveAuthUser = require('./utils/resolveAuthUser');
 
 const initSocket = (httpServer) => {
     const io = new Server(httpServer, {
@@ -18,18 +19,11 @@ const initSocket = (httpServer) => {
             return next(new Error('Unauthorized'));
         }
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const [users] = await db.query(
-                `SELECT id, role, status
-                 FROM users
-                 WHERE id = ? AND deleted_at IS NULL
-                 LIMIT 1`,
-                [decoded.id]
-            );
-            if (!users.length || users[0].status !== 'active') {
+            const user = await resolveAuthUser(token);
+            if (!user || user.status !== 'active') {
                 return next(new Error('Unauthorized'));
             }
-            socket.user = { id: users[0].id, role: users[0].role };
+            socket.user = { id: user.id, role: user.role };
             next();
         } catch {
             next(new Error('Unauthorized'));
@@ -114,10 +108,11 @@ const initSocket = (httpServer) => {
                 if (messageType === 'voice' && !payload.voiceUrl) {
                     return callback?.({ success: false, message: 'Thiếu file âm thanh.' });
                 }
-                if (
-                    messageType === 'voice'
-                    && !/^\/uploads\/voice\/voice_[a-f0-9-]+\.(webm|ogg|wav|mp3|m4a)$/i.test(payload.voiceUrl)
-                ) {
+                const localVoiceUrl = /^\/uploads\/voice\/voice_[a-f0-9-]+\.(webm|ogg|wav|mp3|m4a)$/i
+                    .test(payload.voiceUrl || '');
+                const expectedS3Prefix = `s3://${aws.s3Bucket}/chat/${conversationId}/voice/`;
+                const s3VoiceUrl = aws.s3Enabled && String(payload.voiceUrl || '').startsWith(expectedS3Prefix);
+                if (messageType === 'voice' && !localVoiceUrl && !s3VoiceUrl) {
                     return callback?.({ success: false, message: 'Đường dẫn âm thanh không hợp lệ.' });
                 }
 

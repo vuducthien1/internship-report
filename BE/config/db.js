@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
+const fs = require('fs');
 
 // Nạp các biến môi trường từ file .env
 dotenv.config();
@@ -12,7 +13,15 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    ssl: process.env.DB_SSL === 'true'
+        ? {
+            rejectUnauthorized: true,
+            ...(process.env.DB_SSL_CA_PATH && fs.existsSync(process.env.DB_SSL_CA_PATH)
+                ? { ca: fs.readFileSync(process.env.DB_SSL_CA_PATH, 'utf8') }
+                : {}),
+        }
+        : undefined
 });
 
 // Chuyển đổi sang dạng Promise để code gọn gàng hơn (dùng async/await)

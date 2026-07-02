@@ -85,6 +85,7 @@ const initApplication = async () => {
     await ensureColumn('users', 'deleted_at', 'TIMESTAMP NULL');
     await ensureColumn('users', 'deleted_by', 'INT NULL');
     await ensureColumn('users', 'deletion_reason', 'VARCHAR(1000) NULL');
+    await ensureColumn('users', 'cognito_sub', 'VARCHAR(100) NULL UNIQUE');
 
     const userApprovalMigration = 'user_approval_and_email_verification_v1';
     const [userApprovalApplied] = await db.query(
@@ -263,6 +264,27 @@ const initApplication = async () => {
             FOREIGN KEY (target_user_id) REFERENCES users(id) ON DELETE RESTRICT,
             FOREIGN KEY (requested_by) REFERENCES users(id) ON DELETE SET NULL,
             FOREIGN KEY (reviewed_by) REFERENCES users(id) ON DELETE SET NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+
+    await db.query(`
+        CREATE TABLE IF NOT EXISTS transcription_jobs (
+            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            provider_job_name VARCHAR(200) NULL,
+            input_location VARCHAR(700) NOT NULL,
+            language_code VARCHAR(20) NOT NULL DEFAULT 'vi-VN',
+            media_format VARCHAR(20) NOT NULL DEFAULT 'webm',
+            status ENUM('queued', 'processing', 'completed', 'failed') NOT NULL DEFAULT 'queued',
+            transcript LONGTEXT NULL,
+            error_message VARCHAR(1000) NULL,
+            started_at TIMESTAMP NULL,
+            completed_at TIMESTAMP NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            INDEX idx_transcription_user_created (user_id, created_at),
+            INDEX idx_transcription_status_created (status, created_at),
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `);
 

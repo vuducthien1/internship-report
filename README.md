@@ -10,12 +10,20 @@ Hệ thống quản lý công trình gồm ba vai trò:
 
 ## Tích hợp Amazon Web Services
 
-- **Amazon S3:** tài liệu dự án mới được lưu private với mã hóa SSE-S3; tải xuống vẫn đi qua API kiểm tra quyền. Khi chưa cấu hình bucket, hệ thống dùng ổ đĩa local.
+- **Amazon S3:** tài liệu dự án, file và ghi âm chat được lưu private với mã hóa SSE-S3; tài liệu đi qua API kiểm tra quyền, media chat dùng URL ký tạm thời. Khi chưa cấu hình bucket, hệ thống dùng ổ đĩa local.
 - **Amazon SES:** ưu tiên gửi email xác thực và khôi phục mật khẩu qua SES; nếu chưa cấu hình sẽ dùng Resend hoặc email outbox.
 - **Amazon Transcribe:** Engineer có thể ghi âm báo cáo và chuyển tiếng Việt/Anh thành văn bản qua backend; Web Speech API vẫn là phương án dự phòng.
+- **Amazon SQS:** tách request ghi âm khỏi Transcribe worker, có retry và dead-letter queue.
+- **Amazon RDS MySQL:** database production nằm trong private subnet và bắt buộc TLS.
+- **Amazon EC2 + ALB:** backend chạy bằng systemd trong private subnet, ALB kiểm tra `/health`.
+- **Amazon CloudFront:** host frontend S3 private và chuyển tiếp API/Socket.IO bằng cùng một HTTPS origin.
+- **Amazon Cognito:** User Pool, MFA TOTP và group vai trò; backend hỗ trợ chuyển đổi dần từ JWT cũ.
+- **AWS WAF + Amazon VPC:** bảo vệ ALB/Cognito và cô lập public, application, database subnet.
 - Admin xem cấu hình và kiểm tra kết nối tại `/admin/aws`. Không API nào trả access key hoặc secret ra frontend.
 
 Thiết lập các biến `AWS_*` trong `BE/.env` theo [BE/.env.example](BE/.env.example). Policy IAM của backend tham khảo tại [docs/aws-iam-policy.example.json](docs/aws-iam-policy.example.json). Nếu dùng `AWS_TRANSCRIBE_ROLE_ARN`, tạo data role với [trust policy](docs/aws-transcribe-role-trust.example.json) và [S3 read policy](docs/aws-transcribe-data-policy.example.json). Bucket S3 và Transcribe phải đặt cùng region. Với SES sandbox, địa chỉ gửi/nhận phải được xác thực trước khi demo.
+
+Hạ tầng production nằm tại [infra/cloudformation/vdcms-production.yml](infra/cloudformation/vdcms-production.yml). Xem kiến trúc, chi phí và cách triển khai trong [docs/aws-architecture.md](docs/aws-architecture.md); script triển khai là [infra/deploy-aws.ps1](infra/deploy-aws.ps1).
 
 ## Nghiệp vụ hiện trường
 

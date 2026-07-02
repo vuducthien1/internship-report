@@ -19,7 +19,9 @@ dotenv.config();
 const db = require('./config/db');
 
 const initChatTables = require('./config/initChat');
+const initCoreSchema = require('./config/initCoreSchema');
 const initApplication = require('./config/initApplication');
+const bootstrapAdmin = require('./config/bootstrapAdmin');
 
 const initSocket = require('./socket');
 const { corsOptions } = require('./config/security');
@@ -51,6 +53,10 @@ const userDeletionRouter = require('./routers/userDeletionRouter');
 
 const app = express();
 
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', Math.max(1, Number(process.env.TRUST_PROXY_HOPS || 1)));
+}
+
 const server = http.createServer(app);
 
 server.on('error', (error) => {
@@ -71,6 +77,15 @@ app.use(helmet({
 app.use(cors(corsOptions));
 
 app.use(express.json({ limit: '100kb' }));
+
+app.get('/health', async (_req, res) => {
+    try {
+        await db.query('SELECT 1');
+        return res.status(200).json({ success: true, service: 'vdcms-backend', database: 'reachable' });
+    } catch {
+        return res.status(503).json({ success: false, service: 'vdcms-backend', database: 'unreachable' });
+    }
+});
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -191,9 +206,11 @@ const startServer = async () => {
 
     try {
 
+        await initCoreSchema();
         await initApplication();
 
         await initChatTables();
+        await bootstrapAdmin();
 
         const io = initSocket(server);
         app.set('io', io);
