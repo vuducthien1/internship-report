@@ -89,6 +89,7 @@ const processMessage = async (message) => {
                 return;
             }
         }
+        if (stopping) return;
         throw new Error('Tác vụ Amazon Transcribe vượt quá thời gian xử lý của worker.');
     } catch (error) {
         await db.query(
@@ -134,10 +135,16 @@ process.on('SIGTERM', () => { stopping = true; });
 process.on('SIGINT', () => { stopping = true; });
 
 if (require.main === module) {
-    poll().catch((error) => {
-        console.error('Không thể khởi động SQS worker:', error.message);
-        process.exit(1);
-    });
+    poll()
+        .then(async () => {
+            await db.end().catch(() => {});
+            process.exit(0);
+        })
+        .catch(async (error) => {
+            console.error('Không thể khởi động SQS worker:', error.message);
+            await db.end().catch(() => {});
+            process.exit(1);
+        });
 }
 
 module.exports = { processMessage, poll };

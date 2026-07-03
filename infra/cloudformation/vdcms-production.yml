@@ -866,6 +866,7 @@ Resources:
             ExecStart=/usr/bin/node /opt/vdcms/BE/workers/transcriptionWorker.js
             Restart=always
             RestartSec=10
+            TimeoutStopSec=30
             [Install]
             WantedBy=multi-user.target
             EOF
