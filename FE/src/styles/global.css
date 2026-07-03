@@ -351,6 +351,136 @@ img {
     flex: 1;
 }
 
+/* Keep detail and edit dialogs spacious on desktop. The shared modal rule is
+   loaded after Tailwind, so these combined selectors deliberately restore the
+   intended size of max-w utility classes used throughout the application. */
+.modal-content.max-w-xl {
+    max-width: 720px;
+}
+
+.modal-content.max-w-2xl {
+    max-width: 920px;
+}
+
+.modal-content.max-w-3xl {
+    max-width: 1080px;
+}
+
+.modal-content.max-w-2xl,
+.modal-content.max-w-3xl,
+.modal-content--wide {
+    width: min(1080px, calc(100vw - 48px));
+    max-height: min(90vh, 860px);
+    border: 1px solid var(--border);
+    padding: 30px;
+}
+
+.modal-content.max-w-2xl .modal-header,
+.modal-content.max-w-3xl .modal-header,
+.modal-content--wide .modal-header {
+    margin: -30px -30px 24px;
+    padding: 24px 30px 20px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 11%, var(--bg-elevated)), var(--bg-elevated));
+}
+
+.modal-content.max-w-2xl .modal-header h3,
+.modal-content.max-w-3xl .modal-header h3,
+.modal-content--wide .modal-header h3 {
+    color: var(--text-heading);
+    font-size: clamp(21px, 2vw, 27px);
+}
+
+.modal-content.max-w-3xl > .grid:first-of-type {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.modal-content.max-w-3xl > .mt-5.grid,
+.modal-content.max-w-3xl > .mt-6.grid {
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+}
+
+.modal-content.max-w-3xl section {
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    background: var(--bg-muted);
+}
+
+.modal-content.max-w-3xl section > div {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.modal-content.max-w-2xl .modal-actions,
+.modal-content.max-w-3xl .modal-actions,
+.modal-content--wide .modal-actions {
+    position: sticky;
+    bottom: -30px;
+    z-index: 2;
+    margin: 24px -30px -30px;
+    padding: 18px 30px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated);
+}
+
+@media (min-width: 769px) {
+    .modal-content.max-w-2xl form.space-y-4 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .modal-content.max-w-2xl form.space-y-4 > * {
+        min-width: 0;
+        margin-top: 0 !important;
+    }
+
+    .modal-content.max-w-2xl form.space-y-4 > label:nth-of-type(n + 3),
+    .modal-content.max-w-2xl form.space-y-4 > div {
+        grid-column: 1 / -1;
+    }
+
+    .modal-content.max-w-2xl form.space-y-4 > div.grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content.max-w-xl,
+    .modal-content.max-w-2xl,
+    .modal-content.max-w-3xl,
+    .modal-content--wide {
+        width: calc(100vw - 20px);
+        max-height: calc(100vh - 20px);
+        padding: 20px;
+    }
+
+    .modal-content.max-w-2xl .modal-header,
+    .modal-content.max-w-3xl .modal-header,
+    .modal-content--wide .modal-header {
+        margin: -20px -20px 20px;
+        padding: 20px;
+    }
+
+    .modal-content.max-w-3xl > .grid:first-of-type,
+    .modal-content.max-w-3xl > .mt-5.grid,
+    .modal-content.max-w-3xl > .mt-6.grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content.max-w-2xl .modal-actions,
+    .modal-content.max-w-3xl .modal-actions,
+    .modal-content--wide .modal-actions {
+        bottom: -20px;
+        margin: 20px -20px -20px;
+        padding: 16px 20px;
+    }
+}
+
 .modal-content.report-editor-dialog,
 .modal-content.report-review-dialog {
     max-width: 860px;
