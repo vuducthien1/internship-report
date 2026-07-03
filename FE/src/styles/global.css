@@ -483,9 +483,10 @@ img {
 
 .modal-content.report-editor-dialog,
 .modal-content.report-review-dialog {
-    max-width: 860px;
+    max-width: 1040px;
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .report-editor-dialog > form,
@@ -500,6 +501,9 @@ img {
 }
 
 .report-dialog-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -630,6 +634,13 @@ img {
     z-index: 2;
     padding-top: 16px;
     background: linear-gradient(180deg, transparent, var(--bg-elevated) 24%);
+}
+
+.report-review-panel .report-dialog-actions {
+    margin: 20px -20px -20px;
+    padding: 18px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated);
 }
 
 .report-overview-grid,
