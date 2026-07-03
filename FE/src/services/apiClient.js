@@ -3,6 +3,16 @@ export const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/
 
 const getToken = () => localStorage.getItem('accessToken');
 
+const handleExpiredAuth = (response, data, token) => {
+    if (!token || (response.status !== 401 && response.status !== 403)) return;
+    const message = data.message || '';
+    const isAuthError = response.status === 401
+        || message.includes('hết hạn')
+        || message.includes('token')
+        || message.includes('đăng nhập');
+    if (isAuthError) window.dispatchEvent(new CustomEvent('auth:expired'));
+};
+
 const parseResponse = async (response) => {
     const contentType = response.headers.get('content-type') || '';
     if (contentType.includes('application/json')) {
@@ -34,17 +44,7 @@ export const apiClient = async (endpoint, options = {}) => {
         });
         const data = await parseResponse(response);
 
-        if (response.status === 401 || response.status === 403) {
-            const isAuthError =
-                data.message?.includes('hết hạn') ||
-                data.message?.includes('token') ||
-                data.message?.includes('đăng nhập') ||
-                response.status === 401;
-
-            if (isAuthError && token) {
-                window.dispatchEvent(new CustomEvent('auth:expired'));
-            }
-        }
+        handleExpiredAuth(response, data, token);
 
         return data;
     } catch {
@@ -71,7 +71,9 @@ export const apiUpload = async (endpoint, formData) => {
             },
             body: formData,
         });
-        return await parseResponse(response);
+        const data = await parseResponse(response);
+        handleExpiredAuth(response, data, token);
+        return data;
     } catch {
         return { success: false, status: 0, message: 'Không thể kết nối tới máy chủ.' };
     }

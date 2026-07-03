@@ -118,17 +118,17 @@ function Dashboard() {
         <div className="space-y-6">
             <section className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-indigo-950 to-indigo-700 p-6 text-white shadow-xl shadow-indigo-950/15 sm:p-8">
                 <div className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-                <div className="relative grid gap-8 xl:grid-cols-[1fr_auto] xl:items-end">
-                    <div>
+                <div className="relative grid gap-8 2xl:grid-cols-[minmax(22rem,1fr)_auto] 2xl:items-end">
+                    <div className="min-w-0">
                         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">{t('dashboard')}</p>
                         <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
                             {t('dashboardGreeting')}, {user?.fullname || user?.username}
                         </h1>
                         <p className="mt-3 max-w-2xl text-sm leading-6 text-indigo-100 sm:text-base">{t('dashboardSubtitle')}</p>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-indigo-200">{t('quickActions')}</p>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 2xl:justify-end">
                             <Link to="/admin/projects?view=create" className="dashboard-primary-action inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition hover:-translate-y-0.5">
                                 <Plus size={17} /> {t('createProjectQuick')}
                             </Link>

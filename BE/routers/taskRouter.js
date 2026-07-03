@@ -17,6 +17,7 @@ router.get('/:id/details', verifyToken, authorizeRoles('admin', 'manager', 'engi
 router.post('/:id/updates', verifyToken, authorizeRoles('engineer'), taskController.addTaskUpdate);
 
 router.get('/:id/checklist', verifyToken, authorizeRoles('admin', 'manager', 'engineer'), taskController.getTaskChecklist);
+router.patch('/:id/checklist', verifyToken, authorizeRoles('engineer'), taskController.updateTaskChecklist);
 router.patch('/:id/checklist/:itemId', verifyToken, authorizeRoles('engineer'), taskController.updateChecklistItem);
 
 module.exports = router;

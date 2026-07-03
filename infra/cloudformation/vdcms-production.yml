@@ -360,6 +360,11 @@ Resources:
             Status: Enabled
             ExpirationInDays: 1
             NoncurrentVersionExpiration: {NoncurrentDays: 1}
+          - Id: ExpireLegacyTranscribeInputs
+            Prefix: transcribe_input/
+            Status: Enabled
+            ExpirationInDays: 1
+            NoncurrentVersionExpiration: {NoncurrentDays: 1}
           - Id: ArchiveOldDocumentVersions
             Prefix: projects/
             Status: Enabled
@@ -452,7 +457,13 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: [s3:GetObject]
-                Resource: !Sub '${DataBucket.Arn}/transcribe/input/*'
+                Resource:
+                  - !Sub '${DataBucket.Arn}/transcribe/input/*'
+                  # Compatibility for recordings created before prefix sanitization was fixed.
+                  - !Sub '${DataBucket.Arn}/transcribe_input/*'
+              - Effect: Allow
+                Action: [s3:ListBucket]
+                Resource: !GetAtt DataBucket.Arn
 
   BackendInstanceRole:
     Type: AWS::IAM::Role
@@ -473,6 +484,12 @@ Resources:
               - Effect: Allow
                 Action: [s3:GetObject, s3:PutObject, s3:DeleteObject, s3:ListBucket]
                 Resource: [!GetAtt DataBucket.Arn, !Sub '${DataBucket.Arn}/*']
+              - Effect: Allow
+                Action: [s3:GetObject, s3:PutObject, s3:DeleteObject, s3:ListBucket]
+                Resource: [!GetAtt FrontendBucket.Arn, !Sub '${FrontendBucket.Arn}/*']
+              - Effect: Allow
+                Action: [cloudfront:CreateInvalidation]
+                Resource: !Sub 'arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${FrontendDistribution}'
               - Effect: Allow
                 Action: [sqs:ReceiveMessage, sqs:DeleteMessage, sqs:GetQueueAttributes, sqs:SendMessage, sqs:ChangeMessageVisibility]
                 Resource: !GetAtt TranscribeQueue.Arn
@@ -559,15 +576,34 @@ Resources:
                 # Counting this managed rule prevents valid multipart uploads from being blocked.
                 - Name: SizeRestrictions_BODY
                   ActionToUse: {Count: {}}
+                - Name: GenericLFI_BODY
+                  ActionToUse: {Count: {}}
           VisibilityConfig: {CloudWatchMetricsEnabled: true, MetricName: common-rules, SampledRequestsEnabled: true}
-        - Name: AWSKnownBadInputs
+        - Name: BlockGenericLfiBodyOutsideTranscribe
           Priority: 1
+          Action: {Block: {}}
+          Statement:
+            AndStatement:
+              Statements:
+                - LabelMatchStatement:
+                    Scope: LABEL
+                    Key: 'awswaf:managed:aws:core-rule-set:GenericLFI_Body'
+                - NotStatement:
+                    Statement:
+                      ByteMatchStatement:
+                        SearchString: /api/aws/transcribe
+                        FieldToMatch: {UriPath: {}}
+                        PositionalConstraint: EXACTLY
+                        TextTransformations: [{Priority: 0, Type: NONE}]
+          VisibilityConfig: {CloudWatchMetricsEnabled: true, MetricName: generic-lfi-body-block, SampledRequestsEnabled: true}
+        - Name: AWSKnownBadInputs
+          Priority: 2
           OverrideAction: {None: {}}
           Statement:
             ManagedRuleGroupStatement: {VendorName: AWS, Name: AWSManagedRulesKnownBadInputsRuleSet}
           VisibilityConfig: {CloudWatchMetricsEnabled: true, MetricName: bad-inputs, SampledRequestsEnabled: true}
         - Name: PerIpRateLimit
-          Priority: 2
+          Priority: 3
           Action: {Block: {}}
           Statement:
             RateBasedStatement: {AggregateKeyType: IP, Limit: 2000}
@@ -593,8 +629,8 @@ Resources:
           CookiesConfig: {CookieBehavior: none}
           HeadersConfig: {HeaderBehavior: none}
           QueryStringsConfig: {QueryStringBehavior: none}
-          EnableAcceptEncodingBrotli: true
-          EnableAcceptEncodingGzip: true
+          EnableAcceptEncodingBrotli: false
+          EnableAcceptEncodingGzip: false
 
   ApiOriginRequestPolicy:
     Type: AWS::CloudFront::OriginRequestPolicy
@@ -753,6 +789,14 @@ Resources:
             git clone --depth 1 --branch ${RepositoryBranch} ${RepositoryUrl} /opt/vdcms
             cd /opt/vdcms/BE
             npm ci --omit=dev
+            cd /opt/vdcms/FE
+            npm ci
+            VITE_API_URL=https://${FrontendDistribution.DomainName}/api \
+            VITE_SOCKET_URL=https://${FrontendDistribution.DomainName} \
+            npm run build
+            aws s3 sync /opt/vdcms/FE/dist s3://${FrontendBucket} --delete --region ${AWS::Region}
+            aws cloudfront create-invalidation --distribution-id ${FrontendDistribution} --paths '/*'
+            cd /opt/vdcms/BE
             curl -fsSL https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -o /opt/vdcms/global-bundle.pem
             DB_SECRET=$(aws secretsmanager get-secret-value --region ${AWS::Region} --secret-id ${DatabaseSecret} --query SecretString --output text)
             JWT_VALUE=$(aws secretsmanager get-secret-value --region ${AWS::Region} --secret-id ${JwtSecret} --query SecretString --output text)

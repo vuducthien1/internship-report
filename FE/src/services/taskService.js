@@ -8,5 +8,7 @@ export const updateTaskApi = (taskId, taskData) => apiPut(`/tasks/${taskId}`, ta
 export const getTaskDetailsApi = (taskId) => apiGet(`/tasks/${taskId}/details`);
 export const addTaskUpdateApi = (taskId, message) => apiPost(`/tasks/${taskId}/updates`, { message });
 export const getTaskChecklistApi = (taskId) => apiGet(`/tasks/${taskId}/checklist`);
+export const updateTaskChecklistApi = (taskId, items) =>
+    apiPatch(`/tasks/${taskId}/checklist`, { items });
 export const updateChecklistItemApi = (taskId, itemId, completed) =>
     apiPatch(`/tasks/${taskId}/checklist/${itemId}`, { completed });

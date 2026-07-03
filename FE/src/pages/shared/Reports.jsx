@@ -233,50 +233,65 @@ function Reports() {
 
             {selected && (
                 <div className="modal-overlay" onClick={() => setSelected(null)}>
-                    <div className="modal-content max-w-2xl" onClick={(event) => event.stopPropagation()}>
-                        <div className="modal-header">
+                    <div className="modal-content report-review-dialog" onClick={(event) => event.stopPropagation()}>
+                        <div className="modal-header report-dialog-header">
                             <div>
-                                <h3>{selected.approval_status === 'pending' && user?.role !== 'engineer' ? t('reviewReport') : t('viewDetails')}: {selected.task_title}</h3>
-                                <p className="mt-1 text-sm text-slate-500">{selected.engineer_name} · {selected.project_name}</p>
+                                <span className="report-dialog-eyebrow">{selected.approval_status === 'pending' && user?.role !== 'engineer' ? t('reviewReport') : t('reportDetails')}</span>
+                                <h3>{selected.task_title}</h3>
+                                <p>{selected.engineer_name} · {selected.project_name}</p>
                             </div>
+                            <button type="button" className="modal-close-button" onClick={() => setSelected(null)} aria-label={t('cancel')}>×</button>
                         </div>
-                        <div className="space-y-3 rounded-2xl bg-slate-50 p-4 text-sm text-slate-700">
+                        <div className="report-overview-grid">
+                            <div><span>{t('approvalStatus')}</span><strong className={`badge ${approvalClass(selected.approval_status)}`}>{approvalLabel(selected.approval_status)}</strong></div>
+                            <div><span>{t('proposedStatus')}</span><strong>{taskStatusLabel(selected.proposed_status)}</strong></div>
+                            <div><span>{t('createdAt')}</span><strong>{formatDate(selected.created_at)}</strong></div>
+                        </div>
+                        <section className="report-content-panel">
+                            <span>{t('reportContent')}</span>
                             <p>{selected.content}</p>
-                            {selected.work_quantity && <p><strong>{t('workQuantity')}:</strong> {selected.work_quantity}</p>}
-                            {selected.blockers && <p><strong>{t('blockers')}:</strong> {selected.blockers}</p>}
-                            {selected.safety_notes && <p><strong>{t('safetyNotes')}:</strong> {selected.safety_notes}</p>}
-                            {selected.next_plan && <p><strong>{t('nextPlan')}:</strong> {selected.next_plan}</p>}
-                            <p><strong>{t('proposedStatus')}:</strong> {taskStatusLabel(selected.proposed_status)}</p>
-                            <p><strong>{t('reportType')}:</strong> {reportTypeLabel(selected.report_type)}</p>
+                        </section>
+                        <div className="report-detail-grid">
+                            <div><span>{t('workQuantity')}</span><p>{selected.work_quantity || '—'}</p></div>
+                            <div><span>{t('nextPlan')}</span><p>{selected.next_plan || '—'}</p></div>
+                            <div><span>{t('blockers')}</span><p>{selected.blockers || '—'}</p></div>
+                            <div><span>{t('safetyNotes')}</span><p>{selected.safety_notes || '—'}</p></div>
+                        </div>
+                        <div className="report-meta-row">
+                            <div><span>{t('reportType')}</span><strong>{reportTypeLabel(selected.report_type)}</strong></div>
                             {selected.media_url && (
-                                <p><strong>{t('fieldEvidence')}:</strong> <a className="font-semibold text-indigo-600 hover:underline" href={getReportMediaUrl(selected.media_url)} target="_blank" rel="noreferrer">{t('viewAttachment')}</a></p>
+                                <div><span>{t('fieldEvidence')}</span><a href={getReportMediaUrl(selected.media_url)} target="_blank" rel="noreferrer">{t('viewAttachment')} ↗</a></div>
                             )}
                         </div>
                         {error && <div className="alert alert-error mt-4">{error}</div>}
                         {selected.approval_status === 'pending' && user?.role !== 'engineer' ? (
-                            <>
-                                <label className="mt-5 block space-y-2">
-                                    <span className="text-sm font-semibold text-slate-700">{t('reviewNote')}</span>
+                            <section className="report-review-panel">
+                                <div className="report-form-section-heading">
+                                    <span>✓</span>
+                                    <div><h4>{t('reviewReport')}</h4><p>{t('reviewNoteHint')}</p></div>
+                                </div>
+                                <label className="report-field-card">
+                                    <span>{t('reviewNote')}</span>
                                     <textarea className="form-textarea" rows={3} maxLength={500} value={reviewNote} onChange={(event) => setReviewNote(event.target.value)} placeholder={t('reviewNoteHint')} />
                                 </label>
-                                <div className="modal-actions mt-5">
-                                    <button type="button" className="btn btn-success" disabled={submitting} onClick={() => submitReview('approved')}>{t('approve')}</button>
-                                    <button type="button" className="btn btn-danger" disabled={submitting} onClick={() => submitReview('rejected')}>{t('reject')}</button>
+                                <div className="modal-actions report-dialog-actions">
                                     <button type="button" className="btn btn-outline" onClick={() => setSelected(null)}>{t('cancel')}</button>
+                                    <button type="button" className="btn btn-danger" disabled={submitting} onClick={() => submitReview('rejected')}>{t('reject')}</button>
+                                    <button type="button" className="btn btn-success" disabled={submitting} onClick={() => submitReview('approved')}>{t('approve')}</button>
                                 </div>
-                            </>
+                            </section>
                         ) : (
                             <>
-                                <div className="mt-5 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700">
-                                    <h4 className="mb-3 font-semibold text-slate-900">{t('reviewHistory')}</h4>
-                                    <div className="space-y-2">
-                                        <p><strong>{t('approvalStatus')}:</strong> <span className={`badge ml-1 ${approvalClass(selected.approval_status)}`}>{approvalLabel(selected.approval_status)}</span></p>
-                                        {selected.reviewed_by && <p><strong>{t('reviewedBy')}:</strong> {selected.reviewer_name || `#${selected.reviewed_by}`}</p>}
-                                        {selected.reviewed_at && <p><strong>{t('reviewedAt')}:</strong> {formatDate(selected.reviewed_at)}</p>}
-                                        <p><strong>{t('reviewNote')}:</strong> {selected.review_note || t('noReviewNote')}</p>
+                                <section className="report-history-panel">
+                                    <h4>{t('reviewHistory')}</h4>
+                                    <div className="report-history-grid">
+                                        <div><span>{t('approvalStatus')}</span><strong className={`badge ${approvalClass(selected.approval_status)}`}>{approvalLabel(selected.approval_status)}</strong></div>
+                                        {selected.reviewed_by && <div><span>{t('reviewedBy')}</span><strong>{selected.reviewer_name || `#${selected.reviewed_by}`}</strong></div>}
+                                        {selected.reviewed_at && <div><span>{t('reviewedAt')}</span><strong>{formatDate(selected.reviewed_at)}</strong></div>}
+                                        <div className="report-history-note"><span>{t('reviewNote')}</span><p>{selected.review_note || t('noReviewNote')}</p></div>
                                     </div>
-                                </div>
-                                <div className="modal-actions mt-5">
+                                </section>
+                                <div className="modal-actions report-dialog-actions">
                                     <button type="button" className="btn btn-outline" onClick={() => setSelected(null)}>{t('cancel')}</button>
                                 </div>
                             </>

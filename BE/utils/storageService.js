@@ -6,6 +6,11 @@ const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const aws = require('../config/aws');
 
 const sanitizeSegment = (value) => String(value || 'file').replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 120);
+const sanitizePrefix = (value) => String(value || 'files')
+    .split('/')
+    .map((segment) => sanitizeSegment(segment))
+    .filter(Boolean)
+    .join('/');
 const isS3Location = (value) => typeof value === 'string' && value.startsWith('s3://');
 const parseS3Location = (value) => {
     const match = /^s3:\/\/([^/]+)\/(.+)$/.exec(value || '');
@@ -15,7 +20,7 @@ const parseS3Location = (value) => {
 const uploadStoredFile = async (file, prefix) => {
     if (!file?.path) throw new Error('Missing uploaded file.');
     if (!aws.s3Enabled) return { provider: 'local', location: file.path };
-    const key = `${sanitizeSegment(prefix)}/${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}-${sanitizeSegment(file.originalname)}`;
+    const key = `${sanitizePrefix(prefix)}/${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}-${sanitizeSegment(file.originalname)}`;
     await aws.s3.send(new PutObjectCommand({
         Bucket: aws.s3Bucket,
         Key: key,

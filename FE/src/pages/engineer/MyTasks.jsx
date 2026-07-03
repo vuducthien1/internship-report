@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { addTaskUpdateApi, getMyTasksApi, getTaskChecklistApi, getTaskDetailsApi, updateChecklistItemApi } from '../../services/taskService';
+import { addTaskUpdateApi, getMyTasksApi, getTaskChecklistApi, getTaskDetailsApi, updateTaskChecklistApi } from '../../services/taskService';
 import { createReportApi } from '../../services/reportService';
 import { useLanguage } from '../../context/LanguageContext';
 import VoiceInput from '../../components/common/VoiceInput';
@@ -28,6 +28,7 @@ function MyTasks() {
     const [checklistTask, setChecklistTask] = useState(null);
     const [checklistItems, setChecklistItems] = useState([]);
     const [checklistLoading, setChecklistLoading] = useState(false);
+    const [checklistSaving, setChecklistSaving] = useState(false);
     const [detail, setDetail] = useState(null);
     const [detailLoading, setDetailLoading] = useState(false);
     const [timelineNote, setTimelineNote] = useState('');
@@ -127,16 +128,33 @@ function MyTasks() {
         setChecklistLoading(false);
     };
 
-    const toggleChecklistItem = async (item) => {
-        const completed = !item.is_completed;
-        const result = await updateChecklistItemApi(checklistTask.id, item.id, completed);
+    const toggleChecklistItem = (item) => {
+        setChecklistItems((current) => current.map((entry) => (
+            entry.id === item.id ? { ...entry, is_completed: entry.is_completed ? 0 : 1 } : entry
+        )));
+    };
+
+    const closeChecklist = () => {
+        if (checklistSaving) return;
+        setChecklistTask(null);
+        setChecklistItems([]);
+    };
+
+    const saveChecklist = async () => {
+        if (!checklistTask || !checklistItems.length) return;
+        setChecklistSaving(true);
+        const result = await updateTaskChecklistApi(
+            checklistTask.id,
+            checklistItems.map((item) => ({ id: item.id, completed: Boolean(item.is_completed) }))
+        );
         if (result.success) {
-            setChecklistItems((current) => current.map((entry) => (
-                entry.id === item.id ? { ...entry, is_completed: completed ? 1 : 0 } : entry
-            )));
+            setChecklistTask(null);
+            setChecklistItems([]);
+            setRefreshKey((key) => key + 1);
         } else {
             setError(result.message);
         }
+        setChecklistSaving(false);
     };
 
     const getStatusBadge = (status) => {
@@ -239,18 +257,26 @@ function MyTasks() {
 
             {showModal && (
                 <div className="modal-overlay" onClick={() => setShowModal(false)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <div className="modal-header">
-                            <h3>🎤 {t('voiceReport')}: {selectedTask?.title}</h3>
+                    <div className="modal-content report-editor-dialog" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header report-dialog-header">
+                            <div>
+                                <span className="report-dialog-eyebrow">{t('report')}</span>
+                                <h3>{selectedTask?.title}</h3>
+                                <p>{selectedTask?.project_name}</p>
+                            </div>
+                            <button type="button" className="modal-close-button" onClick={() => setShowModal(false)} aria-label={t('cancel')}>×</button>
                         </div>
                         <form onSubmit={handleReportSubmit} className="space-y-5">
-                            <div className={`rounded-2xl px-4 py-3 text-sm ${draftRestored ? 'bg-amber-50 text-amber-800' : 'bg-indigo-50 text-indigo-700'}`}>
+                            <div className={`report-draft-notice ${draftRestored ? 'report-draft-notice--restored' : ''}`}>
                                 {draftRestored
                                     ? (t('draftRestored') || 'Đã khôi phục bản nháp trên thiết bị. File đính kèm cần chọn lại.')
                                     : (t('draftAutosave') || 'Nội dung được tự động lưu trên thiết bị.')}
                             </div>
-                            <div>
-                                <label className="mb-2 block text-sm font-semibold text-slate-700">{t('reportContent')}</label>
+                            <section className="report-form-section report-form-section--primary">
+                                <div className="report-form-section-heading">
+                                    <span>01</span>
+                                    <div><h4>{t('reportContent')}</h4><p>{t('reportPlaceholder')}</p></div>
+                                </div>
                                 <VoiceInput
                                     value={reportData.content}
                                     onChange={(content) => setReportData({ ...reportData, content })}
@@ -259,45 +285,58 @@ function MyTasks() {
                                         report_type: current.report_type === 'manual' ? 'voice' : current.report_type,
                                     }))}
                                 />
-                            </div>
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                <label className="space-y-2">
-                                    <span className="text-sm font-semibold text-slate-700">{t('workQuantity')}</span>
+                            </section>
+                            <section className="report-form-section">
+                                <div className="report-form-section-heading">
+                                    <span>02</span>
+                                    <div><h4>{t('reportDetails')}</h4><p>{t('featureTaskDesc')}</p></div>
+                                </div>
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                <label className="report-field-card">
+                                    <span>{t('workQuantity')}</span>
                                     <input className="form-input" value={reportData.work_quantity} onChange={(e) => setReportData({ ...reportData, work_quantity: e.target.value })} placeholder={t('workQuantityHint')} />
                                 </label>
-                                <label className="space-y-2">
-                                    <span className="text-sm font-semibold text-slate-700">{t('nextPlan')}</span>
+                                <label className="report-field-card">
+                                    <span>{t('nextPlan')}</span>
                                     <input className="form-input" value={reportData.next_plan} onChange={(e) => setReportData({ ...reportData, next_plan: e.target.value })} placeholder={t('nextPlanHint')} />
                                 </label>
-                                <label className="space-y-2">
-                                    <span className="text-sm font-semibold text-slate-700">{t('blockers')}</span>
+                                <label className="report-field-card">
+                                    <span>{t('blockers')}</span>
                                     <textarea className="form-textarea" rows={2} value={reportData.blockers} onChange={(e) => setReportData({ ...reportData, blockers: e.target.value })} />
                                 </label>
-                                <label className="space-y-2">
-                                    <span className="text-sm font-semibold text-slate-700">{t('safetyNotes')}</span>
+                                <label className="report-field-card">
+                                    <span>{t('safetyNotes')}</span>
                                     <textarea className="form-textarea" rows={2} value={reportData.safety_notes} onChange={(e) => setReportData({ ...reportData, safety_notes: e.target.value })} />
                                 </label>
-                            </div>
-                            <label className="block space-y-2">
-                                <span className="text-sm font-semibold text-slate-700">{t('fieldEvidence')}</span>
+                                </div>
+                            </section>
+                            <section className="report-form-section">
+                                <div className="report-form-section-heading">
+                                    <span>03</span>
+                                    <div><h4>{t('fieldEvidence')}</h4><p>{t('fieldEvidenceHint')}</p></div>
+                                </div>
+                                <div className="grid gap-4 sm:grid-cols-2">
+                            <label className="report-field-card">
+                                <span>{t('fieldEvidence')}</span>
                                 <input
                                     className="form-input"
                                     type="file"
                                     accept="image/jpeg,image/png,image/webp,application/pdf"
                                     onChange={(event) => setAttachment(event.target.files?.[0] || null)}
                                 />
-                                <span className="block text-xs text-slate-500">{t('fieldEvidenceHint')}</span>
                             </label>
-                            <div>
-                                <label className="mb-2 block text-sm font-semibold text-slate-700">{t('updateStatus')}</label>
+                            <label className="report-field-card">
+                                <span>{t('updateStatus')}</span>
                                 <select className="form-select" value={reportData.status} onChange={(e) => setReportData({ ...reportData, status: e.target.value })}>
                                     <option value="in_progress">{t('inProgress')}</option>
                                     <option value="completed">{t('completed')}</option>
                                 </select>
-                            </div>
-                            <div className="modal-actions">
-                                <button type="submit" className="btn btn-primary" disabled={submitting}>{submitting ? t('processing') : t('submitReport')}</button>
+                            </label>
+                                </div>
+                            </section>
+                            <div className="modal-actions report-dialog-actions">
                                 <button type="button" className="btn btn-outline" onClick={() => setShowModal(false)}>{t('cancel')}</button>
+                                <button type="submit" className="btn btn-primary" disabled={submitting}>{submitting ? t('processing') : t('submitReport')}</button>
                             </div>
                         </form>
                     </div>
@@ -305,31 +344,41 @@ function MyTasks() {
             )}
 
             {checklistTask && (
-                <div className="modal-overlay" onClick={() => setChecklistTask(null)}>
-                    <div className="modal-content max-w-xl" onClick={(event) => event.stopPropagation()}>
-                        <div className="modal-header">
+                <div className="modal-overlay" onClick={closeChecklist}>
+                    <div className="modal-content checklist-dialog" onClick={(event) => event.stopPropagation()}>
+                        <div className="modal-header report-dialog-header">
                             <div>
+                                <span className="report-dialog-eyebrow">{t('taskChecklist')}</span>
                                 <h3>{t('taskChecklist')}</h3>
-                                <p className="mt-1 text-sm text-slate-500">{checklistTask.title}</p>
+                                <p>{checklistTask.title}</p>
                             </div>
+                            <button type="button" className="modal-close-button" onClick={closeChecklist} aria-label={t('cancel')}>×</button>
                         </div>
                         {checklistLoading ? (
                             <p className="py-8 text-center text-slate-500">{t('loading')}</p>
                         ) : checklistItems.length ? (
-                            <div className="space-y-3">
-                                <p className="text-sm font-semibold text-slate-700">
-                                    {t('checklistProgress')}: {checklistItems.filter((item) => item.is_completed).length}/{checklistItems.length}
-                                </p>
+                            <div>
+                                <div className="checklist-summary">
+                                    <div><strong>{checklistItems.filter((item) => item.is_completed).length}/{checklistItems.length}</strong><span>{t('checklistProgress')}</span></div>
+                                    <div className="checklist-progress-track"><span style={{ width: `${(checklistItems.filter((item) => item.is_completed).length / checklistItems.length) * 100}%` }} /></div>
+                                </div>
+                                <p className="checklist-help">{t('checklistSaveHint')}</p>
+                                <div className="checklist-list">
                                 {checklistItems.map((item) => (
-                                    <label key={item.id} className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                                        <input type="checkbox" className="mt-1 h-4 w-4" checked={Boolean(item.is_completed)} onChange={() => toggleChecklistItem(item)} />
-                                        <span className={item.is_completed ? 'text-slate-400 line-through' : 'text-slate-800'}>{item.title}</span>
+                                    <label key={item.id} className={`checklist-item-row ${item.is_completed ? 'is-completed' : ''}`}>
+                                        <input type="checkbox" checked={Boolean(item.is_completed)} onChange={() => toggleChecklistItem(item)} />
+                                        <span className="checklist-item-box">✓</span>
+                                        <span className="checklist-item-title">{item.title}</span>
                                     </label>
                                 ))}
+                                </div>
                             </div>
                         ) : <p className="py-8 text-center text-slate-500">{t('noChecklistItems')}</p>}
-                        <div className="modal-actions mt-5">
-                            <button type="button" className="btn btn-outline" onClick={() => setChecklistTask(null)}>{t('cancel')}</button>
+                        <div className="modal-actions report-dialog-actions">
+                            <button type="button" className="btn btn-outline" disabled={checklistSaving} onClick={closeChecklist}>{t('cancel')}</button>
+                            <button type="button" className="btn btn-success" disabled={checklistLoading || checklistSaving || !checklistItems.length} onClick={saveChecklist}>
+                                {checklistSaving ? t('processing') : t('confirm')}
+                            </button>
                         </div>
                     </div>
                 </div>

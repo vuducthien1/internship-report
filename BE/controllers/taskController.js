@@ -298,6 +298,82 @@ exports.getTaskChecklist = async (req, res) => {
     }
 };
 
+exports.updateTaskChecklist = async (req, res) => {
+    let connection;
+    try {
+        const taskId = Number(req.params.id);
+        const items = req.body.items;
+        const validItems = Array.isArray(items)
+            && items.length > 0
+            && items.length <= 100
+            && items.every((item) => Number.isInteger(Number(item.id)) && typeof item.completed === 'boolean');
+        const itemIds = validItems ? items.map((item) => Number(item.id)) : [];
+        if (!Number.isInteger(taskId) || taskId <= 0 || !validItems || new Set(itemIds).size !== itemIds.length) {
+            return res.status(400).json({ success: false, message: 'Dữ liệu checklist không hợp lệ.' });
+        }
+
+        connection = await db.getConnection();
+        await connection.beginTransaction();
+        const [tasks] = await connection.query(
+            'SELECT id FROM tasks WHERE id = ? AND engineer_id = ? FOR UPDATE',
+            [taskId, req.user.id]
+        );
+        if (!tasks.length) {
+            await connection.rollback();
+            return res.status(403).json({ success: false, message: 'Bạn không có quyền cập nhật checklist này.' });
+        }
+
+        const [currentItems] = await connection.query(
+            `SELECT id, title, is_completed
+             FROM task_checklist_items
+             WHERE task_id = ? ORDER BY sort_order, id FOR UPDATE`,
+            [taskId]
+        );
+        const currentIds = new Set(currentItems.map((item) => Number(item.id)));
+        if (currentItems.length !== items.length || itemIds.some((id) => !currentIds.has(id))) {
+            await connection.rollback();
+            return res.status(409).json({ success: false, message: 'Checklist vừa thay đổi. Vui lòng mở lại và thử lần nữa.' });
+        }
+
+        const desiredById = new Map(items.map((item) => [Number(item.id), item.completed]));
+        const changedItems = currentItems.filter((item) => Boolean(item.is_completed) !== desiredById.get(Number(item.id)));
+        for (const item of changedItems) {
+            const completed = desiredById.get(Number(item.id));
+            await connection.query(
+                `UPDATE task_checklist_items
+                 SET is_completed = ?, completed_by = ?, completed_at = ${completed ? 'NOW()' : 'NULL'}
+                 WHERE id = ? AND task_id = ?`,
+                [completed ? 1 : 0, completed ? req.user.id : null, item.id, taskId]
+            );
+        }
+
+        const completedCount = items.filter((item) => item.completed).length;
+        if (changedItems.length) {
+            await connection.query(
+                `INSERT INTO activity_logs (user_id, action, description)
+                 VALUES (?, 'UPDATE_TASK_CHECKLIST', ?)`,
+                [req.user.id, `Saved ${changedItems.length} checklist changes for task #${taskId}`]
+            );
+            await connection.query(
+                `INSERT INTO task_updates (task_id, user_id, event_type, message)
+                 VALUES (?, ?, 'checklist', ?)`,
+                [taskId, req.user.id, `Đã lưu checklist nghiệm thu: ${completedCount}/${items.length} hạng mục hoàn thành`]
+            );
+        }
+        await connection.commit();
+        return res.json({
+            success: true,
+            message: changedItems.length ? 'Đã lưu checklist nghiệm thu.' : 'Checklist không có thay đổi.',
+            data: { completed_count: completedCount, total: items.length, changed_count: changedItems.length },
+        });
+    } catch (error) {
+        if (connection) await connection.rollback().catch(() => {});
+        return respondServerError(res, error);
+    } finally {
+        if (connection) connection.release();
+    }
+};
+
 exports.updateChecklistItem = async (req, res) => {
     try {
         const taskId = Number(req.params.id);
