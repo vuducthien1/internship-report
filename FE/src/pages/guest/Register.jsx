@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowRight, BadgeCheck, Mail, Phone, ShieldCheck, UserRound } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Eye, EyeOff, LockKeyhole, Mail, Phone, ShieldCheck, UserRound } from 'lucide-react';
 import { registerApi } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
 import Logo from '../../components/common/Logo';
@@ -20,6 +20,7 @@ function Register() {
 
     const [message, setMessage] = useState({ text: '', type: '' });
     const [isLoading, setIsLoading] = useState(false);
+    const [passwordVisibility, setPasswordVisibility] = useState({ password: false, confirm_password: false });
     const navigate = useNavigate();
     const { t } = useLanguage();
 
@@ -35,7 +36,7 @@ function Register() {
         const data = await registerApi(formData);
 
         if (data.success) {
-            setMessage({ text: data.message, type: 'success' });
+            setMessage({ text: data.message, type: data.email_sent === false ? 'warning' : 'success' });
             if (data.dev_verification_token) {
                 setTimeout(() => navigate(`/verify-email?token=${data.dev_verification_token}`), 1200);
             }
@@ -103,11 +104,23 @@ function Register() {
                         </div>
                         <div>
                             <label className="mb-1.5 block text-sm font-medium text-slate-700">{t('password')}</label>
-                            <input type="password" name="password" className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-3 text-sm shadow-sm outline-none" required onChange={handleChange} />
+                            <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm">
+                                <LockKeyhole size={18} className="text-slate-400" />
+                                <input type={passwordVisibility.password ? 'text' : 'password'} name="password" className="w-full border-0 bg-transparent text-sm outline-none" required autoComplete="new-password" onChange={handleChange} />
+                                <button type="button" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-indigo-600" aria-label={passwordVisibility.password ? t('hidePassword') : t('showPassword')} title={passwordVisibility.password ? t('hidePassword') : t('showPassword')} onClick={() => setPasswordVisibility((value) => ({ ...value, password: !value.password }))}>
+                                    {passwordVisibility.password ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
                         </div>
                         <div>
                             <label className="mb-1.5 block text-sm font-medium text-slate-700">{t('confirmPassword')}</label>
-                            <input type="password" name="confirm_password" className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-3 text-sm shadow-sm outline-none" required onChange={handleChange} />
+                            <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm">
+                                <LockKeyhole size={18} className="text-slate-400" />
+                                <input type={passwordVisibility.confirm_password ? 'text' : 'password'} name="confirm_password" className="w-full border-0 bg-transparent text-sm outline-none" required autoComplete="new-password" onChange={handleChange} />
+                                <button type="button" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-indigo-600" aria-label={passwordVisibility.confirm_password ? t('hidePassword') : t('showPassword')} title={passwordVisibility.confirm_password ? t('hidePassword') : t('showPassword')} onClick={() => setPasswordVisibility((value) => ({ ...value, confirm_password: !value.confirm_password }))}>
+                                    {passwordVisibility.confirm_password ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
                         </div>
 
                         <div className="sm:col-span-2">
@@ -122,7 +135,7 @@ function Register() {
                         </div>
                     </form>
 
-                    {message.text && <div className={`mt-4 rounded-2xl px-3 py-3 text-sm ${message.type === 'error' ? 'border border-rose-200 bg-rose-50 text-rose-600' : message.type === 'success' ? 'border border-emerald-200 bg-emerald-50 text-emerald-600' : 'border border-slate-200 bg-slate-50 text-slate-600'}`}>{message.text}</div>}
+                    {message.text && <div className={`mt-4 rounded-2xl px-3 py-3 text-sm ${message.type === 'error' ? 'border border-rose-200 bg-rose-50 text-rose-600' : message.type === 'success' ? 'border border-emerald-200 bg-emerald-50 text-emerald-600' : message.type === 'warning' ? 'border border-amber-200 bg-amber-50 text-amber-700' : 'border border-slate-200 bg-slate-50 text-slate-600'}`}>{message.text}</div>}
 
                     <p className="mt-4 text-xs leading-5 text-slate-500">{t('registrationPendingHint')}</p>
 

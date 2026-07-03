@@ -502,7 +502,7 @@ Resources:
                 Condition:
                   StringEquals: {iam:PassedToService: transcribe.amazonaws.com}
               - Effect: Allow
-                Action: [ses:SendEmail, ses:SendRawEmail]
+                Action: [ses:SendEmail, ses:SendRawEmail, ses:GetAccount, ses:GetEmailIdentity]
                 Resource: '*'
               - Effect: Allow
                 Action: [secretsmanager:GetSecretValue]

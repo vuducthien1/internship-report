@@ -61,10 +61,13 @@ exports.register = async (req, res) => {
             ]
         );
 
-        await sendVerificationEmail(value.email, value.fullname, verificationToken);
+        const delivery = await sendVerificationEmail(value.email, value.fullname, verificationToken);
         return res.status(201).json({
             success: true,
-            message: 'Đã gửi đăng ký. Vui lòng xác thực email và chờ Admin phê duyệt.',
+            email_sent: delivery.success,
+            message: delivery.success
+                ? 'Đã gửi đăng ký. Vui lòng xác thực email và chờ Admin phê duyệt.'
+                : 'Tài khoản đã được tạo nhưng email xác thực chưa gửi được. Vui lòng thử gửi lại từ trang xác thực email.',
             ...developmentToken('dev_verification_token', verificationToken),
         });
     } catch (error) {

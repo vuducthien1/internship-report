@@ -1,5 +1,5 @@
 const path = require('path');
-const { GetAccountCommand } = require('@aws-sdk/client-sesv2');
+const { GetAccountCommand, GetEmailIdentityCommand } = require('@aws-sdk/client-sesv2');
 const { HeadBucketCommand } = require('@aws-sdk/client-s3');
 const { GetTranscriptionJobCommand, ListTranscriptionJobsCommand, StartTranscriptionJobCommand } = require('@aws-sdk/client-transcribe');
 const { GetQueueAttributesCommand, SendMessageCommand } = require('@aws-sdk/client-sqs');
@@ -38,9 +38,42 @@ exports.checkHealth = async (_req, res) => {
         try { await operation(); checks[name] = { configured: true, healthy: true, message: 'Kết nối thành công' }; }
         catch (error) { checks[name] = { configured: true, healthy: false, message: error.name || 'Không thể kết nối' }; }
     };
+    const checkSes = async () => {
+        if (!aws.sesEnabled) {
+            checks.ses = { configured: false, healthy: false, message: 'Chưa cấu hình địa chỉ gửi SES' };
+            return;
+        }
+        try {
+            const [account, identity] = await Promise.all([
+                aws.ses.send(new GetAccountCommand({})),
+                aws.ses.send(new GetEmailIdentityCommand({ EmailIdentity: aws.sesFromEmail })),
+            ]);
+            const senderVerified = Boolean(identity.VerifiedForSendingStatus);
+            const productionAccess = Boolean(account.ProductionAccessEnabled);
+            const sendingEnabled = Boolean(account.SendingEnabled);
+            checks.ses = {
+                configured: true,
+                healthy: senderVerified && sendingEnabled,
+                mode: productionAccess ? 'production' : 'sandbox',
+                sender: aws.sesFromEmail,
+                sender_verified: senderVerified,
+                production_access: productionAccess,
+                sending_enabled: sendingEnabled,
+                message: !senderVerified
+                    ? 'Địa chỉ gửi SES chưa được xác thực'
+                    : !sendingEnabled
+                        ? 'AWS SES đang tắt khả năng gửi email'
+                        : productionAccess
+                            ? 'SES Production sẵn sàng gửi email'
+                            : 'SES Sandbox: chỉ gửi được đến email người nhận đã xác thực',
+            };
+        } catch (error) {
+            checks.ses = { configured: true, healthy: false, message: error.name || 'Không thể kiểm tra Amazon SES' };
+        }
+    };
     await Promise.all([
         run('s3', aws.s3Enabled, () => aws.s3.send(new HeadBucketCommand({ Bucket: aws.s3Bucket }))),
-        run('ses', aws.sesEnabled, () => aws.ses.send(new GetAccountCommand({}))),
+        checkSes(),
         run('transcribe', aws.transcribeEnabled, () => aws.transcribe.send(new ListTranscriptionJobsCommand({ MaxResults: 1 }))),
         run('sqs', aws.sqsEnabled, () => aws.sqs.send(new GetQueueAttributesCommand({ QueueUrl: aws.transcribeQueueUrl, AttributeNames: ['QueueArn'] }))),
         run('rds', process.env.AWS_RDS_ENABLED === 'true', () => db.query('SELECT 1')),

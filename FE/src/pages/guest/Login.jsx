@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { ArrowRight, LockKeyhole, UserRound } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, LockKeyhole, UserRound } from 'lucide-react';
 import { loginApi } from '../../services/authService';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -12,6 +12,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '../../components/u
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -83,20 +84,30 @@ function Login() {
                             </div>
                         </div>
                         <div>
-                            <div className="mb-1.5 flex items-center justify-between gap-3">
-                                <label className="block text-sm font-medium text-slate-700">{t('password')}</label>
-                                <Link to="/forgot-password" className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">{t('forgotPassword')}</Link>
-                            </div>
+                            <label className="mb-1.5 block text-sm font-medium text-slate-700">{t('password')}</label>
                             <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm">
                                 <LockKeyhole size={18} className="text-slate-400" />
                                 <input
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     className="w-full border-0 bg-transparent text-sm outline-none"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder={t('password')}
+                                    autoComplete="current-password"
                                     required
                                 />
+                                <button
+                                    type="button"
+                                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-indigo-600"
+                                    aria-label={showPassword ? t('hidePassword') : t('showPassword')}
+                                    title={showPassword ? t('hidePassword') : t('showPassword')}
+                                    onClick={() => setShowPassword((value) => !value)}
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                            <div className="mt-2 flex justify-end">
+                                <Link to="/forgot-password" className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">{t('forgotPassword')}</Link>
                             </div>
                         </div>
                         <Button type="submit" variant="accent" className="w-full gap-2" disabled={isLoading}>
