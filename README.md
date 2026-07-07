@@ -8,6 +8,14 @@ Hệ thống quản lý công trình gồm ba vai trò:
 
 Ứng dụng gồm frontend React/Vite trong thư mục FE, backend Express/MySQL/Socket.IO trong BE.
 
+## Bảo mật phiên đăng nhập
+
+- Access token JWT chỉ tồn tại 15 phút và được lưu trong cookie `HttpOnly`, `SameSite=Lax`; production bắt buộc cờ `Secure`.
+- Refresh token tồn tại 7 ngày, chỉ gửi đến `/api/auth`, được lưu dạng SHA-256 trong MySQL và xoay vòng sau mỗi lần làm mới.
+- Frontend không lưu access/refresh token trong `localStorage`; API và Socket.IO xác thực bằng cookie.
+- Đăng xuất, đổi mật khẩu và đặt lại mật khẩu sẽ thu hồi refresh session tương ứng.
+- Backend vẫn chấp nhận Bearer token Cognito ở giai đoạn dual-auth.
+
 ## Tích hợp Amazon Web Services
 
 - **Amazon S3:** tài liệu dự án, file và ghi âm chat được lưu private với mã hóa SSE-S3; tài liệu đi qua API kiểm tra quyền, media chat dùng URL ký tạm thời. Khi chưa cấu hình bucket, hệ thống dùng ổ đĩa local.

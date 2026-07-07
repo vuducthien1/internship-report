@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 const {
     registerValidator,
@@ -11,6 +10,13 @@ const {
 } = require('../validations/authValidation');
 const respondServerError = require('../utils/respondServerError');
 const sendEmail = require('../utils/emailService');
+const {
+    clearAuthCookies,
+    createAuthSession,
+    rotateAuthSession,
+    revokeRequestSession,
+    revokeUserSessions,
+} = require('../utils/authSession');
 
 const appUrl = () => (process.env.APP_URL || 'http://localhost:5173').replace(/\/$/, '');
 const createToken = () => crypto.randomBytes(32).toString('hex');
@@ -99,19 +105,67 @@ exports.login = async (req, res) => {
             return res.status(403).json({ success: false, code: 'EMAIL_NOT_VERIFIED', message: 'Vui lòng xác thực email trước khi đăng nhập.' });
         }
 
-        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const sessionUser = {
+            id: user.id,
+            username: user.username,
+            fullname: user.fullname,
+            email: user.email,
+            role: user.role,
+            auth_version: Number(user.auth_version) || 0,
+        };
+        await createAuthSession(res, sessionUser, req);
         return res.status(200).json({
             success: true,
             message: 'Đăng nhập thành công!',
-            token,
             user: {
-                id: user.id,
-                username: user.username,
-                fullname: user.fullname,
-                email: user.email,
-                role: user.role,
+                id: sessionUser.id,
+                username: sessionUser.username,
+                fullname: sessionUser.fullname,
+                email: sessionUser.email,
+                role: sessionUser.role,
             },
         });
+    } catch (error) {
+        return respondServerError(res, error);
+    }
+};
+
+exports.refreshSession = async (req, res) => {
+    try {
+        const user = await rotateAuthSession(req, res);
+        if (!user) {
+            clearAuthCookies(res);
+            return res.status(401).json({ success: false, message: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' });
+        }
+        return res.json({ success: true, user });
+    } catch (error) {
+        return respondServerError(res, error);
+    }
+};
+
+exports.logout = async (req, res) => {
+    try {
+        await revokeRequestSession(req);
+        clearAuthCookies(res);
+        return res.json({ success: true, message: 'Đã đăng xuất an toàn.' });
+    } catch (error) {
+        clearAuthCookies(res);
+        return respondServerError(res, error);
+    }
+};
+
+exports.me = async (req, res) => {
+    try {
+        const [users] = await db.query(
+            `SELECT id, username, fullname, email, role
+             FROM users WHERE id = ? AND status = 'active' AND deleted_at IS NULL LIMIT 1`,
+            [req.user.id]
+        );
+        if (!users.length) {
+            clearAuthCookies(res);
+            return res.status(401).json({ success: false, message: 'Phiên đăng nhập không còn hợp lệ.' });
+        }
+        return res.json({ success: true, user: users[0] });
     } catch (error) {
         return respondServerError(res, error);
     }
@@ -208,9 +262,14 @@ exports.resetPassword = async (req, res) => {
 
         const passwordHash = await bcrypt.hash(value.password, 10);
         await db.query(
-            'UPDATE users SET password = ?, reset_token_hash = NULL, reset_expires_at = NULL WHERE id = ?',
+            `UPDATE users
+             SET password = ?, reset_token_hash = NULL, reset_expires_at = NULL,
+                 auth_version = auth_version + 1
+             WHERE id = ?`,
             [passwordHash, users[0].id]
         );
+        await revokeUserSessions(users[0].id);
+        clearAuthCookies(res);
         return res.json({ success: true, message: 'Đặt lại mật khẩu thành công. Bạn có thể đăng nhập bằng mật khẩu mới.' });
     } catch (error) {
         return respondServerError(res, error);

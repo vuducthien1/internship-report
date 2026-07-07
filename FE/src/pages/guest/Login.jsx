@@ -35,7 +35,7 @@ function Login() {
         const data = await loginApi(username, password);
 
         if (data.success) {
-            login(data.token, data.user);
+            login(data.user);
             const from = location.state?.from || getRoleHome(data.user.role);
             navigate(from, { replace: true });
         } else {

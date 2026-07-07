@@ -14,6 +14,7 @@ import {
     getVoiceFullUrl,
     getChatFileFullUrl,
 } from '../../services/chatService';
+import { refreshAuthSession } from '../../services/apiClient';
 
 function ChatWidget() {
     const { user } = useAuth();
@@ -58,10 +59,17 @@ function ChatWidget() {
     useEffect(() => {
         if (!user) return undefined;
 
-        const socket = io(getSocketUrl(), {
-            auth: { token: localStorage.getItem('accessToken') },
-        });
+        const socket = io(getSocketUrl(), { withCredentials: true });
+        let refreshingSocket = false;
         socketRef.current = socket;
+
+        socket.on('connect_error', async (connectError) => {
+            if (connectError.message !== 'Unauthorized' || refreshingSocket) return;
+            refreshingSocket = true;
+            const refreshed = await refreshAuthSession();
+            refreshingSocket = false;
+            if (refreshed) socket.connect();
+        });
 
         socket.on('new_message', ({ conversationId, message }) => {
             if (conversationId === activeConvIdRef.current) {

@@ -1,6 +1,7 @@
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const respondServerError = require('../utils/respondServerError');
+const { createAuthSession, revokeUserSessions } = require('../utils/authSession');
 const {
     updateRoleValidator,
     updateMyProfileValidator,
@@ -62,7 +63,16 @@ exports.changeMyPassword = async (req, res) => {
         }
 
         const hash = await bcrypt.hash(value.new_password, 10);
-        await db.query('UPDATE users SET password = ? WHERE id = ?', [hash, req.user.id]);
+        await db.query(
+            'UPDATE users SET password = ?, auth_version = auth_version + 1 WHERE id = ?',
+            [hash, req.user.id]
+        );
+        await revokeUserSessions(req.user.id);
+        const [sessionUsers] = await db.query(
+            'SELECT id, role, auth_version FROM users WHERE id = ? LIMIT 1',
+            [req.user.id]
+        );
+        await createAuthSession(res, sessionUsers[0], req);
         await db.query(
             `INSERT INTO activity_logs (user_id, action, description)
              VALUES (?, 'CHANGE_PASSWORD', 'Changed account password')`,

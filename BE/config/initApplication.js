@@ -49,6 +49,21 @@ const initApplication = async () => {
     `);
 
     await db.query(`
+        CREATE TABLE IF NOT EXISTS push_subscriptions (
+            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            endpoint VARCHAR(1000) NOT NULL,
+            p256dh VARCHAR(255) NOT NULL,
+            auth VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            UNIQUE KEY uq_push_endpoint (endpoint(500)),
+            INDEX idx_push_user (user_id),
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+
+    await db.query(`
         CREATE TABLE IF NOT EXISTS task_checklist_items (
             id INT AUTO_INCREMENT PRIMARY KEY,
             task_id INT NOT NULL,
@@ -82,6 +97,7 @@ const initApplication = async () => {
     await ensureColumn('users', 'verification_expires_at', 'DATETIME NULL');
     await ensureColumn('users', 'reset_token_hash', 'CHAR(64) NULL');
     await ensureColumn('users', 'reset_expires_at', 'DATETIME NULL');
+    await ensureColumn('users', 'auth_version', 'INT UNSIGNED NOT NULL DEFAULT 0');
     await ensureColumn('users', 'deleted_at', 'TIMESTAMP NULL');
     await ensureColumn('users', 'deleted_by', 'INT NULL');
     await ensureColumn('users', 'deletion_reason', 'VARCHAR(1000) NULL');
@@ -118,6 +134,29 @@ const initApplication = async () => {
             sent_at TIMESTAMP NULL,
             INDEX idx_email_outbox_status (status, created_at)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+
+    await db.query(`
+        CREATE TABLE IF NOT EXISTS refresh_sessions (
+            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            token_hash CHAR(64) NOT NULL UNIQUE,
+            replaced_by_hash CHAR(64) NULL,
+            user_agent VARCHAR(500) NULL,
+            ip_address VARCHAR(64) NULL,
+            expires_at DATETIME NOT NULL,
+            revoked_at DATETIME NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_refresh_user_active (user_id, revoked_at, expires_at),
+            INDEX idx_refresh_expires (expires_at),
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+
+    await db.query(`
+        DELETE FROM refresh_sessions
+        WHERE expires_at < DATE_SUB(NOW(), INTERVAL 30 DAY)
+           OR revoked_at < DATE_SUB(NOW(), INTERVAL 30 DAY)
     `);
 
     await db.query(`

@@ -3,6 +3,9 @@
   {"ParameterKey":"RepositoryUrl","ParameterValue":"https://github.com/your-account/your-repository.git"},
   {"ParameterKey":"RepositoryBranch","ParameterValue":"main"},
   {"ParameterKey":"BootstrapAdminEmail","ParameterValue":"admin@example.com"},
+  {"ParameterKey":"WebPushVapidPublicKey","ParameterValue":"GENERATE_WITH_NPX_WEB_PUSH"},
+  {"ParameterKey":"WebPushVapidPrivateKey","ParameterValue":"DO_NOT_COMMIT_A_REAL_PRIVATE_KEY"},
+  {"ParameterKey":"WebPushVapidSubject","ParameterValue":"mailto:admin@example.com"},
   {"ParameterKey":"DatabaseMultiAZ","ParameterValue":"false"},
   {"ParameterKey":"DatabaseDeletionProtection","ParameterValue":"true"}
 ]

@@ -213,6 +213,7 @@ exports.reviewReport = async (req, res) => {
                 : `Báo cáo cho công việc “${report.task_title}” bị từ chối: ${value.review_note}`,
             type: value.decision === 'approved' ? 'success' : 'warning',
             link: '/engineer/reports',
+            push: value.decision === 'rejected',
         }).catch(() => {});
 
         return res.json({

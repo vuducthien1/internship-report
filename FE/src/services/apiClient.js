@@ -1,17 +1,7 @@
 export const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api')
     .replace(/\/$/, '');
 
-const getToken = () => localStorage.getItem('accessToken');
-
-const handleExpiredAuth = (response, data, token) => {
-    if (!token || (response.status !== 401 && response.status !== 403)) return;
-    const message = data.message || '';
-    const isAuthError = response.status === 401
-        || message.includes('hết hạn')
-        || message.includes('token')
-        || message.includes('đăng nhập');
-    if (isAuthError) window.dispatchEvent(new CustomEvent('auth:expired'));
-};
+let refreshPromise = null;
 
 const parseResponse = async (response) => {
     const contentType = response.headers.get('content-type') || '';
@@ -29,52 +19,75 @@ const parseResponse = async (response) => {
     };
 };
 
-export const apiClient = async (endpoint, options = {}) => {
-    const token = getToken();
+const requestRefresh = async () => {
+    if (!refreshPromise) {
+        refreshPromise = fetch(`${BASE_URL}/auth/refresh`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(async (response) => ({ response, data: await parseResponse(response) }))
+            .finally(() => {
+                refreshPromise = null;
+            });
+    }
+    return refreshPromise;
+};
+
+export const refreshAuthSession = async () => {
+    try {
+        const { response, data } = await requestRefresh();
+        return response.ok && data.success ? data : null;
+    } catch {
+        return null;
+    }
+};
+
+const makeRequest = async (endpoint, options = {}, allowRefresh = true) => {
+    const isFormData = options.body instanceof FormData;
     const headers = {
-        'Content-Type': 'application/json',
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(!isFormData && options.body ? { 'Content-Type': 'application/json' } : {}),
         ...options.headers,
     };
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+        ...options,
+        headers,
+        credentials: 'include',
+    });
+    const data = await parseResponse(response);
 
+    if (response.status === 401 && allowRefresh) {
+        const refreshed = await refreshAuthSession();
+        if (refreshed) return makeRequest(endpoint, options, false);
+        window.dispatchEvent(new CustomEvent('auth:expired'));
+    }
+
+    return data;
+};
+
+export const apiClient = async (endpoint, options = {}) => {
     try {
-        const response = await fetch(`${BASE_URL}${endpoint}`, {
-            ...options,
-            headers,
-        });
-        const data = await parseResponse(response);
-
-        handleExpiredAuth(response, data, token);
-
-        return data;
+        return await makeRequest(endpoint, options);
     } catch {
         return { success: false, status: 0, message: 'Không thể kết nối tới máy chủ.' };
     }
 };
 
 export const apiGet = (endpoint) => apiClient(endpoint, { method: 'GET' });
-export const apiPost = (endpoint, body) =>
-    apiClient(endpoint, { method: 'POST', body: JSON.stringify(body) });
-export const apiPut = (endpoint, body) =>
-    apiClient(endpoint, { method: 'PUT', body: JSON.stringify(body) });
+export const apiPost = (endpoint, body) => apiClient(endpoint, {
+    method: 'POST',
+    ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+});
+export const apiPut = (endpoint, body) => apiClient(endpoint, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+});
 export const apiDelete = (endpoint) => apiClient(endpoint, { method: 'DELETE' });
-export const apiPatch = (endpoint, body) =>
-    apiClient(endpoint, { method: 'PATCH', body: JSON.stringify(body) });
-
-export const apiUpload = async (endpoint, formData) => {
-    const token = getToken();
-    try {
-        const response = await fetch(`${BASE_URL}${endpoint}`, {
-            method: 'POST',
-            headers: {
-                ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            },
-            body: formData,
-        });
-        const data = await parseResponse(response);
-        handleExpiredAuth(response, data, token);
-        return data;
-    } catch {
-        return { success: false, status: 0, message: 'Không thể kết nối tới máy chủ.' };
-    }
-};
+export const apiPatch = (endpoint, body) => apiClient(endpoint, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+});
+export const apiUpload = (endpoint, formData) => apiClient(endpoint, {
+    method: 'POST',
+    body: formData,
+});

@@ -4,7 +4,10 @@ param(
     [string] $RepositoryBranch = 'main',
     [string] $StackName = 'vdcms-prod',
     [string] $Region = 'ap-southeast-1',
-    [string] $SesFromEmail = ''
+    [string] $SesFromEmail = '',
+    [string] $WebPushVapidPublicKey = '',
+    [string] $WebPushVapidPrivateKey = '',
+    [string] $WebPushVapidSubject = 'mailto:admin@example.com'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -26,6 +29,9 @@ aws cloudformation deploy `
         RepositoryBranch=$RepositoryBranch `
         BootstrapAdminEmail=$BootstrapAdminEmail `
         SesFromEmail=$SesFromEmail `
+        WebPushVapidPublicKey=$WebPushVapidPublicKey `
+        WebPushVapidPrivateKey=$WebPushVapidPrivateKey `
+        WebPushVapidSubject=$WebPushVapidSubject `
     --no-fail-on-empty-changeset
 
 $outputs = aws cloudformation describe-stacks `

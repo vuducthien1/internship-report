@@ -4,17 +4,19 @@ const db = require('./config/db');
 const aws = require('./config/aws');
 const { allowedOrigins } = require('./config/security');
 const resolveAuthUser = require('./utils/resolveAuthUser');
+const { extractAccessToken } = require('./utils/authSession');
 
 const initSocket = (httpServer) => {
     const io = new Server(httpServer, {
         cors: {
             origin: allowedOrigins,
             methods: ['GET', 'POST'],
+            credentials: true,
         },
     });
 
     io.use(async (socket, next) => {
-        const token = socket.handshake.auth?.token;
+        const token = extractAccessToken({ headers: socket.handshake.headers });
         if (!token) {
             return next(new Error('Unauthorized'));
         }

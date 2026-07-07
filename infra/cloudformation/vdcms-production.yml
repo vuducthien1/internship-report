@@ -55,6 +55,19 @@ Parameters:
     Type: String
     Default: ''
     Description: Verified Amazon SES sender; leave blank to use the local outbox fallback.
+  WebPushVapidPublicKey:
+    Type: String
+    Default: ''
+    Description: VAPID public key; leave blank to disable Web Push.
+  WebPushVapidPrivateKey:
+    Type: String
+    Default: ''
+    NoEcho: true
+    Description: Matching VAPID private key.
+  WebPushVapidSubject:
+    Type: String
+    Default: mailto:admin@example.com
+    Description: VAPID contact subject, normally a mailto address.
 
 Conditions:
   UseMultiAZ: !Equals [!Ref DatabaseMultiAZ, 'true']
@@ -270,6 +283,24 @@ Resources:
       GenerateSecretString:
         PasswordLength: 64
         ExcludePunctuation: true
+
+  JwtRefreshSecret:
+    Type: AWS::SecretsManager::Secret
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Description: !Sub '${EnvironmentName} JWT refresh signing secret'
+      GenerateSecretString:
+        PasswordLength: 64
+        ExcludePunctuation: true
+
+  WebPushSecret:
+    Type: AWS::SecretsManager::Secret
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Description: !Sub '${EnvironmentName} Web Push VAPID keys'
+      SecretString: !Sub '{"publicKey":"${WebPushVapidPublicKey}","privateKey":"${WebPushVapidPrivateKey}","subject":"${WebPushVapidSubject}"}'
 
   BootstrapAdminSecret:
     Type: AWS::SecretsManager::Secret
@@ -506,7 +537,7 @@ Resources:
                 Resource: '*'
               - Effect: Allow
                 Action: [secretsmanager:GetSecretValue]
-                Resource: [!Ref DatabaseSecret, !Ref JwtSecret, !Ref BootstrapAdminSecret]
+                Resource: [!Ref DatabaseSecret, !Ref JwtSecret, !Ref JwtRefreshSecret, !Ref WebPushSecret, !Ref BootstrapAdminSecret]
               - Effect: Allow
                 Action: [cognito-idp:AdminCreateUser, cognito-idp:AdminUpdateUserAttributes, cognito-idp:AdminAddUserToGroup, cognito-idp:ListUsers]
                 Resource: !GetAtt CognitoUserPool.Arn
@@ -803,12 +834,17 @@ Resources:
             curl -fsSL https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -o /opt/vdcms/global-bundle.pem
             DB_SECRET=$(aws secretsmanager get-secret-value --region ${AWS::Region} --secret-id ${DatabaseSecret} --query SecretString --output text)
             JWT_VALUE=$(aws secretsmanager get-secret-value --region ${AWS::Region} --secret-id ${JwtSecret} --query SecretString --output text)
+            JWT_REFRESH_VALUE=$(aws secretsmanager get-secret-value --region ${AWS::Region} --secret-id ${JwtRefreshSecret} --query SecretString --output text)
+            WEB_PUSH_SECRET_VALUE=$(aws secretsmanager get-secret-value --region ${AWS::Region} --secret-id ${WebPushSecret} --query SecretString --output text)
             ADMIN_SECRET=$(aws secretsmanager get-secret-value --region ${AWS::Region} --secret-id ${BootstrapAdminSecret} --query SecretString --output text)
             DB_USER_VALUE=$(echo "$DB_SECRET" | jq -r .username)
             DB_PASSWORD_VALUE=$(echo "$DB_SECRET" | jq -r .password)
             ADMIN_USERNAME_VALUE=$(echo "$ADMIN_SECRET" | jq -r .username)
             ADMIN_EMAIL_VALUE=$(echo "$ADMIN_SECRET" | jq -r .email)
             ADMIN_PASSWORD_VALUE=$(echo "$ADMIN_SECRET" | jq -r .password)
+            WEB_PUSH_PUBLIC_VALUE=$(echo "$WEB_PUSH_SECRET_VALUE" | jq -r .publicKey)
+            WEB_PUSH_PRIVATE_VALUE=$(echo "$WEB_PUSH_SECRET_VALUE" | jq -r .privateKey)
+            WEB_PUSH_SUBJECT_VALUE=$(echo "$WEB_PUSH_SECRET_VALUE" | jq -r .subject)
             cat > /opt/vdcms/BE/.env <<EOF
             NODE_ENV=production
             PORT=5000
@@ -820,6 +856,12 @@ Resources:
             DB_SSL=true
             DB_SSL_CA_PATH=/opt/vdcms/global-bundle.pem
             JWT_SECRET=$JWT_VALUE
+            JWT_REFRESH_SECRET=$JWT_REFRESH_VALUE
+            AUTH_ACCESS_TTL_SECONDS=900
+            AUTH_REFRESH_TTL_SECONDS=604800
+            WEB_PUSH_VAPID_PUBLIC_KEY=$WEB_PUSH_PUBLIC_VALUE
+            WEB_PUSH_VAPID_PRIVATE_KEY=$WEB_PUSH_PRIVATE_VALUE
+            WEB_PUSH_VAPID_SUBJECT=$WEB_PUSH_SUBJECT_VALUE
             APP_URL=https://${FrontendDistribution.DomainName}
             CORS_ORIGINS=https://${FrontendDistribution.DomainName}
             AWS_REGION=${AWS::Region}
@@ -911,3 +953,7 @@ Outputs:
     Value: !Ref CognitoUserPoolClient
   BootstrapAdminSecretArn:
     Value: !Ref BootstrapAdminSecret
+  JwtRefreshSecretArn:
+    Value: !Ref JwtRefreshSecret
+  WebPushSecretArn:
+    Value: !Ref WebPushSecret

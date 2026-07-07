@@ -1,16 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useRef, useState, useEffect } from 'react';
 import { addTaskUpdateApi, getMyTasksApi, getTaskChecklistApi, getTaskDetailsApi, updateTaskChecklistApi } from '../../services/taskService';
 import { createReportApi } from '../../services/reportService';
 import { useLanguage } from '../../context/LanguageContext';
 import VoiceInput from '../../components/common/VoiceInput';
 import PageHeader from '../../components/common/PageHeader';
 import DataTable from '../../components/common/DataTable';
+import { useAuth } from '../../context/AuthContext';
+import {
+    getQueuedReports,
+    queueOfflineReport,
+    syncQueuedReports,
+} from '../../services/offlineReportService';
 
 function MyTasks() {
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState('');
+    const [notice, setNotice] = useState('');
     const [refreshKey, setRefreshKey] = useState(0);
     const { t } = useLanguage();
+    const { user } = useAuth();
+    const [queuedReports, setQueuedReports] = useState([]);
+    const [syncingReports, setSyncingReports] = useState(false);
+    const syncingReportsRef = useRef(false);
 
     const [showModal, setShowModal] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
@@ -33,6 +44,45 @@ function MyTasks() {
     const [detailLoading, setDetailLoading] = useState(false);
     const [timelineNote, setTimelineNote] = useState('');
     const [draftRestored, setDraftRestored] = useState(false);
+
+    const loadOfflineQueue = useCallback(async () => {
+        if (!user?.id) return;
+        try {
+            setQueuedReports(await getQueuedReports(user.id));
+        } catch {
+            setQueuedReports([]);
+        }
+    }, [user]);
+
+    const syncOfflineQueue = useCallback(async () => {
+        if (!user?.id || !navigator.onLine || syncingReportsRef.current) return;
+        syncingReportsRef.current = true;
+        setSyncingReports(true);
+        const result = await syncQueuedReports(user.id).catch(() => ({ synced: 0, failed: 1 }));
+        await loadOfflineQueue();
+        if (result.synced) {
+            setNotice(t('offlineReportsSynced').replace('{count}', result.synced));
+            setRefreshKey((key) => key + 1);
+        }
+        syncingReportsRef.current = false;
+        setSyncingReports(false);
+    }, [loadOfflineQueue, t, user]);
+
+    useEffect(() => {
+        const initialLoad = setTimeout(() => {
+            loadOfflineQueue();
+            if (navigator.onLine) syncOfflineQueue();
+        }, 0);
+        const handleChanged = () => loadOfflineQueue();
+        const handleOnline = () => syncOfflineQueue();
+        window.addEventListener('offline-reports:changed', handleChanged);
+        window.addEventListener('online', handleOnline);
+        return () => {
+            clearTimeout(initialLoad);
+            window.removeEventListener('offline-reports:changed', handleChanged);
+            window.removeEventListener('online', handleOnline);
+        };
+    }, [loadOfflineQueue, syncOfflineQueue]);
 
     useEffect(() => {
         if (!showModal || !selectedTask) return;
@@ -78,8 +128,10 @@ function MyTasks() {
     const handleReportSubmit = async (e) => {
         e.preventDefault();
         setSubmitting(true);
+        setError('');
+        setNotice('');
 
-        const data = await createReportApi({
+        const payload = {
             task_id: selectedTask.id,
             content: reportData.content,
             status: reportData.status,
@@ -88,13 +140,33 @@ function MyTasks() {
             safety_notes: reportData.safety_notes,
             next_plan: reportData.next_plan,
             report_type: reportData.report_type,
-        }, attachment);
+        };
+        const data = navigator.onLine
+            ? await createReportApi(payload, attachment)
+            : { success: false, status: 0 };
 
         if (data.success) {
             localStorage.removeItem(`vdcm_report_draft_${selectedTask.id}`);
             setShowModal(false);
             setDraftRestored(false);
             setRefreshKey((k) => k + 1);
+        } else if (data.status === 0) {
+            try {
+                await queueOfflineReport({
+                    userId: user.id,
+                    task: selectedTask,
+                    payload,
+                    attachment,
+                });
+                localStorage.removeItem(`vdcm_report_draft_${selectedTask.id}`);
+                setShowModal(false);
+                setDraftRestored(false);
+                setAttachment(null);
+                setNotice(t('offlineReportQueued'));
+                await loadOfflineQueue();
+            } catch (queueError) {
+                setError(queueError.message || t('offlineReportQueueFailed'));
+            }
         } else {
             setError(data.message);
         }
@@ -179,6 +251,7 @@ function MyTasks() {
     const pendingCount = tasks.filter((t) => t.status === 'pending').length;
     const inProgressCount = tasks.filter((t) => t.status === 'in_progress').length;
     const completedCount = tasks.filter((t) => t.status === 'completed').length;
+    const queuedTaskIds = new Set(queuedReports.map((report) => Number(report.taskId)));
 
     const columns = [
         { key: 'project_name', label: t('project'), cellClassName: 'font-semibold text-slate-900' },
@@ -218,7 +291,9 @@ function MyTasks() {
                     <button className="btn btn-outline btn-sm" onClick={() => openChecklist(row)}>
                         ☑ {t('taskChecklist')}
                     </button>
-                    {row.has_pending_report ? (
+                    {queuedTaskIds.has(Number(row.id)) ? (
+                        <span className="badge badge-warning">{t('offlineWaitingSync')}</span>
+                    ) : row.has_pending_report ? (
                         <span className="badge badge-warning">{t('approvalPending')}</span>
                     ) : ['pending', 'in_progress'].includes(row.status) ? (
                         <button className="btn btn-accent btn-sm" onClick={() => openReportModal(row)}>
@@ -235,6 +310,18 @@ function MyTasks() {
             <PageHeader title={t('taskList')} subtitle={t('featureTaskDesc')} icon="📋" />
 
             {error && <div className="alert alert-error">{t('error')}: {error}</div>}
+            {notice && <div className="alert alert-success">{notice}</div>}
+            {queuedReports.length > 0 && (
+                <div className="flex flex-col gap-3 rounded-3xl border border-amber-200 bg-amber-50 p-5 text-amber-900 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <p className="font-semibold">{t('offlineQueueTitle')}</p>
+                        <p className="mt-1 text-sm">{t('offlineQueueCount').replace('{count}', queuedReports.length)}</p>
+                    </div>
+                    <button type="button" className="btn btn-outline" disabled={!navigator.onLine || syncingReports} onClick={syncOfflineQueue}>
+                        {syncingReports ? t('processing') : t('syncNow')}
+                    </button>
+                </div>
+            )}
 
             {tasks.length > 0 && (
                 <div className="grid gap-4 sm:grid-cols-3">

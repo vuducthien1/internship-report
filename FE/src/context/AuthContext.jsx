@@ -1,55 +1,39 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { isTokenExpired } from '../utils/jwt';
+import { getCurrentSessionApi, logoutApi } from '../services/authService';
 import { getRoleHome } from '../utils/roleRoutes';
 
 const AuthContext = createContext(null);
 
-const USER_KEY = 'vdcm_user';
-const TOKEN_KEY = 'accessToken';
-const ROLE_KEY = 'role';
-
-const readStoredAuth = () => {
-    const storedToken = localStorage.getItem(TOKEN_KEY);
-    const storedUser = localStorage.getItem(USER_KEY);
-    if (!storedToken || !storedUser || isTokenExpired(storedToken)) {
-        return { user: null, token: null };
-    }
-
-    try {
-        return { user: JSON.parse(storedUser), token: storedToken };
-    } catch {
-        return { user: null, token: null };
-    }
+const clearLegacyTokenStorage = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('role');
+    localStorage.removeItem('vdcm_user');
 };
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState(readStoredAuth);
-    const { user, token } = auth;
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const clearAuth = useCallback(() => {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(ROLE_KEY);
-        localStorage.removeItem(USER_KEY);
-        setAuth({ user: null, token: null });
+        clearLegacyTokenStorage();
+        setUser(null);
     }, []);
 
-    const login = useCallback((authToken, userData) => {
-        localStorage.setItem(TOKEN_KEY, authToken);
-        localStorage.setItem(ROLE_KEY, userData.role);
-        localStorage.setItem(USER_KEY, JSON.stringify(userData));
-        setAuth({ token: authToken, user: userData });
-    }, []);
+    useEffect(() => {
+        let active = true;
+        clearLegacyTokenStorage();
 
-    const logout = useCallback(() => {
-        clearAuth();
-    }, [clearAuth]);
+        getCurrentSessionApi()
+            .then((result) => {
+                if (active) setUser(result.success ? result.user : null);
+            })
+            .finally(() => {
+                if (active) setLoading(false);
+            });
 
-    const updateUser = useCallback((userData) => {
-        setAuth((current) => {
-            const nextUser = { ...current.user, ...userData };
-            localStorage.setItem(USER_KEY, JSON.stringify(nextUser));
-            return { ...current, user: nextUser };
-        });
+        return () => {
+            active = false;
+        };
     }, []);
 
     useEffect(() => {
@@ -58,15 +42,28 @@ export const AuthProvider = ({ children }) => {
         return () => window.removeEventListener('auth:expired', handleExpired);
     }, [clearAuth]);
 
-    const isAuthenticated = !!token && !!user && !isTokenExpired(token);
+    const login = useCallback((userData) => {
+        clearLegacyTokenStorage();
+        setUser(userData);
+    }, []);
+
+    const logout = useCallback(async () => {
+        await logoutApi();
+        clearAuth();
+    }, [clearAuth]);
+
+    const updateUser = useCallback((userData) => {
+        setUser((current) => current ? { ...current, ...userData } : current);
+    }, []);
+
+    const isAuthenticated = Boolean(user);
     const homePath = user ? getRoleHome(user.role) : '/';
 
     return (
         <AuthContext.Provider
             value={{
                 user,
-                token,
-                loading: false,
+                loading,
                 isAuthenticated,
                 login,
                 logout,

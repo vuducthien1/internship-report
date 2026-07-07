@@ -43,7 +43,7 @@ exports.createIncident = async (req, res) => {
             [value.project_id, value.task_id || null, req.user.id, value.title, value.description, value.severity, value.location_text || null, value.latitude, value.longitude, req.file ? `/uploads/incidents/${req.file.filename}` : null]
         );
         if (value.task_id) await db.query(`INSERT INTO task_updates (task_id, user_id, event_type, message) VALUES (?, ?, 'incident', ?)`, [value.task_id, req.user.id, `Báo cáo sự cố #${result.insertId}: ${value.title}`]);
-        if (projects[0].manager_id) await createNotification(req.app, { userId: projects[0].manager_id, title: value.severity === 'critical' ? 'Sự cố nghiêm trọng tại công trường' : 'Có báo cáo sự cố mới', message: `${projects[0].name} — ${value.title}`, type: 'warning', link: `/${projects[0].manager_role === 'admin' ? 'admin' : 'manager'}/incidents` }).catch(() => {});
+        if (projects[0].manager_id) await createNotification(req.app, { userId: projects[0].manager_id, title: value.severity === 'critical' ? 'Sự cố nghiêm trọng tại công trường' : 'Có báo cáo sự cố mới', message: `${projects[0].name} — ${value.title}`, type: 'warning', link: `/${projects[0].manager_role === 'admin' ? 'admin' : 'manager'}/incidents`, push: value.severity === 'critical', urgent: value.severity === 'critical' }).catch(() => {});
         return res.status(201).json({ success: true, message: 'Đã gửi báo cáo sự cố đến quản lý.' });
     } catch (error) { await removeFile(req.file); return respondServerError(res, error); }
 };

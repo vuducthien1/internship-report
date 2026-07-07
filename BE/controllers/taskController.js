@@ -97,6 +97,7 @@ exports.createTask = async (req, res) => {
             message: `${title} — ${projects[0].name}`,
             type: 'task',
             link: '/engineer/tasks',
+            push: true,
         }).catch(() => {});
 
         return res.status(201).json({ success: true, message: "✅ Giao việc thành công!" });
