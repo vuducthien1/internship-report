@@ -21,8 +21,8 @@ home = [ "HTML", "RSS", "JSON"]
   disableBreadcrumb = false
   disableNextPrev = false
   
-[Languages]
-[Languages.en]
+[languages]
+[languages.en]
 title = "Internship Report"
 weight = 1
 languageName = "English"
@@ -39,7 +39,7 @@ identifier = "AWS Study Group FB"
 url = "https://www.facebook.com/groups/awsstudygroupfcj"
 weight = 20
 
-[Languages.vi]
+[languages.vi]
 title = "Báo cáo thực tập"
 weight = 2
 languageName = "Tiếng Việt"
