@@ -1,5 +1,5 @@
-baseURL = "https://workshop-sample.awsfcaj.com/"
-relativeURLs = false
+baseURL = "https://vuducthien1.github.io/internship-report/"
+relativeURLs = true
 canonifyURLs = false
 defaultContentLanguage = "en"
 
