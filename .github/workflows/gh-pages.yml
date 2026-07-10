@@ -24,6 +24,5 @@ jobs:
         with:
           publish_dir: ./public
           publish_branch: gh-pages
-          publish_repo: ${{ github.repository }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: "Deploy site via GitHub Actions"
