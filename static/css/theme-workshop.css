@@ -206,19 +206,26 @@ h5 {
 
 .select-style {
   position: relative;
+  display: inline-block;
+  width: auto;
+  min-width: 150px;
 }
 
 .select-style select,
 #select-language {
-  color: #323235 !important;
+  color: #20232a !important;
   background: #ffffff !important;
   border: 1px solid #c5c5c5 !important;
-  padding: 0.5rem 2.5rem 0.5rem 0.75rem !important;
+  padding: 0.55rem 2.5rem 0.55rem 0.85rem !important;
   width: 100% !important;
   box-sizing: border-box !important;
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.95rem !important;
+  line-height: 1.35 !important;
+  text-transform: none !important;
 }
 
 .select-style svg {
@@ -227,11 +234,20 @@ h5 {
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  fill: #323235 !important;
+  fill: #20232a !important;
+  width: 0.9rem;
+  height: 0.7rem;
+}
+
+.select-style select:focus,
+#select-language:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(72, 129, 205, 0.18) !important;
+  border-color: #4881cd !important;
 }
 
 .select-style select option {
-  color: #323235 !important;
+  color: #20232a !important;
   background: #ffffff !important;
 }
 
