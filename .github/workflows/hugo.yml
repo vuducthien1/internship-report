@@ -1,0 +1,50 @@
+name: Build and deploy Hugo site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "content/**"
+      - "config.toml"
+      - "layouts/**"
+      - "archetypes/**"
+      - "themes/**"
+      - "static/**"
+      - "data/**"
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.134.3"
+          extended: true
+
+      - name: Build website
+        run: hugo --minify
+
+      - name: Verify generated site
+        run: |
+          echo "Contents of public/vi/1-worklog:"
+          find public/vi/1-worklog -maxdepth 2 | sort || true
+          echo "Generated public count:"
+          find public | wc -l
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
+          publish_branch: gh-pages
+          commit_message: "Deploy site via GitHub Actions"
+          force_orphan: true
