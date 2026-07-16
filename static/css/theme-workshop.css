@@ -204,6 +204,37 @@ h5 {
   letter-spacing: normal !important;
 }
 
+.select-style {
+  position: relative;
+}
+
+.select-style select,
+#select-language {
+  color: #323235 !important;
+  background: #ffffff !important;
+  border: 1px solid #c5c5c5 !important;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+.select-style svg {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  fill: #323235 !important;
+}
+
+.select-style select option {
+  color: #323235 !important;
+  background: #ffffff !important;
+}
+
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default,
