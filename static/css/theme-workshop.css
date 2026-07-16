@@ -207,34 +207,35 @@ h5 {
 .select-style {
   position: relative;
   display: inline-block;
-  width: auto;
+  width: 190px;
   min-width: 150px;
 }
 
 .select-style select,
 #select-language {
-  color: #20232a !important;
+  color: #1f2937 !important;
   background: #ffffff !important;
-  border: 1px solid #c5c5c5 !important;
-  padding: 0.55rem 2.5rem 0.55rem 0.85rem !important;
+  border: 1px solid #d1d5db !important;
+  padding: 0.55rem 2.2rem 0.55rem 0.9rem !important;
   width: 100% !important;
   box-sizing: border-box !important;
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
-  border-radius: 0.5rem !important;
+  border-radius: 0.55rem !important;
   font-size: 0.95rem !important;
-  line-height: 1.35 !important;
-  text-transform: none !important;
+  line-height: 1.4 !important;
+  font-weight: 500 !important;
+  min-height: 2.3rem !important;
 }
 
 .select-style svg {
   position: absolute;
-  right: 0.75rem;
+  right: 0.85rem;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  fill: #20232a !important;
+  fill: #4b5563 !important;
   width: 0.9rem;
   height: 0.7rem;
 }
@@ -242,13 +243,18 @@ h5 {
 .select-style select:focus,
 #select-language:focus {
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(72, 129, 205, 0.18) !important;
-  border-color: #4881cd !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18) !important;
+  border-color: #3b82f6 !important;
 }
 
 .select-style select option {
-  color: #20232a !important;
+  color: #1f2937 !important;
   background: #ffffff !important;
+}
+
+.select-style select option:checked {
+  color: #1f2937 !important;
+  background: #e5e7eb !important;
 }
 
 .ui-state-default,
