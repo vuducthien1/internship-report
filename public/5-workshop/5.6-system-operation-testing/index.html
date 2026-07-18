@@ -1,52 +1,903 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.164.0"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=https://vuducthien1.github.io/internship-report/images/favicon.png type=image/png><title>Real-world Business Flow Testing Scenario ::</title><link href=https://vuducthien1.github.io/internship-report/css/nucleus.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/fontawesome-all.min.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/hybrid.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/featherlight.min.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/perfect-scrollbar.min.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/auto-complete.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/atom-one-dark-reasonable.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/theme.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/hugo-theme.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/theme-workshop.css?1784362576 rel=stylesheet><script src=https://vuducthien1.github.io/internship-report/js/jquery-3.3.1.min.js?1784362576></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=https://vuducthien1.github.io/internship-report/5-workshop/5.6-system-operation-testing/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=https://vuducthien1.github.io/internship-report/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
-<input data-search-input id=search-by type=search placeholder=Search...>
-<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=https://vuducthien1.github.io/internship-report/js/lunr.min.js?1784362576></script><script type=text/javascript src=https://vuducthien1.github.io/internship-report/js/auto-complete.js?1784362576></script><script type=text/javascript>var baseurl="https://vuducthien1.github.io/internship-report/"</script><script type=text/javascript src=https://vuducthien1.github.io/internship-report/js/search.js?1784362576></script></div><div class=highlightable><ul class=topics><li data-nav-id=/1-worklog/ title=Worklog class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/><b>1. </b>Worklog
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/1-worklog/1.1-week1/ title="Week 1 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.1-week1/><b>1.1. </b>Week 1 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.2-week2/ title="Week 2 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.2-week2/><b>1.2. </b>Week 2 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.3-week3/ title="Week 3 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.3-week3/><b>1.3. </b>Week 3 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.4-week4/ title="Week 4 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.4-week4/><b>1.4. </b>Week 4 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.5-week5/ title="Week 5 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.5-week5/><b>1.5. </b>Week 5 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.6-week6/ title="Week 6 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.6-week6/><b>1.6. </b>Week 6 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.7-week7/ title="Week 7 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.7-week7/><b>1.7. </b>Week 7 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.8-week8/ title="Week 8 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.8-week8/><b>1.8. </b>Week 8 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.9-week9/ title="Week 9 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.9-week9/><b>1.9. </b>Week 9 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.10-week10/ title="Week 10 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.10-week10/><b>1.10. </b>Week 10 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.11-week11/ title="Week 11 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.11-week11/><b>1.11. </b>Week 11 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.12-week12/ title="Week 12 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.12-week12/><b>1.12. </b>Week 12 Worklog
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/2-proposal/ title=Proposal class=dd-item><a href=https://vuducthien1.github.io/internship-report/2-proposal/><b>2. </b>Proposal
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/ title="Translated Blogs" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/><b>3. </b>Translated Blogs
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/3-blogstranslated/3.1-blog1/ title="Blog 1" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.1-blog1/><b>3.1. </b>Blog 1
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/3.2-blog2/ title="Blog 2" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.2-blog2/><b>3.2. </b>Blog 2
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/3.3-blog3/ title="Blog 3" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.3-blog3/><b>3.3. </b>Blog 3
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/3.4-blog4/ title="Blog 4" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.4-blog4/><b>3.4. </b>Blog 4
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/4-eventparticipated/ title="Events Participated" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/><b>4. </b>Events Participated
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/ title=Workshop class="dd-item
-parent"><a href=https://vuducthien1.github.io/internship-report/5-workshop/><b>5. </b>Workshop
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.1-workshop-overview/ title="Workshop Overview" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.1-workshop-overview/><b>5.1. </b>Workshop Overview
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.2-prerequisite/ title=Prerequisite class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.2-prerequisite/><b>5.2. </b>Prerequisite
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-amazon-ses/ title="Detailed Email Authentication Configuration" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.3-amazon-ses/><b>5.3. </b>Detailed Email Authentication Configuration
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.4-cloudformation/ title="Infrastructure Deployment Process via Command Line" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.4-cloudformation/><b>5.4. </b>Infrastructure Deployment Process via Command Line
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-multi-service-integration/ title="Post-Deployment Resource Status Validation" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.5-multi-service-integration/><b>5.5. </b>Post-Deployment Resource Status Validation
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-system-operation-testing/ title="Real-world Business Flow Testing Scenario" class="dd-item
-active"><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.6-system-operation-testing/><b>5.6. </b>Real-world Business Flow Testing Scenario
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-cleanup/ title="Resource Cleanup and Decommissioning Process" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.7-cleanup/><b>5.7. </b>Resource Cleanup and Decommissioning Process
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-additional-resources/ title="Additional Resources" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.8-additional-resources/><b>5.8. </b>Additional Resources
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/6-self-evaluation/ title=Self-Assessment class=dd-item><a href=https://vuducthien1.github.io/internship-report/6-self-evaluation/><b>6. </b>Self-Assessment
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/7-feedback/ title="Sharing and Feedback" class=dd-item><a href=https://vuducthien1.github.io/internship-report/7-feedback/><b>7. </b>Sharing and Feedback
-<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=vi value=https://vuducthien1.github.io/internship-report/vi/5-workshop/5.6-system-operation-testing/></option><option id=en value=https://vuducthien1.github.io/internship-report/5-workshop/5.6-system-operation-testing/ selected></option></select>
-<svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>18-07-2026</font>
-</i></left><left><br><br><b>Team</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>First Cloud AI Journey</a>
-</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
-</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links><a href=https://vuducthien1.github.io/internship-report/>Internship Report</a> > <a href=https://vuducthien1.github.io/internship-report/5-workshop/>Workshop</a> > Real-world Business Flow Testing Scenario</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li></li></ul></li><li><a href=#>Truy cập <strong>AWS S3 Console</strong>, vào Data Bucket của hệ thống và điều hướng theo đường dẫn thư mục <code>projects/</code>. <img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-33.png alt></a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Real-world Business Flow Testing Scenario</h1><h4 id=mục-đích>Mục đích</h4><p>Kiểm thử tính đúng đắn của toàn bộ luồng chức năng phần mềm, quy trình phân phối dữ liệu và khả năng tích hợp các dịch vụ hạ tầng AWS thông qua giao diện ứng dụng công khai được cấu hình bởi CloudFront.</p><h4 id=các-bước-triển-khai-và-kịch-bản-kiểm-thử-chi-tiết>Các bước triển khai và Kịch bản kiểm thử chi tiết</h4><p><strong>1. Kiểm tra giao diện tổng quan và Cấu hình tài khoản</strong></p><ul><li>Truy cập vào liên kết phân phối CloudFront. Hệ thống hiển thị trang giới thiệu với thông tin về giải pháp Quản lý công trường tích hợp xử lý giọng nói (VDCMS).
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6.png alt></li><li>Kiểm tra chức năng chuyển đổi ngôn ngữ (VI/EN) và chuyển đổi giao diện hiển thị (Dark/Light mode) để đảm bảo các tài nguyên tĩnh hoạt động chính xác.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-1.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-2.png alt></li><li>Đăng nhập với tài khoản Admin đã lấy được trước đó
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-34.png alt></li><li>Truy cập mục <strong>Quản lý tài khoản</strong>: Thực hiện thử nghiệm cập nhật thông tin cá nhân, thay đổi mật khẩu và tải lên ảnh đại diện để xác thực luồng ghi nhận dữ liệu người dùng.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-3.png alt></li></ul><hr><p><strong>2. Khởi tạo tài khoản Kỹ sư (Engineer) qua AWS Systems Manager Session Manager</strong></p><p>Do yêu cầu bảo mật nghiêm ngặt đối với tài khoản kỹ sư thực địa, luồng khởi tạo này được thực hiện trực tiếp thông qua việc truy cập máy chủ Backend thay vì đăng ký tự do trên UI.</p><ul><li>Mở <strong>AWS CloudShell</strong> hoặc môi trường dòng lệnh có quyền quản trị, thực hiện lệnh khởi chạy session kết nối trực tiếp vào máy chủ EC2 mà không cần mở cổng SSH công khai:</li></ul><pre tabindex=0><code>aws ssm start-session --target &#34;$INSTANCE_ID&#34; --region ap-southeast-1
-</code></pre><ul><li>Sau khi truy cập thành công vào phiên làm việc của máy chủ, thực thi đoạn mã script Node.js sau để bóc tách biến môi trường, thiết lập kết nối SSL an toàn đến cơ sở dữ liệu RDS và chèn trực tiếp thông tin kỹ sư đã được xác thực mã hóa:</li></ul><pre tabindex=0><code>cd /opt/vdcms/BE &amp;&amp; sudo node -e &#34;
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head><script src="/internship-report/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=internship-report/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.164.0">
+    <meta
+  name="description"
+  content=""
+/>
+<meta name="author" content="thienlh@thienlu.com" />
+
+    <link rel="icon" href="http://localhost:1313/internship-report/images/favicon.png" type="image/png">
+
+    <title>Real-world Business Flow Testing Scenario :: </title>
+
+    
+    <link href="http://localhost:1313/internship-report/css/nucleus.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/fontawesome-all.min.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/hybrid.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/featherlight.min.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/perfect-scrollbar.min.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/auto-complete.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/atom-one-dark-reasonable.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/theme.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/hugo-theme.css?1784365715" rel="stylesheet">
+    
+    <link href="http://localhost:1313/internship-report/css/theme-workshop.css?1784365715" rel="stylesheet">
+    
+    
+
+    <script src="http://localhost:1313/internship-report/js/jquery-3.3.1.min.js?1784365715"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+
+  </head>
+  <body class="" data-url="http://localhost:1313/internship-report/5-workshop/5.6-system-operation-testing/">
+    <nav
+  id="sidebar"
+  class="showVisitedLinks"
+>
+   
+  <div id="header-wrapper">
+    <div id="header"><a id="logo" href="http://localhost:1313/internship-report/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#fff;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+</div>
+     <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/lunr.min.js?1784365715"></script>
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/auto-complete.js?1784365715"></script>
+<script type="text/javascript">
+    var baseurl = "http:\/\/localhost:1313\/internship-report\/";
+</script>
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/search.js?1784365715"></script>
+ 
+  </div>
+
+  <div class="highlightable">
+    <ul class="topics">
+               
+<li
+  data-nav-id="/1-worklog/"
+  title="Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/">
+     <b> 1. </b> Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/1-worklog/1.1-week1/"
+  title="Week 1 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.1-week1/">
+     <b> 1.1. </b> Week 1 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.2-week2/"
+  title="Week 2 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.2-week2/">
+     <b> 1.2. </b> Week 2 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.3-week3/"
+  title="Week 3 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.3-week3/">
+     <b> 1.3. </b> Week 3 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.4-week4/"
+  title="Week 4 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.4-week4/">
+     <b> 1.4. </b> Week 4 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.5-week5/"
+  title="Week 5 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.5-week5/">
+     <b> 1.5. </b> Week 5 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.6-week6/"
+  title="Week 6 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.6-week6/">
+     <b> 1.6. </b> Week 6 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.7-week7/"
+  title="Week 7 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.7-week7/">
+     <b> 1.7. </b> Week 7 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.8-week8/"
+  title="Week 8 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.8-week8/">
+     <b> 1.8. </b> Week 8 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.9-week9/"
+  title="Week 9 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.9-week9/">
+     <b> 1.9. </b> Week 9 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.10-week10/"
+  title="Week 10 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.10-week10/">
+     <b> 1.10. </b> Week 10 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.11-week11/"
+  title="Week 11 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.11-week11/">
+     <b> 1.11. </b> Week 11 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.12-week12/"
+  title="Week 12 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.12-week12/">
+     <b> 1.12. </b> Week 12 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/2-proposal/"
+  title="Proposal"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/2-proposal/">
+     <b> 2. </b> Proposal 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/3-blogstranslated/"
+  title="Translated Blogs"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/">
+     <b> 3. </b> Translated Blogs 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/3-blogstranslated/3.1-blog1/"
+  title="Blog 1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.1-blog1/">
+     <b> 3.1. </b> Blog 1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/3-blogstranslated/3.2-blog2/"
+  title="Blog 2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.2-blog2/">
+     <b> 3.2. </b> Blog 2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/3-blogstranslated/3.3-blog3/"
+  title="Blog 3"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.3-blog3/">
+     <b> 3.3. </b> Blog 3 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/3-blogstranslated/3.4-blog4/"
+  title="Blog 4"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.4-blog4/">
+     <b> 3.4. </b> Blog 4 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/4-eventparticipated/"
+  title="Events Participated"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/">
+     <b> 4. </b> Events Participated 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/4-eventparticipated/4.1-event1/"
+  title="Event 1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/4.1-event1/">
+     <b> 4.1. </b> Event 1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/4-eventparticipated/4.2-event2/"
+  title="Event 2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/4.2-event2/">
+     <b> 4.2. </b> Event 2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/4-eventparticipated/4.3-event3/"
+  title="Event 3"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/4.3-event3/">
+     <b> 4.3. </b> Event 3 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/5-workshop/"
+  title="Workshop"
+  class="dd-item 
+        parent
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/">
+     <b> 5. </b> Workshop 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/5-workshop/5.1-workshop-overview/"
+  title="Workshop Overview"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.1-workshop-overview/">
+     <b> 5.1. </b> Workshop Overview 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.2-prerequisite/"
+  title="Prerequisite"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.2-prerequisite/">
+     <b> 5.2. </b> Prerequisite 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.3-amazon-ses/"
+  title="Detailed Email Authentication Configuration"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.3-amazon-ses/">
+     <b> 5.3. </b> Detailed Email Authentication Configuration 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.4-cloudformation/"
+  title="Infrastructure Deployment Process via Command Line"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.4-cloudformation/">
+     <b> 5.4. </b> Infrastructure Deployment Process via Command Line 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.5-multi-service-integration/"
+  title="Post-Deployment Resource Status Validation"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.5-multi-service-integration/">
+     <b> 5.5. </b> Post-Deployment Resource Status Validation 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.6-system-operation-testing/"
+  title="Real-world Business Flow Testing Scenario"
+  class="dd-item 
+        
+        active
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.6-system-operation-testing/">
+     <b> 5.6. </b> Real-world Business Flow Testing Scenario 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.7-cleanup/"
+  title="Resource Cleanup and Decommissioning Process"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.7-cleanup/">
+     <b> 5.7. </b> Resource Cleanup and Decommissioning Process 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.8-additional-resources/"
+  title="Additional Resources"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.8-additional-resources/">
+     <b> 5.8. </b> Additional Resources 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/6-self-evaluation/"
+  title="Self-Assessment"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/6-self-evaluation/">
+     <b> 6. </b> Self-Assessment 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/7-feedback/"
+  title="Feedback &amp; Contributions"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/7-feedback/">
+     <b> 7. </b> Feedback &amp; Contributions 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+    </ul>
+
+     
+    <section id="shortcuts">
+      <h3>
+        More
+      </h3>
+      <ul>
+        
+        <li>
+          <a class="padding" href="https://awsstudygroup.com"
+            ><i class='fab fa-aws'></i> AWS Study Group - Blog</a
+          >
+        </li>
+        
+        <li>
+          <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj"
+            ><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+     
+    <section id="prefooter">
+      <hr />
+      <ul>
+        
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+                         
+                <option
+                  id="vi"
+                  value="http://localhost:1313/internship-report/vi/5-workshop/5.6-system-operation-testing/"
+                >
+                  
+                </option>
+                        
+                <option
+                  id="en"
+                  value="http://localhost:1313/internship-report/5-workshop/5.6-system-operation-testing/"
+                  selected
+                >
+                  
+                </option>
+                     
+              </select>
+              <svg
+                version="1.1"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                width="255px"
+                height="255px"
+                viewBox="0 0 255 255"
+                style="enable-background: new 0 0 255 255"
+                xml:space="preserve"
+              >
+                <g>
+                  <g id="arrow-drop-down">
+                    <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </a>
+        </li>
+         
+        <li>
+          <a class="padding" href="#" data-clear-history-toggle=""
+            ><i class="fas fa-history fa-fw"></i> Clear History</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+    
+    <section id="footer"><left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>18-07-2026</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Team </b> <br>
+    <i>
+        <a href="https://www.facebook.com/groups/660548818043427" style="color:orange">First Cloud AI Journey</a>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script></section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='http://localhost:1313/internship-report/'>Internship Report</a> > <a href='http://localhost:1313/internship-report/5-workshop/'>Workshop</a> > Real-world Business Flow Testing Scenario
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+  <div class="wrapper"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#">Truy cập <strong>AWS S3 Console</strong>, vào Data Bucket của hệ thống và điều hướng theo đường dẫn thư mục <code>projects/</code>. <img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-33.png" alt=""></a></li>
+  </ul>
+</nav></div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Real-world Business Flow Testing Scenario
+            </h1>
+          
+
+        
+
+
+
+	<h4 id="mục-đích">Mục đích</h4>
+<p>Kiểm thử tính đúng đắn của toàn bộ luồng chức năng phần mềm, quy trình phân phối dữ liệu và khả năng tích hợp các dịch vụ hạ tầng AWS thông qua giao diện ứng dụng công khai được cấu hình bởi CloudFront.</p>
+<h4 id="các-bước-triển-khai-và-kịch-bản-kiểm-thử-chi-tiết">Các bước triển khai và Kịch bản kiểm thử chi tiết</h4>
+<p><strong>1. Kiểm tra giao diện tổng quan và Cấu hình tài khoản</strong></p>
+<ul>
+<li>Truy cập vào liên kết phân phối CloudFront. Hệ thống hiển thị trang giới thiệu với thông tin về giải pháp Quản lý công trường tích hợp xử lý giọng nói (VDCMS).
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6.png" alt=""></li>
+<li>Kiểm tra chức năng chuyển đổi ngôn ngữ (VI/EN) và chuyển đổi giao diện hiển thị (Dark/Light mode) để đảm bảo các tài nguyên tĩnh hoạt động chính xác.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-1.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-2.png" alt=""></li>
+<li>Đăng nhập với tài khoản Admin đã lấy được trước đó
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-34.png" alt=""></li>
+<li>Truy cập mục <strong>Quản lý tài khoản</strong>: Thực hiện thử nghiệm cập nhật thông tin cá nhân, thay đổi mật khẩu và tải lên ảnh đại diện để xác thực luồng ghi nhận dữ liệu người dùng.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-3.png" alt=""></li>
+</ul>
+<hr>
+<p><strong>2. Khởi tạo tài khoản Kỹ sư (Engineer) qua AWS Systems Manager Session Manager</strong></p>
+<p>Do yêu cầu bảo mật nghiêm ngặt đối với tài khoản kỹ sư thực địa, luồng khởi tạo này được thực hiện trực tiếp thông qua việc truy cập máy chủ Backend thay vì đăng ký tự do trên UI.</p>
+<ul>
+<li>Mở <strong>AWS CloudShell</strong> hoặc môi trường dòng lệnh có quyền quản trị, thực hiện lệnh khởi chạy session kết nối trực tiếp vào máy chủ EC2 mà không cần mở cổng SSH công khai:</li>
+</ul>
+<pre tabindex="0"><code>aws ssm start-session --target &#34;$INSTANCE_ID&#34; --region ap-southeast-1
+</code></pre><ul>
+<li>Sau khi truy cập thành công vào phiên làm việc của máy chủ, thực thi đoạn mã script Node.js sau để bóc tách biến môi trường, thiết lập kết nối SSL an toàn đến cơ sở dữ liệu RDS và chèn trực tiếp thông tin kỹ sư đã được xác thực mã hóa:</li>
+</ul>
+<pre tabindex="0"><code>cd /opt/vdcms/BE &amp;&amp; sudo node -e &#34;
 const mysql = require(&#39;/opt/vdcms/BE/node_modules/mysql2/promise&#39;);
 const bcrypt = require(&#39;/opt/vdcms/BE/node_modules/bcryptjs&#39;);
 const fs = require(&#39;fs&#39;);
@@ -82,26 +933,749 @@ async function add() {
 
 add().catch(console.error);
 &#34;
-</code></pre><p><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-4.png alt></p><ul><li>Nhập lệnh <code>exit</code> để thoát phiên làm việc an toàn. Tài khoản kiểm thử được xác lập: <code>engineer1</code> / <code>Engineer1!</code>.</li></ul><hr><p><strong>3. Luồng Đăng ký & Phê duyệt cấp Quản lý (Manager)</strong></p><ul><li>Trên giao diện Web công khai, chọn mục <strong>Đăng ký tài khoản</strong>. Tiến hành nhập các thông tin cho cấp quản lý bao gồm: Tên đăng nhập (<code>manager</code>), Mật khẩu (<code>Manager1!</code>), Email (<code>thoai352004@gmail.com</code>).
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-5.png alt></li><li>Sau khi gửi yêu cầu, tài khoản này sẽ rơi vào trạng thái chờ duyệt. Đăng nhập vào hệ thống với tư cách Admin tối cao (<code>vdcmsadmin</code>). Truy cập mục <strong>Quản lý người dùng</strong>, hệ thống sẽ hiển thị yêu cầu đăng ký của <code>manager</code> với trạng thái <strong>Chờ phê duyệt</strong>. Admin tiến hành nhấn nút <strong>Phê duyệt</strong>.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-6.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-7.png alt></li><li>Sau khi được Admin duyệt, người dùng đăng nhập bằng tài khoản <code>manager</code>. Hệ thống sẽ yêu cầu xác thực email thông qua một đường dẫn/mã kích hoạt được gửi trực tiếp từ AWS SES về hộp thư <code>thoai352004@gmail.com</code>. Người dùng thực hiện kích hoạt để hoàn tất quy trình xác thực.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-8.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-9.png alt></li></ul><hr><p><strong>4. Luồng Nghiệp vụ Admin (Quản lý dự án, Nhật ký & Kiểm tra dịch vụ)</strong></p><ul><li>Với quyền <strong>Admin</strong>, truy cập mục <strong>Dự án</strong> và nhấn <strong>Tạo dự án</strong>. Nhập các thông tin kiểm thử: Tên dự án (<code>bababa</code>), Địa điểm (<code>HCM</code>), Mô tả dự án (<code>hihi</code>), và lựa chọn gán quyền phụ trách cho tài khoản Quản lý (<code>manager</code>), thiết lập thời gian thực hiện dự án và nhấn <strong>Lưu</strong>.</li><li>Admin tiến hành giao một số nhiệm vụ trọng tâm cho tài khoản Quản lý (<code>manager</code>) để điều phối cấp cao.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-10.png alt></li><li>Truy cập mục <strong>Dịch vụ AWS</strong>: Kiểm tra trạng thái hiển thị của bảng điều khiển giám sát cấu hình dịch vụ, đảm bảo hệ thống đã nhận diện chính xác các thiết lập kết nối đến AWS SDK và các tài nguyên Cloud liên quan.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-27.png alt></li><li>Truy cập mục <strong>Nhật ký hoạt động</strong>: Kiểm tra hệ thống lưu vết log tập trung, đảm bảo mọi hành động như khởi tạo dự án, bàn giao nhiệm vụ hay phê duyệt tài khoản đều được hệ thống ghi nhận minh bạch, phục vụ cho công tác giám sát vận hành.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-35.png alt></li></ul><hr><p><strong>5. Luồng Nghiệp vụ Quản lý & Điều phối Tác vụ (Manager)</strong></p><ul><li>Đăng nhập bằng tài khoản Quản lý dự án (<code>manager</code>). Truy cập mục dự án để kiểm tra danh sách các dự án đang được gán quyền phụ trách (Xác nhận dự án <code>bababa</code> hiển thị chính xác).
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-11.png alt></li><li>Xem thông tin các nhiệm vụ do Admin giao và tiến hành cập nhật trạng thái tiến độ công việc tương ứng.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-14.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-15.png alt></li><li>Thực hiện chức năng điều phối: Chọn dự án <code>bababa</code>, chọn chức năng <strong>Giao việc</strong> để thiết lập một nhiệm vụ mới cho kỹ sư (<code>engineer1</code>). Nhập thông tin công việc: Tên công việc (<code>farm</code>), nội dung mô tả chi tiết và thiết lập hạn chót (Deadline).
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-12.png alt></li><li>Check báo cáo của kĩ sư và duyệt
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-22.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-23.png alt></li></ul><hr><p><strong>6. Luồng Kỹ sư Thực địa & Kiểm thử Tích hợp Xử lý Giọng nói (AWS Transcribe + SQS)</strong></p><ul><li>Đăng nhập bằng tài khoản kỹ sư (<code>engineer1</code>). Truy cập mục <strong>Lịch công việc</strong> để kiểm tra trực quan các thời hạn chót của nhiệm vụ được giao trên bảng lịch.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-28.png alt></li><li>Truy cập vào tác vụ <code>farm</code>, thực hiện tích chọn hoàn thành các đầu mục công việc trong <strong>Checklist</strong> nghiệm thu và cập nhật tiến độ tổng thể lên 100%.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-16.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-36.png alt></li><li><strong>Kiểm thử tích hợp luồng Voice Transcribe:</strong></li></ul><ol><li>Tại khung tạo báo cáo công việc, nhấn vào biểu tượng <strong>Microphone</strong>. Trình duyệt sẽ yêu cầu và nhận cấp quyền truy cập thiết bị phần cứng.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-17.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-19.png alt></li><li>Kỹ sư bắt đầu đọc nội dung báo cáo thực địa (Ví dụ: <em>“Hello, hello, hello”</em>).</li><li>Quay lại giao diện ứng dụng, đoạn mã văn bản đã dịch tự động bởi dịch vụ <strong>Amazon Transcribe</strong> xuất hiện đầy đủ và chính xác trong nội dung báo cáo mà không cần nhập liệu thủ công.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-20.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-21.png alt></li></ol><ul><li>Kỹ sư nhập thêm số liệu khối lượng hoàn thành (<code>20m</code>), tải lên tệp ảnh minh chứng hiện trường xây dựng thực tế và thực hiện <strong>Gửi báo cáo</strong>. Ngoài ra, kỹ sư có thể sử dụng tính năng <strong>Xuất dữ liệu CSV</strong> trực tiếp để kết xuất bảng tính báo cáo tiến độ.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-18.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-23.png alt></li></ul><hr><p><strong>7. Kiểm thử Lưu trữ dữ liệu an toàn & Tài liệu dự án trên Amazon S3</strong></p><ul><li>Tại mục <strong>Tài liệu dự án</strong>, thực hiện tải lên một tệp tài liệu kỹ thuật định dạng PDF vào kho dữ liệu chung của dự án <code>bababa</code> (Dữ liệu sẽ được đẩy trực tiếp vào AWS S3 Data Bucket).
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-32.png alt></li><li><strong>Kiểm tra trạng thái lưu trữ trên AWS S3:</strong></li></ul><h2>Truy cập <strong>AWS S3 Console</strong>, vào Data Bucket của hệ thống và điều hướng theo đường dẫn thư mục <code>projects/</code>.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-33.png alt></h2><p><strong>8. Quản lý Sự cố và Kênh giao tiếp Trực tiếp</strong></p><ul><li><strong>Luồng báo cáo sự cố an toàn:</strong> Kỹ sư ở công trường gặp sự cố sẽ truy cập mục <strong>Báo cáo sự cố</strong>, tiến hành nhập tọa độ vị trí thực tế, nội dung vấn đề, lựa chọn mức độ nghiêm trọng và đính kèm hình ảnh minh chứng hiện trường gửi lên hệ thống.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-24.png alt></li><li>Đăng nhập lại bằng tài khoản <strong>Admin</strong>, truy cập mục sự cố an toàn để tiếp nhận thông tin. Tiến hành xử lý thông qua biểu mẫu <strong>Kế hoạch xử lý sự cố</strong>: Cập nhật trạng thái giải quyết, chỉ định người chịu trách nhiệm, hạn xử lý, xác định nguyên nhân gốc rễ, đề xuất biện pháp khắc phục/phòng ngừa và tải lên hình ảnh sau khi đã khắc phục xong sự cố để lưu vết.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-25.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-26.png alt></li><li><strong>Kiểm thử tính năng Chat trực tiếp:</strong> Truy cập vào phân hệ Chat giữa Kỹ sư (<code>engineer1</code>) và Quản lý (<code>manager</code>). Thực hiện gửi các đoạn tin nhắn văn bản, tệp tin đính kèm và file ghi âm qua lại để kiểm tra độ trễ thấp của Socket.IO. Đăng nhập tài khoản Admin để xác nhận Admin có quyền theo dõi tập trung luồng chat hệ thống và thực hiện kích hoạt lệnh khóa/mở khóa kênh chat khi cần thiết (Dữ liệu chat được quản lý và lưu trữ thông qua S3 Data Bucket).
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-29.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-30.png alt><img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-31.png alt></li></ul><hr><p><strong>9. Xác thực Lớp Giám sát Tập trung qua Amazon CloudWatch Logs</strong></p><ul><li>Truy cập vào hệ thống quản trị <strong>AWS CloudWatch Console</strong>, điều hướng đến mục <strong>Log groups</strong>.</li><li>Kiểm tra và truy cập vào nhóm log lưu trữ của cơ sở dữ liệu có tiền tố <code>/aws/rds/...</code>.</li><li>Xác nhận các bản ghi log hệ thống, lỗi kết nối và dữ liệu truy vấn chậm (slow query logs) từ Amazon RDS đang được đẩy về liên tục và trực quan, chứng minh hệ thống giám sát và tracking an ninh đang hoạt động ổn định và chính xác theo đúng thiết kế kiến trúc.
-<img src=https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-37.png alt></li></ul><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=https://vuducthien1.github.io/internship-report/5-workshop/5.5-multi-service-integration/ title="Post-Deployment Resource Status Validation"><i class="fa fa-chevron-left"></i></a>
-<a class="nav nav-next" href=https://vuducthien1.github.io/internship-report/5-workshop/5.7-cleanup/ title="Resource Cleanup and Decommissioning Process" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1e3px;overflow:scroll;position:absolute;top:-1e3px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=https://vuducthien1.github.io/internship-report/js/clipboard.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/perfect-scrollbar.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/perfect-scrollbar.jquery.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/jquery.sticky.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/featherlight.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/highlight.pack.js?1784362576></script><script>hljs.initHighlightingOnLoad()</script><script src=https://vuducthien1.github.io/internship-report/js/modernizr.custom-3.6.0.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/learn.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/hugo-learn.js?1784362576></script><link href=https://vuducthien1.github.io/internship-report/mermaid/mermaid.css?1784362576 rel=stylesheet><script src=https://vuducthien1.github.io/internship-report/mermaid/mermaid.js?1784362576></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>
+</code></pre><p><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-4.png" alt=""></p>
+<ul>
+<li>Nhập lệnh <code>exit</code> để thoát phiên làm việc an toàn. Tài khoản kiểm thử được xác lập: <code>engineer1</code> / <code>Engineer1!</code>.</li>
+</ul>
+<hr>
+<p><strong>3. Luồng Đăng ký &amp; Phê duyệt cấp Quản lý (Manager)</strong></p>
+<ul>
+<li>Trên giao diện Web công khai, chọn mục <strong>Đăng ký tài khoản</strong>. Tiến hành nhập các thông tin cho cấp quản lý bao gồm: Tên đăng nhập (<code>manager</code>), Mật khẩu (<code>Manager1!</code>), Email (<code>thoai352004@gmail.com</code>).
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-5.png" alt=""></li>
+<li>Sau khi gửi yêu cầu, tài khoản này sẽ rơi vào trạng thái chờ duyệt. Đăng nhập vào hệ thống với tư cách Admin tối cao (<code>vdcmsadmin</code>). Truy cập mục <strong>Quản lý người dùng</strong>, hệ thống sẽ hiển thị yêu cầu đăng ký của <code>manager</code> với trạng thái <strong>Chờ phê duyệt</strong>. Admin tiến hành nhấn nút <strong>Phê duyệt</strong>.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-6.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-7.png" alt=""></li>
+<li>Sau khi được Admin duyệt, người dùng đăng nhập bằng tài khoản <code>manager</code>. Hệ thống sẽ yêu cầu xác thực email thông qua một đường dẫn/mã kích hoạt được gửi trực tiếp từ AWS SES về hộp thư <code>thoai352004@gmail.com</code>. Người dùng thực hiện kích hoạt để hoàn tất quy trình xác thực.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-8.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-9.png" alt=""></li>
+</ul>
+<hr>
+<p><strong>4. Luồng Nghiệp vụ Admin (Quản lý dự án, Nhật ký &amp; Kiểm tra dịch vụ)</strong></p>
+<ul>
+<li>Với quyền <strong>Admin</strong>, truy cập mục <strong>Dự án</strong> và nhấn <strong>Tạo dự án</strong>. Nhập các thông tin kiểm thử: Tên dự án (<code>bababa</code>), Địa điểm (<code>HCM</code>), Mô tả dự án (<code>hihi</code>), và lựa chọn gán quyền phụ trách cho tài khoản Quản lý (<code>manager</code>), thiết lập thời gian thực hiện dự án và nhấn <strong>Lưu</strong>.</li>
+<li>Admin tiến hành giao một số nhiệm vụ trọng tâm cho tài khoản Quản lý (<code>manager</code>) để điều phối cấp cao.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-10.png" alt=""></li>
+<li>Truy cập mục <strong>Dịch vụ AWS</strong>: Kiểm tra trạng thái hiển thị của bảng điều khiển giám sát cấu hình dịch vụ, đảm bảo hệ thống đã nhận diện chính xác các thiết lập kết nối đến AWS SDK và các tài nguyên Cloud liên quan.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-27.png" alt=""></li>
+<li>Truy cập mục <strong>Nhật ký hoạt động</strong>: Kiểm tra hệ thống lưu vết log tập trung, đảm bảo mọi hành động như khởi tạo dự án, bàn giao nhiệm vụ hay phê duyệt tài khoản đều được hệ thống ghi nhận minh bạch, phục vụ cho công tác giám sát vận hành.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-35.png" alt=""></li>
+</ul>
+<hr>
+<p><strong>5. Luồng Nghiệp vụ Quản lý &amp; Điều phối Tác vụ (Manager)</strong></p>
+<ul>
+<li>Đăng nhập bằng tài khoản Quản lý dự án (<code>manager</code>). Truy cập mục dự án để kiểm tra danh sách các dự án đang được gán quyền phụ trách (Xác nhận dự án <code>bababa</code> hiển thị chính xác).
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-11.png" alt=""></li>
+<li>Xem thông tin các nhiệm vụ do Admin giao và tiến hành cập nhật trạng thái tiến độ công việc tương ứng.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-14.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-15.png" alt=""></li>
+<li>Thực hiện chức năng điều phối: Chọn dự án <code>bababa</code>, chọn chức năng <strong>Giao việc</strong> để thiết lập một nhiệm vụ mới cho kỹ sư (<code>engineer1</code>). Nhập thông tin công việc: Tên công việc (<code>farm</code>), nội dung mô tả chi tiết và thiết lập hạn chót (Deadline).
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-12.png" alt=""></li>
+<li>Check báo cáo của kĩ sư và duyệt
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-22.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-23.png" alt=""></li>
+</ul>
+<hr>
+<p><strong>6. Luồng Kỹ sư Thực địa &amp; Kiểm thử Tích hợp Xử lý Giọng nói (AWS Transcribe + SQS)</strong></p>
+<ul>
+<li>Đăng nhập bằng tài khoản kỹ sư (<code>engineer1</code>). Truy cập mục <strong>Lịch công việc</strong> để kiểm tra trực quan các thời hạn chót của nhiệm vụ được giao trên bảng lịch.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-28.png" alt=""></li>
+<li>Truy cập vào tác vụ <code>farm</code>, thực hiện tích chọn hoàn thành các đầu mục công việc trong <strong>Checklist</strong> nghiệm thu và cập nhật tiến độ tổng thể lên 100%.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-16.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-36.png" alt=""></li>
+<li><strong>Kiểm thử tích hợp luồng Voice Transcribe:</strong></li>
+</ul>
+<ol>
+<li>Tại khung tạo báo cáo công việc, nhấn vào biểu tượng <strong>Microphone</strong>. Trình duyệt sẽ yêu cầu và nhận cấp quyền truy cập thiết bị phần cứng.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-17.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-19.png" alt=""></li>
+<li>Kỹ sư bắt đầu đọc nội dung báo cáo thực địa (Ví dụ: <em>“Hello, hello, hello”</em>).</li>
+<li>Quay lại giao diện ứng dụng, đoạn mã văn bản đã dịch tự động bởi dịch vụ <strong>Amazon Transcribe</strong> xuất hiện đầy đủ và chính xác trong nội dung báo cáo mà không cần nhập liệu thủ công.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-20.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-21.png" alt=""></li>
+</ol>
+<ul>
+<li>Kỹ sư nhập thêm số liệu khối lượng hoàn thành (<code>20m</code>), tải lên tệp ảnh minh chứng hiện trường xây dựng thực tế và thực hiện <strong>Gửi báo cáo</strong>. Ngoài ra, kỹ sư có thể sử dụng tính năng <strong>Xuất dữ liệu CSV</strong> trực tiếp để kết xuất bảng tính báo cáo tiến độ.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-18.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-23.png" alt=""></li>
+</ul>
+<hr>
+<p><strong>7. Kiểm thử Lưu trữ dữ liệu an toàn &amp; Tài liệu dự án trên Amazon S3</strong></p>
+<ul>
+<li>Tại mục <strong>Tài liệu dự án</strong>, thực hiện tải lên một tệp tài liệu kỹ thuật định dạng PDF vào kho dữ liệu chung của dự án <code>bababa</code> (Dữ liệu sẽ được đẩy trực tiếp vào AWS S3 Data Bucket).
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-32.png" alt=""></li>
+<li><strong>Kiểm tra trạng thái lưu trữ trên AWS S3:</strong></li>
+</ul>
+<h2>Truy cập <strong>AWS S3 Console</strong>, vào Data Bucket của hệ thống và điều hướng theo đường dẫn thư mục <code>projects/</code>.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-33.png" alt=""></h2>
+<p><strong>8. Quản lý Sự cố và Kênh giao tiếp Trực tiếp</strong></p>
+<ul>
+<li><strong>Luồng báo cáo sự cố an toàn:</strong> Kỹ sư ở công trường gặp sự cố sẽ truy cập mục <strong>Báo cáo sự cố</strong>, tiến hành nhập tọa độ vị trí thực tế, nội dung vấn đề, lựa chọn mức độ nghiêm trọng và đính kèm hình ảnh minh chứng hiện trường gửi lên hệ thống.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-24.png" alt=""></li>
+<li>Đăng nhập lại bằng tài khoản <strong>Admin</strong>, truy cập mục sự cố an toàn để tiếp nhận thông tin. Tiến hành xử lý thông qua biểu mẫu <strong>Kế hoạch xử lý sự cố</strong>: Cập nhật trạng thái giải quyết, chỉ định người chịu trách nhiệm, hạn xử lý, xác định nguyên nhân gốc rễ, đề xuất biện pháp khắc phục/phòng ngừa và tải lên hình ảnh sau khi đã khắc phục xong sự cố để lưu vết.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-25.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-26.png" alt=""></li>
+<li><strong>Kiểm thử tính năng Chat trực tiếp:</strong> Truy cập vào phân hệ Chat giữa Kỹ sư (<code>engineer1</code>) và Quản lý (<code>manager</code>). Thực hiện gửi các đoạn tin nhắn văn bản, tệp tin đính kèm và file ghi âm qua lại để kiểm tra độ trễ thấp của Socket.IO. Đăng nhập tài khoản Admin để xác nhận Admin có quyền theo dõi tập trung luồng chat hệ thống và thực hiện kích hoạt lệnh khóa/mở khóa kênh chat khi cần thiết (Dữ liệu chat được quản lý và lưu trữ thông qua S3 Data Bucket).
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-29.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-30.png" alt=""><img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-31.png" alt=""></li>
+</ul>
+<hr>
+<p><strong>9. Xác thực Lớp Giám sát Tập trung qua Amazon CloudWatch Logs</strong></p>
+<ul>
+<li>Truy cập vào hệ thống quản trị <strong>AWS CloudWatch Console</strong>, điều hướng đến mục <strong>Log groups</strong>.</li>
+<li>Kiểm tra và truy cập vào nhóm log lưu trữ của cơ sở dữ liệu có tiền tố <code>/aws/rds/...</code>.</li>
+<li>Xác nhận các bản ghi log hệ thống, lỗi kết nối và dữ liệu truy vấn chậm (slow query logs) từ Amazon RDS đang được đẩy về liên tục và trực quan, chứng minh hệ thống giám sát và tracking an ninh đang hoạt động ổn định và chính xác theo đúng thiết kế kiến trúc.
+<img src="https://hoaithoai.github.io/images/5-Workshop/5.6-System-Operation-Testing/5-6-37.png" alt=""></li>
+</ul>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="http://localhost:1313/internship-report/5-workshop/5.5-multi-service-integration/" title="Post-Deployment Resource Status Validation"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="http://localhost:1313/internship-report/5-workshop/5.7-cleanup/" title="Resource Cleanup and Decommissioning Process" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="http://localhost:1313/internship-report/js/clipboard.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/perfect-scrollbar.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/perfect-scrollbar.jquery.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/jquery.sticky.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/featherlight.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/highlight.pack.js?1784365715"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="http://localhost:1313/internship-report/js/modernizr.custom-3.6.0.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/learn.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/hugo-learn.js?1784365715"></script>
+
+    <link href="http://localhost:1313/internship-report/mermaid/mermaid.css?1784365715" rel="stylesheet" />
+    <script src="http://localhost:1313/internship-report/mermaid/mermaid.js?1784365715"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function (i, s, o, g, r, a, m) {
+    i["GoogleAnalyticsObject"] = r;
+    ((i[r] =
+      i[r] ||
+      function () {
+        (i[r].q = i[r].q || []).push(arguments);
+      }),
+      (i[r].l = 1 * new Date()));
+    ((a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]));
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m);
+  })(
+    window,
+    document,
+    "script",
+    "https://www.google-analytics.com/analytics.js",
+    "ga",
+  );
+
+  ga("create", "UA-158079754-2", "auto");
+  ga("send", "pageview");
+</script>
+
+  </body>
+</html>

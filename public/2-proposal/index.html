@@ -1,44 +1,1686 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.164.0"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=https://vuducthien1.github.io/internship-report/images/favicon.png type=image/png><title>Proposal ::</title><link href=https://vuducthien1.github.io/internship-report/css/nucleus.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/fontawesome-all.min.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/hybrid.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/featherlight.min.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/perfect-scrollbar.min.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/auto-complete.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/atom-one-dark-reasonable.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/theme.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/hugo-theme.css?1784362576 rel=stylesheet><link href=https://vuducthien1.github.io/internship-report/css/theme-workshop.css?1784362576 rel=stylesheet><script src=https://vuducthien1.github.io/internship-report/js/jquery-3.3.1.min.js?1784362576></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=https://vuducthien1.github.io/internship-report/2-proposal/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=https://vuducthien1.github.io/internship-report/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
-<input data-search-input id=search-by type=search placeholder=Search...>
-<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=https://vuducthien1.github.io/internship-report/js/lunr.min.js?1784362576></script><script type=text/javascript src=https://vuducthien1.github.io/internship-report/js/auto-complete.js?1784362576></script><script type=text/javascript>var baseurl="https://vuducthien1.github.io/internship-report/"</script><script type=text/javascript src=https://vuducthien1.github.io/internship-report/js/search.js?1784362576></script></div><div class=highlightable><ul class=topics><li data-nav-id=/1-worklog/ title=Worklog class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/><b>1. </b>Worklog
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/1-worklog/1.1-week1/ title="Week 1 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.1-week1/><b>1.1. </b>Week 1 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.2-week2/ title="Week 2 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.2-week2/><b>1.2. </b>Week 2 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.3-week3/ title="Week 3 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.3-week3/><b>1.3. </b>Week 3 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.4-week4/ title="Week 4 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.4-week4/><b>1.4. </b>Week 4 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.5-week5/ title="Week 5 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.5-week5/><b>1.5. </b>Week 5 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.6-week6/ title="Week 6 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.6-week6/><b>1.6. </b>Week 6 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.7-week7/ title="Week 7 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.7-week7/><b>1.7. </b>Week 7 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.8-week8/ title="Week 8 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.8-week8/><b>1.8. </b>Week 8 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.9-week9/ title="Week 9 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.9-week9/><b>1.9. </b>Week 9 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.10-week10/ title="Week 10 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.10-week10/><b>1.10. </b>Week 10 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.11-week11/ title="Week 11 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.11-week11/><b>1.11. </b>Week 11 Worklog
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.12-week12/ title="Week 12 Worklog" class=dd-item><a href=https://vuducthien1.github.io/internship-report/1-worklog/1.12-week12/><b>1.12. </b>Week 12 Worklog
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/2-proposal/ title=Proposal class="dd-item
-active"><a href=https://vuducthien1.github.io/internship-report/2-proposal/><b>2. </b>Proposal
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/ title="Translated Blogs" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/><b>3. </b>Translated Blogs
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/3-blogstranslated/3.1-blog1/ title="Blog 1" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.1-blog1/><b>3.1. </b>Blog 1
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/3.2-blog2/ title="Blog 2" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.2-blog2/><b>3.2. </b>Blog 2
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/3.3-blog3/ title="Blog 3" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.3-blog3/><b>3.3. </b>Blog 3
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogstranslated/3.4-blog4/ title="Blog 4" class=dd-item><a href=https://vuducthien1.github.io/internship-report/3-blogstranslated/3.4-blog4/><b>3.4. </b>Blog 4
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/4-eventparticipated/ title="Events Participated" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/><b>4. </b>Events Participated
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=https://vuducthien1.github.io/internship-report/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/ title=Workshop class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/><b>5. </b>Workshop
-<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.1-workshop-overview/ title="Workshop Overview" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.1-workshop-overview/><b>5.1. </b>Workshop Overview
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.2-prerequisite/ title=Prerequisite class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.2-prerequisite/><b>5.2. </b>Prerequisite
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-amazon-ses/ title="Detailed Email Authentication Configuration" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.3-amazon-ses/><b>5.3. </b>Detailed Email Authentication Configuration
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.4-cloudformation/ title="Infrastructure Deployment Process via Command Line" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.4-cloudformation/><b>5.4. </b>Infrastructure Deployment Process via Command Line
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-multi-service-integration/ title="Post-Deployment Resource Status Validation" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.5-multi-service-integration/><b>5.5. </b>Post-Deployment Resource Status Validation
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-system-operation-testing/ title="Real-world Business Flow Testing Scenario" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.6-system-operation-testing/><b>5.6. </b>Real-world Business Flow Testing Scenario
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-cleanup/ title="Resource Cleanup and Decommissioning Process" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.7-cleanup/><b>5.7. </b>Resource Cleanup and Decommissioning Process
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-additional-resources/ title="Additional Resources" class=dd-item><a href=https://vuducthien1.github.io/internship-report/5-workshop/5.8-additional-resources/><b>5.8. </b>Additional Resources
-<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/6-self-evaluation/ title=Self-Assessment class=dd-item><a href=https://vuducthien1.github.io/internship-report/6-self-evaluation/><b>6. </b>Self-Assessment
-<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/7-feedback/ title="Sharing and Feedback" class=dd-item><a href=https://vuducthien1.github.io/internship-report/7-feedback/><b>7. </b>Sharing and Feedback
-<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=vi value=https://vuducthien1.github.io/internship-report/vi/2-proposal/></option><option id=en value=https://vuducthien1.github.io/internship-report/2-proposal/ selected></option></select>
-<svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>18-07-2026</font>
-</i></left><left><br><br><b>Team</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>First Cloud AI Journey</a>
-</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
-</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links><a href=https://vuducthien1.github.io/internship-report/>Internship Report</a> > Proposal</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#aws-solution-for-a-content-management-system-integrated-with-speech-to-text>AWS solution for a content management system integrated with speech-to-text</a><ul><li><a href=#1-executive-summary>1. Executive Summary</a></li><li><a href=#2-problem-statement>2. Problem Statement</a></li><li><a href=#3-solution-architecture>3. Solution Architecture</a></li><li><a href=#4-technical-implementation>4. Technical Implementation</a></li><li><a href=#5-roadmap--implementation-milestones>5. Roadmap & Implementation Milestones</a></li><li><a href=#6-budget-estimation>6. Budget Estimation</a></li><li><a href=#7-risk-assessment>7. Risk Assessment</a></li><li><a href=#8-expected-outcomes>8. Expected Outcomes</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Proposal</h1><div class="notices note"><p>📌 <strong>Info:</strong> VDCMS project proposal — a content management system integrated with speech-to-text on AWS.</p></div><h1 id=vdcms---voice-driven-content-management-system>VDCMS - Voice-Driven Content Management System</h1><h2 id=aws-solution-for-a-content-management-system-integrated-with-speech-to-text>AWS solution for a content management system integrated with speech-to-text</h2><hr><h3 id=1-executive-summary>1. Executive Summary</h3><p>VDCMS is a content management system that supports users in creating, storing, and managing reports through a modern web interface. The highlight of the system is the integration of a speech-to-text workflow using Amazon Transcribe, allowing users to record content and convert it into text for the report creation process.</p><p>The system is designed for a demo/MVP environment with the assumption of approximately 50 users, around 100 reports per month, and about 30 minutes of audio recording per month. The architecture uses AWS services such as Amazon CloudFront, Amazon S3, AWS WAF, Application Load Balancer, Amazon EC2, Amazon RDS MySQL, Amazon SQS, Amazon Transcribe, Amazon SES, Amazon Cognito, AWS Secrets Manager, AWS Systems Manager, and Amazon CloudWatch.</p><p>The objective of the project is to build a three-tier web architecture that is secure, operationally stable, capable of asynchronous task processing, and suitable for the scope of the project. Thanks to deployment using Infrastructure as Code, the team can delete all resources after testing to save costs and redeploy the same architecture when needed for grading.</p><hr><h3 id=2-problem-statement>2. Problem Statement</h3><h4 id=current-problem>Current Problem</h4><p>During the process of creating and managing reports, users often have to enter content manually, which can easily be time-consuming when reports contain many ideas or when quick notes need to be recorded from presentations, group meetings, or narrations. Without a centralized system, report data can be scattered, difficult to manage, difficult to track in terms of editing history, and difficult to expand with additional functions such as email sending, user authentication, or audio file processing.</p><p>In addition, regular web systems, if deployed without a clear architecture, may face many limitations such as insufficient security, difficulty in access control, difficulty in tracking system errors, and difficulty in optimizing costs when running on the cloud.</p><h4 id=solution>Solution</h4><p>VDCMS is proposed as a content management system deployed on AWS, combining a three-tier web model with an asynchronous event-processing workflow. The frontend SPA is stored on Amazon S3 and distributed through Amazon CloudFront. Requests from users are protected by AWS WAF and routed through Application Load Balancer to Amazon EC2, where the backend and Transcribe worker run.</p><p>The system&rsquo;s relational data is stored in Amazon RDS MySQL. Audio files and temporary files used for Amazon Transcribe are stored on Amazon S3. When users submit an audio file, the system sends the job to Amazon SQS for asynchronous processing, then the worker on EC2 calls Amazon Transcribe to convert speech into text. Amazon SES is used to send emails, Amazon Cognito serves user authentication, AWS Secrets Manager manages sensitive information, and Amazon CloudWatch supports system monitoring.</p><h4 id=benefits-and-return-on-investment-roi>Benefits and Return on Investment (ROI)</h4><p>The solution helps reduce manual data entry when creating reports, supports users in converting recorded content into text more quickly, and centralizes data in a unified management system. The architecture also helps the team practice deploying important components of a real cloud system such as security, load balancing, storage, database, queue, asynchronous processing, monitoring, and secret management.</p><p>For the project scope, the main benefit is not only the low operating cost in the demo/MVP environment, but also the ability to demonstrate a complete AWS architecture design mindset. The team can deploy, test, present, and delete resources after completion to avoid unnecessary costs.</p><hr><h3 id=3-solution-architecture>3. Solution Architecture</h3><p>VDCMS applies a three-tier web architecture combined with asynchronous processing. The presentation layer includes Amazon S3 and Amazon CloudFront to serve the frontend SPA. The application layer includes AWS WAF, Application Load Balancer, and Amazon EC2 to protect, route, and process requests. The data layer includes Amazon RDS MySQL, Amazon S3, and supporting processing services such as Amazon SQS, Amazon Transcribe, Amazon SES, Amazon Cognito, AWS Secrets Manager, AWS Systems Manager, and Amazon CloudWatch.</p><p><img src=https://vuducthien1.github.io/internship-report/images/2-Proposal/vdcms_architecture.png alt="VDCMS Architecture"></p><h4 id=aws-services-used>AWS Services Used</h4><ul><li><strong>Amazon CloudFront:</strong> Distributes the frontend SPA, caches static assets, and reduces load on the backend.</li><li><strong>Amazon S3:</strong> Stores the frontend, audio files, temporary Transcribe files, and related data.</li><li><strong>AWS WAF:</strong> Protects the web application with WebACL and Managed Rule Groups.</li><li><strong>Application Load Balancer:</strong> Routes requests from users to the EC2 backend.</li><li><strong>Amazon EC2:</strong> Runs the backend and Transcribe worker.</li><li><strong>Amazon RDS MySQL:</strong> Stores the system&rsquo;s relational data.</li><li><strong>Amazon SQS:</strong> Acts as a queue for Transcribe processing jobs and DLQ.</li><li><strong>Amazon Transcribe:</strong> Converts audio files into text.</li><li><strong>Amazon SES:</strong> Sends emails from the system.</li><li><strong>Amazon Cognito:</strong> Supports user authentication.</li><li><strong>AWS Secrets Manager:</strong> Manages sensitive information such as credentials and secrets.</li><li><strong>AWS Systems Manager:</strong> Supports secure EC2 administration and operations.</li><li><strong>Amazon CloudWatch:</strong> Collects metrics, sampled requests, RDS logs, and basic metrics from AWS services.</li><li><strong>IAM:</strong> Manages access permissions between services according to the principle of least privilege.</li></ul><h4 id=component-design>Component Design</h4><ul><li><strong>Frontend:</strong> The SPA application is built and stored on Amazon S3, then distributed through Amazon CloudFront. Users access the system through CloudFront to increase page loading speed and reduce load on the backend.</li><li><strong>Edge Security:</strong> AWS WAF is attached to the web access flow to filter abnormal requests, collect sampled requests, and reduce the risk of common attacks.</li><li><strong>Request Routing:</strong> Application Load Balancer receives valid requests and forwards them to the EC2 backend.</li><li><strong>Backend:</strong> EC2 runs the backend application, handling main business logic such as user management, report management, file upload, AWS service calls, and returning results to the frontend.</li><li><strong>Database:</strong> Amazon RDS MySQL stores user data, reports, audio file metadata, and processing status.</li><li><strong>Audio Processing:</strong> Audio files are stored in S3, then jobs are sent to SQS. The worker on EC2 pulls jobs from SQS, calls Amazon Transcribe, and updates the results back to the system.</li><li><strong>Email Sending:</strong> Amazon SES is used to send notification emails or emails related to system functions.</li><li><strong>Authentication:</strong> Amazon Cognito is oriented to serve as the main authentication system for users.</li><li><strong>Secret Management:</strong> AWS Secrets Manager stores necessary secrets to avoid hard-coding sensitive information in the source code.</li><li><strong>Monitoring:</strong> CloudWatch collects metrics from WAF, RDS, and AWS services. EC2 application logs are currently stored in the systemd journal.</li></ul><hr><h3 id=4-technical-implementation>4. Technical Implementation</h3><h4 id=implementation-phases>Implementation Phases</h4><p>The project is implemented through the following main phases:</p><ul><li><strong>Requirement Analysis and Architecture Design:</strong> Define the VDCMS system scope, number of demo users, number of reports, audio recording needs, and suitable AWS services.</li><li><strong>Building Infrastructure with Infrastructure as Code:</strong> Declare resources such as VPC, EC2, RDS, S3, SQS, WAF, ALB, CloudFront, and Secrets Manager so that the same architecture can be redeployed when needed.</li><li><strong>Frontend and Backend Deployment:</strong> Build the frontend SPA, upload it to S3, configure CloudFront; deploy the backend and Transcribe worker on EC2.</li><li><strong>Asynchronous Processing Integration:</strong> Configure S3, SQS, and Amazon Transcribe to process audio files, convert them into text, and update results back to the system.</li><li><strong>Security and Operations Configuration:</strong> Set up IAM Role, Secrets Manager, Systems Manager, WAF, RDS logs, and CloudWatch metrics.</li><li><strong>Testing and Cost Optimization:</strong> Test user flows, report creation flow, audio upload, Transcribe processing, email sending, and delete resources after completion to avoid incurring costs.</li></ul><h4 id=technical-requirements>Technical Requirements</h4><ul><li><strong>Frontend:</strong> SPA application deployed through Amazon S3 and Amazon CloudFront.</li><li><strong>Backend:</strong> Application running on Amazon EC2 t3.small, simultaneously handling the roles of backend and Transcribe worker.</li><li><strong>Database:</strong> Amazon RDS MySQL db.t3.micro, 20 GB gp3, Single-AZ.</li><li><strong>Networking:</strong> The architecture uses NAT Gateway, Application Load Balancer, and suitable subnets for the demo/MVP environment.</li><li><strong>Asynchronous Processing:</strong> Amazon SQS manages the Transcribe job queue and DLQ to support error handling.</li><li><strong>Speech-to-text:</strong> Amazon Transcribe processes about 30 minutes of audio recording per month.</li><li><strong>Email:</strong> Amazon SES sends about 200 emails per month.</li><li><strong>Authentication:</strong> Amazon Cognito supports about 50 MAU within the Free Tier.</li><li><strong>Security:</strong> AWS WAF, IAM, AWS Secrets Manager, and Systems Manager support access control and system protection.</li><li><strong>Monitoring:</strong> Amazon CloudWatch collects metrics, sampled requests, and logs from RDS.</li></ul><hr><h3 id=5-roadmap--implementation-milestones>5. Roadmap & Implementation Milestones</h3><ul><li><strong>Phase 1 - Preparation:</strong> Define system requirements, main functions, user scope, number of reports, and audio processing needs.</li><li><strong>Phase 2 - Architecture Design:</strong> Design the AWS architecture including frontend, backend, database, storage, queue, speech-to-text, email, security, and monitoring.</li><li><strong>Phase 3 - Infrastructure Deployment:</strong> Use Infrastructure as Code to create the necessary AWS resources.</li><li><strong>Phase 4 - Application Development:</strong> Complete the frontend, backend, RDS connection, file upload, report creation, and Transcribe processing.</li><li><strong>Phase 5 - Testing:</strong> Test access through CloudFront, requests through WAF/ALB, backend connection, database, SQS, Transcribe, and SES.</li><li><strong>Phase 6 - Presentation and Optimization:</strong> Present the system, collect results, and delete resources after testing to save costs.</li><li><strong>After Deployment:</strong> Upgrade the system toward production if needed, including Multi-AZ, multiple EC2 instances, Redis Adapter, CloudWatch Agent, SNS Alarm, and SES Production Access.</li></ul><hr><h3 id=6-budget-estimation>6. Budget Estimation</h3><h4 id=infrastructure-costs>Infrastructure Costs</h4><p><em>(Assumption: 50 users, ~100 reports/month, ~30 minutes of audio recording/month — demo/MVP environment, region ap-southeast-1)</em></p><ul><li><strong>Amazon EC2</strong> (t3.small — backend + Transcribe worker): 15,49 USD/month ($0,021/hour × 730 hours).</li><li><strong>Amazon RDS MySQL</strong> (db.t3.micro, 20 GB gp3, Single-AZ): 15,62 USD/month ($0,018/hour × 730 hours + 20 GB × $0,115/GB).</li><li><strong>NAT Gateway:</strong> 32,85 USD/month ($0,045/hour × 730 hours, excluding data transfer).</li><li><strong>Application Load Balancer:</strong> 16,43 USD/month ($0,008/hour × 730 hours + minimum LCU).</li><li><strong>AWS WAF</strong> (1 WebACL + 2 Managed Rule Groups): 7,00 USD/month ($5/WebACL + $1/rule group × 2).</li><li><strong>Amazon CloudFront</strong> (serving frontend SPA, ~5 GB/month): 0,43 USD/month ($0,085/GB × 5 GB).</li><li><strong>Amazon S3</strong> (2 buckets, ~2 GB data + versioning): 0,05 USD/month ($0,025/GB × 2 GB).</li><li><strong>Amazon SQS</strong> (Transcribe queue + DLQ, ~100 jobs/month): 0,00 USD/month (within the Free Tier of 1 million requests).</li><li><strong>Amazon Transcribe</strong> (~30 minutes of audio recording/month): 0,72 USD/month ($0,024/minute × 30 minutes).</li><li><strong>Amazon SES</strong> (~200 emails/month): 0,02 USD/month ($0,10/1,000 emails × 0,2).</li><li><strong>Amazon Cognito</strong> (~50 MAU): 0,00 USD/month (within the Free Tier of 50,000 MAU).</li><li><strong>AWS Secrets Manager</strong> (3 secrets): 1,20 USD/month ($0,40/secret × 3).</li><li><strong>Amazon CloudWatch</strong> (RDS logs, metrics): 0,50 USD/month (basic metrics + log storage).</li></ul><p>Total: ~90,31 USD/month</p><hr><h3 id=7-risk-assessment>7. Risk Assessment</h3><h4 id=risk-matrix>Risk Matrix</h4><ul><li>NAT Gateway, ALB, WAF, and RDS still incur costs when there are few users: Medium impact, medium probability.</li><li>EC2 fails or becomes overloaded because only one instance is running: High impact, low probability in the demo environment.</li><li>RDS Single-AZ encounters an Availability Zone failure: High impact, low probability.</li><li>Audio file processing fails or a Transcribe job encounters an error: Medium impact, medium probability.</li><li>SES is still in Sandbox, limiting email sending capability: Medium impact, medium probability.</li><li>EC2 application logs have not yet been pushed to CloudWatch Logs using CloudWatch Agent: Medium impact, medium probability.</li></ul><h4 id=mitigation-strategies>Mitigation Strategies</h4><ul><li><strong>Cost:</strong> Deploy the infrastructure only during testing and presentation, then delete resources using Infrastructure as Code.</li><li><strong>EC2:</strong> Limit the Auto Scaling Group to a maximum of one instance in the demo, but it can be expanded to multiple EC2 instances in real deployment.</li><li><strong>RDS:</strong> Use Single-AZ to save costs in the demo; upgrade to Multi-AZ when high availability is required.</li><li><strong>Transcribe:</strong> Use Amazon SQS and DLQ to manage jobs, reducing task loss when errors occur.</li><li><strong>SES:</strong> Use within the sandbox scope during the demo; request SES Production Access if deploying for real use.</li><li><strong>Monitoring:</strong> CloudWatch currently collects metrics and RDS logs; add CloudWatch Agent and SNS Alarm during the upgrade phase.</li></ul><h4 id=contingency-plan>Contingency Plan</h4><ul><li>If the cloud system encounters an error, the team can recheck resources using Infrastructure as Code and redeploy the same architecture.</li><li>If Transcribe encounters an error, the job can be sent to the DLQ for checking and reprocessing.</li><li>If cost reduction is needed, the team can delete cost-incurring resources such as NAT Gateway, ALB, WAF, EC2, and RDS after completing testing.</li><li>If SES has not been granted Production Access, the team only demonstrates the email sending function within the sandbox scope.</li></ul><hr><h3 id=8-expected-outcomes>8. Expected Outcomes</h3><h4 id=technical-improvements>Technical Improvements</h4><p>VDCMS provides a report management system with a web interface, centralized database, and speech-to-text capability. The system helps users create reports more conveniently, while also supporting the team in practicing the deployment of important AWS services in an architecture close to reality.</p><h4 id=long-term-value>Long-term Value</h4><p>The current architecture can be used as a foundation to develop into a complete production system. In the future, the team can upgrade to two NAT Gateways for two Availability Zones, Auto Scaling with multiple EC2 instances, Amazon ElastiCache Redis for Socket.IO, RDS Multi-AZ, VPC Endpoint for S3 and AWS services, CloudWatch Agent, SNS Alarm, Cognito as the main authentication system, and SES Production Access.</p><h4 id=operational-capability>Operational Capability</h4><p>Thanks to the use of Infrastructure as Code, the system can be redeployed when needed for grading or testing. After completing the presentation, the team can delete all resources to avoid incurring costs. This is an approach suitable for the project environment because it balances security, scalability, and operating costs.</p><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=https://vuducthien1.github.io/internship-report/1-worklog/1.12-week12/ title="Week 12 Worklog"><i class="fa fa-chevron-left"></i></a>
-<a class="nav nav-next" href=https://vuducthien1.github.io/internship-report/3-blogstranslated/ title="Translated Blogs" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1e3px;overflow:scroll;position:absolute;top:-1e3px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=https://vuducthien1.github.io/internship-report/js/clipboard.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/perfect-scrollbar.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/perfect-scrollbar.jquery.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/jquery.sticky.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/featherlight.min.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/highlight.pack.js?1784362576></script><script>hljs.initHighlightingOnLoad()</script><script src=https://vuducthien1.github.io/internship-report/js/modernizr.custom-3.6.0.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/learn.js?1784362576></script><script src=https://vuducthien1.github.io/internship-report/js/hugo-learn.js?1784362576></script><link href=https://vuducthien1.github.io/internship-report/mermaid/mermaid.css?1784362576 rel=stylesheet><script src=https://vuducthien1.github.io/internship-report/mermaid/mermaid.js?1784362576></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head><script src="/internship-report/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=internship-report/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.164.0">
+    <meta
+  name="description"
+  content=""
+/>
+<meta name="author" content="thienlh@thienlu.com" />
+
+    <link rel="icon" href="http://localhost:1313/internship-report/images/favicon.png" type="image/png">
+
+    <title>Proposal :: </title>
+
+    
+    <link href="http://localhost:1313/internship-report/css/nucleus.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/fontawesome-all.min.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/hybrid.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/featherlight.min.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/perfect-scrollbar.min.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/auto-complete.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/atom-one-dark-reasonable.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/theme.css?1784365715" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/hugo-theme.css?1784365715" rel="stylesheet">
+    
+    <link href="http://localhost:1313/internship-report/css/theme-workshop.css?1784365715" rel="stylesheet">
+    
+    
+
+    <script src="http://localhost:1313/internship-report/js/jquery-3.3.1.min.js?1784365715"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+
+  </head>
+  <body class="" data-url="http://localhost:1313/internship-report/2-proposal/">
+    <nav
+  id="sidebar"
+  class="showVisitedLinks"
+>
+   
+  <div id="header-wrapper">
+    <div id="header"><a id="logo" href="http://localhost:1313/internship-report/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#fff;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+</div>
+     <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/lunr.min.js?1784365715"></script>
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/auto-complete.js?1784365715"></script>
+<script type="text/javascript">
+    var baseurl = "http:\/\/localhost:1313\/internship-report\/";
+</script>
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/search.js?1784365715"></script>
+ 
+  </div>
+
+  <div class="highlightable">
+    <ul class="topics">
+               
+<li
+  data-nav-id="/1-worklog/"
+  title="Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/">
+     <b> 1. </b> Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/1-worklog/1.1-week1/"
+  title="Week 1 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.1-week1/">
+     <b> 1.1. </b> Week 1 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.2-week2/"
+  title="Week 2 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.2-week2/">
+     <b> 1.2. </b> Week 2 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.3-week3/"
+  title="Week 3 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.3-week3/">
+     <b> 1.3. </b> Week 3 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.4-week4/"
+  title="Week 4 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.4-week4/">
+     <b> 1.4. </b> Week 4 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.5-week5/"
+  title="Week 5 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.5-week5/">
+     <b> 1.5. </b> Week 5 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.6-week6/"
+  title="Week 6 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.6-week6/">
+     <b> 1.6. </b> Week 6 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.7-week7/"
+  title="Week 7 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.7-week7/">
+     <b> 1.7. </b> Week 7 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.8-week8/"
+  title="Week 8 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.8-week8/">
+     <b> 1.8. </b> Week 8 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.9-week9/"
+  title="Week 9 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.9-week9/">
+     <b> 1.9. </b> Week 9 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.10-week10/"
+  title="Week 10 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.10-week10/">
+     <b> 1.10. </b> Week 10 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.11-week11/"
+  title="Week 11 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.11-week11/">
+     <b> 1.11. </b> Week 11 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/1-worklog/1.12-week12/"
+  title="Week 12 Worklog"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/1-worklog/1.12-week12/">
+     <b> 1.12. </b> Week 12 Worklog 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/2-proposal/"
+  title="Proposal"
+  class="dd-item 
+        
+        active
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/2-proposal/">
+     <b> 2. </b> Proposal 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/3-blogstranslated/"
+  title="Translated Blogs"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/">
+     <b> 3. </b> Translated Blogs 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/3-blogstranslated/3.1-blog1/"
+  title="Blog 1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.1-blog1/">
+     <b> 3.1. </b> Blog 1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/3-blogstranslated/3.2-blog2/"
+  title="Blog 2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.2-blog2/">
+     <b> 3.2. </b> Blog 2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/3-blogstranslated/3.3-blog3/"
+  title="Blog 3"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.3-blog3/">
+     <b> 3.3. </b> Blog 3 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/3-blogstranslated/3.4-blog4/"
+  title="Blog 4"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/3-blogstranslated/3.4-blog4/">
+     <b> 3.4. </b> Blog 4 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/4-eventparticipated/"
+  title="Events Participated"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/">
+     <b> 4. </b> Events Participated 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/4-eventparticipated/4.1-event1/"
+  title="Event 1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/4.1-event1/">
+     <b> 4.1. </b> Event 1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/4-eventparticipated/4.2-event2/"
+  title="Event 2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/4.2-event2/">
+     <b> 4.2. </b> Event 2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/4-eventparticipated/4.3-event3/"
+  title="Event 3"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/4-eventparticipated/4.3-event3/">
+     <b> 4.3. </b> Event 3 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/5-workshop/"
+  title="Workshop"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/">
+     <b> 5. </b> Workshop 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/5-workshop/5.1-workshop-overview/"
+  title="Workshop Overview"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.1-workshop-overview/">
+     <b> 5.1. </b> Workshop Overview 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.2-prerequisite/"
+  title="Prerequisite"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.2-prerequisite/">
+     <b> 5.2. </b> Prerequisite 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.3-amazon-ses/"
+  title="Detailed Email Authentication Configuration"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.3-amazon-ses/">
+     <b> 5.3. </b> Detailed Email Authentication Configuration 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.4-cloudformation/"
+  title="Infrastructure Deployment Process via Command Line"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.4-cloudformation/">
+     <b> 5.4. </b> Infrastructure Deployment Process via Command Line 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.5-multi-service-integration/"
+  title="Post-Deployment Resource Status Validation"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.5-multi-service-integration/">
+     <b> 5.5. </b> Post-Deployment Resource Status Validation 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.6-system-operation-testing/"
+  title="Real-world Business Flow Testing Scenario"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.6-system-operation-testing/">
+     <b> 5.6. </b> Real-world Business Flow Testing Scenario 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.7-cleanup/"
+  title="Resource Cleanup and Decommissioning Process"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.7-cleanup/">
+     <b> 5.7. </b> Resource Cleanup and Decommissioning Process 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/5-workshop/5.8-additional-resources/"
+  title="Additional Resources"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/5-workshop/5.8-additional-resources/">
+     <b> 5.8. </b> Additional Resources 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/6-self-evaluation/"
+  title="Self-Assessment"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/6-self-evaluation/">
+     <b> 6. </b> Self-Assessment 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/7-feedback/"
+  title="Feedback &amp; Contributions"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/7-feedback/">
+     <b> 7. </b> Feedback &amp; Contributions 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+    </ul>
+
+     
+    <section id="shortcuts">
+      <h3>
+        More
+      </h3>
+      <ul>
+        
+        <li>
+          <a class="padding" href="https://awsstudygroup.com"
+            ><i class='fab fa-aws'></i> AWS Study Group - Blog</a
+          >
+        </li>
+        
+        <li>
+          <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj"
+            ><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+     
+    <section id="prefooter">
+      <hr />
+      <ul>
+        
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+                         
+                <option
+                  id="vi"
+                  value="http://localhost:1313/internship-report/vi/2-proposal/"
+                >
+                  
+                </option>
+                        
+                <option
+                  id="en"
+                  value="http://localhost:1313/internship-report/2-proposal/"
+                  selected
+                >
+                  
+                </option>
+                     
+              </select>
+              <svg
+                version="1.1"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                width="255px"
+                height="255px"
+                viewBox="0 0 255 255"
+                style="enable-background: new 0 0 255 255"
+                xml:space="preserve"
+              >
+                <g>
+                  <g id="arrow-drop-down">
+                    <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </a>
+        </li>
+         
+        <li>
+          <a class="padding" href="#" data-clear-history-toggle=""
+            ><i class="fas fa-history fa-fw"></i> Clear History</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+    
+    <section id="footer"><left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>18-07-2026</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Team </b> <br>
+    <i>
+        <a href="https://www.facebook.com/groups/660548818043427" style="color:orange">First Cloud AI Journey</a>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script></section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='http://localhost:1313/internship-report/'>Internship Report</a> > Proposal
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+  <div class="wrapper"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#aws-solution-for-a-content-management-system-integrated-with-speech-to-text">AWS solution for a content management system integrated with speech-to-text</a>
+      <ul>
+        <li><a href="#1-executive-summary">1. Executive Summary</a></li>
+        <li><a href="#2-problem-statement">2. Problem Statement</a></li>
+        <li><a href="#3-solution-architecture">3. Solution Architecture</a></li>
+        <li><a href="#4-technical-implementation">4. Technical Implementation</a></li>
+        <li><a href="#5-roadmap--implementation-milestones">5. Roadmap &amp; Implementation Milestones</a></li>
+        <li><a href="#6-budget-estimation">6. Budget Estimation</a></li>
+        <li><a href="#7-risk-assessment">7. Risk Assessment</a></li>
+        <li><a href="#8-expected-outcomes">8. Expected Outcomes</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Proposal
+            </h1>
+          
+
+        
+
+
+
+	
+<div
+  class="notices note"
+  
+>
+  <p>📌 <strong>Info:</strong> VDCMS project proposal — a content management system integrated with speech-to-text on AWS.</p>
+
+</div>
+
+<h1 id="vdcms---voice-driven-content-management-system">VDCMS - Voice-Driven Content Management System</h1>
+<h2 id="aws-solution-for-a-content-management-system-integrated-with-speech-to-text">AWS solution for a content management system integrated with speech-to-text</h2>
+<hr>
+<h3 id="1-executive-summary">1. Executive Summary</h3>
+<p>VDCMS is a content management system that supports users in creating, storing, and managing reports through a modern web interface. The highlight of the system is the integration of a speech-to-text workflow using Amazon Transcribe, allowing users to record content and convert it into text for the report creation process.</p>
+<p>The system is designed for a demo/MVP environment with the assumption of approximately 50 users, around 100 reports per month, and about 30 minutes of audio recording per month. The architecture uses AWS services such as Amazon CloudFront, Amazon S3, AWS WAF, Application Load Balancer, Amazon EC2, Amazon RDS MySQL, Amazon SQS, Amazon Transcribe, Amazon SES, Amazon Cognito, AWS Secrets Manager, AWS Systems Manager, and Amazon CloudWatch.</p>
+<p>The objective of the project is to build a three-tier web architecture that is secure, operationally stable, capable of asynchronous task processing, and suitable for the scope of the project. Thanks to deployment using Infrastructure as Code, the team can delete all resources after testing to save costs and redeploy the same architecture when needed for grading.</p>
+<hr>
+<h3 id="2-problem-statement">2. Problem Statement</h3>
+<h4 id="current-problem">Current Problem</h4>
+<p>During the process of creating and managing reports, users often have to enter content manually, which can easily be time-consuming when reports contain many ideas or when quick notes need to be recorded from presentations, group meetings, or narrations. Without a centralized system, report data can be scattered, difficult to manage, difficult to track in terms of editing history, and difficult to expand with additional functions such as email sending, user authentication, or audio file processing.</p>
+<p>In addition, regular web systems, if deployed without a clear architecture, may face many limitations such as insufficient security, difficulty in access control, difficulty in tracking system errors, and difficulty in optimizing costs when running on the cloud.</p>
+<h4 id="solution">Solution</h4>
+<p>VDCMS is proposed as a content management system deployed on AWS, combining a three-tier web model with an asynchronous event-processing workflow. The frontend SPA is stored on Amazon S3 and distributed through Amazon CloudFront. Requests from users are protected by AWS WAF and routed through Application Load Balancer to Amazon EC2, where the backend and Transcribe worker run.</p>
+<p>The system&rsquo;s relational data is stored in Amazon RDS MySQL. Audio files and temporary files used for Amazon Transcribe are stored on Amazon S3. When users submit an audio file, the system sends the job to Amazon SQS for asynchronous processing, then the worker on EC2 calls Amazon Transcribe to convert speech into text. Amazon SES is used to send emails, Amazon Cognito serves user authentication, AWS Secrets Manager manages sensitive information, and Amazon CloudWatch supports system monitoring.</p>
+<h4 id="benefits-and-return-on-investment-roi">Benefits and Return on Investment (ROI)</h4>
+<p>The solution helps reduce manual data entry when creating reports, supports users in converting recorded content into text more quickly, and centralizes data in a unified management system. The architecture also helps the team practice deploying important components of a real cloud system such as security, load balancing, storage, database, queue, asynchronous processing, monitoring, and secret management.</p>
+<p>For the project scope, the main benefit is not only the low operating cost in the demo/MVP environment, but also the ability to demonstrate a complete AWS architecture design mindset. The team can deploy, test, present, and delete resources after completion to avoid unnecessary costs.</p>
+<hr>
+<h3 id="3-solution-architecture">3. Solution Architecture</h3>
+<p>VDCMS applies a three-tier web architecture combined with asynchronous processing. The presentation layer includes Amazon S3 and Amazon CloudFront to serve the frontend SPA. The application layer includes AWS WAF, Application Load Balancer, and Amazon EC2 to protect, route, and process requests. The data layer includes Amazon RDS MySQL, Amazon S3, and supporting processing services such as Amazon SQS, Amazon Transcribe, Amazon SES, Amazon Cognito, AWS Secrets Manager, AWS Systems Manager, and Amazon CloudWatch.</p>
+<p><img src="http://localhost:1313/internship-report/images/2-Proposal/vdcms_architecture.png" alt="VDCMS Architecture"></p>
+<h4 id="aws-services-used">AWS Services Used</h4>
+<ul>
+<li><strong>Amazon CloudFront:</strong> Distributes the frontend SPA, caches static assets, and reduces load on the backend.</li>
+<li><strong>Amazon S3:</strong> Stores the frontend, audio files, temporary Transcribe files, and related data.</li>
+<li><strong>AWS WAF:</strong> Protects the web application with WebACL and Managed Rule Groups.</li>
+<li><strong>Application Load Balancer:</strong> Routes requests from users to the EC2 backend.</li>
+<li><strong>Amazon EC2:</strong> Runs the backend and Transcribe worker.</li>
+<li><strong>Amazon RDS MySQL:</strong> Stores the system&rsquo;s relational data.</li>
+<li><strong>Amazon SQS:</strong> Acts as a queue for Transcribe processing jobs and DLQ.</li>
+<li><strong>Amazon Transcribe:</strong> Converts audio files into text.</li>
+<li><strong>Amazon SES:</strong> Sends emails from the system.</li>
+<li><strong>Amazon Cognito:</strong> Supports user authentication.</li>
+<li><strong>AWS Secrets Manager:</strong> Manages sensitive information such as credentials and secrets.</li>
+<li><strong>AWS Systems Manager:</strong> Supports secure EC2 administration and operations.</li>
+<li><strong>Amazon CloudWatch:</strong> Collects metrics, sampled requests, RDS logs, and basic metrics from AWS services.</li>
+<li><strong>IAM:</strong> Manages access permissions between services according to the principle of least privilege.</li>
+</ul>
+<h4 id="component-design">Component Design</h4>
+<ul>
+<li><strong>Frontend:</strong> The SPA application is built and stored on Amazon S3, then distributed through Amazon CloudFront. Users access the system through CloudFront to increase page loading speed and reduce load on the backend.</li>
+<li><strong>Edge Security:</strong> AWS WAF is attached to the web access flow to filter abnormal requests, collect sampled requests, and reduce the risk of common attacks.</li>
+<li><strong>Request Routing:</strong> Application Load Balancer receives valid requests and forwards them to the EC2 backend.</li>
+<li><strong>Backend:</strong> EC2 runs the backend application, handling main business logic such as user management, report management, file upload, AWS service calls, and returning results to the frontend.</li>
+<li><strong>Database:</strong> Amazon RDS MySQL stores user data, reports, audio file metadata, and processing status.</li>
+<li><strong>Audio Processing:</strong> Audio files are stored in S3, then jobs are sent to SQS. The worker on EC2 pulls jobs from SQS, calls Amazon Transcribe, and updates the results back to the system.</li>
+<li><strong>Email Sending:</strong> Amazon SES is used to send notification emails or emails related to system functions.</li>
+<li><strong>Authentication:</strong> Amazon Cognito is oriented to serve as the main authentication system for users.</li>
+<li><strong>Secret Management:</strong> AWS Secrets Manager stores necessary secrets to avoid hard-coding sensitive information in the source code.</li>
+<li><strong>Monitoring:</strong> CloudWatch collects metrics from WAF, RDS, and AWS services. EC2 application logs are currently stored in the systemd journal.</li>
+</ul>
+<hr>
+<h3 id="4-technical-implementation">4. Technical Implementation</h3>
+<h4 id="implementation-phases">Implementation Phases</h4>
+<p>The project is implemented through the following main phases:</p>
+<ul>
+<li><strong>Requirement Analysis and Architecture Design:</strong> Define the VDCMS system scope, number of demo users, number of reports, audio recording needs, and suitable AWS services.</li>
+<li><strong>Building Infrastructure with Infrastructure as Code:</strong> Declare resources such as VPC, EC2, RDS, S3, SQS, WAF, ALB, CloudFront, and Secrets Manager so that the same architecture can be redeployed when needed.</li>
+<li><strong>Frontend and Backend Deployment:</strong> Build the frontend SPA, upload it to S3, configure CloudFront; deploy the backend and Transcribe worker on EC2.</li>
+<li><strong>Asynchronous Processing Integration:</strong> Configure S3, SQS, and Amazon Transcribe to process audio files, convert them into text, and update results back to the system.</li>
+<li><strong>Security and Operations Configuration:</strong> Set up IAM Role, Secrets Manager, Systems Manager, WAF, RDS logs, and CloudWatch metrics.</li>
+<li><strong>Testing and Cost Optimization:</strong> Test user flows, report creation flow, audio upload, Transcribe processing, email sending, and delete resources after completion to avoid incurring costs.</li>
+</ul>
+<h4 id="technical-requirements">Technical Requirements</h4>
+<ul>
+<li><strong>Frontend:</strong> SPA application deployed through Amazon S3 and Amazon CloudFront.</li>
+<li><strong>Backend:</strong> Application running on Amazon EC2 t3.small, simultaneously handling the roles of backend and Transcribe worker.</li>
+<li><strong>Database:</strong> Amazon RDS MySQL db.t3.micro, 20 GB gp3, Single-AZ.</li>
+<li><strong>Networking:</strong> The architecture uses NAT Gateway, Application Load Balancer, and suitable subnets for the demo/MVP environment.</li>
+<li><strong>Asynchronous Processing:</strong> Amazon SQS manages the Transcribe job queue and DLQ to support error handling.</li>
+<li><strong>Speech-to-text:</strong> Amazon Transcribe processes about 30 minutes of audio recording per month.</li>
+<li><strong>Email:</strong> Amazon SES sends about 200 emails per month.</li>
+<li><strong>Authentication:</strong> Amazon Cognito supports about 50 MAU within the Free Tier.</li>
+<li><strong>Security:</strong> AWS WAF, IAM, AWS Secrets Manager, and Systems Manager support access control and system protection.</li>
+<li><strong>Monitoring:</strong> Amazon CloudWatch collects metrics, sampled requests, and logs from RDS.</li>
+</ul>
+<hr>
+<h3 id="5-roadmap--implementation-milestones">5. Roadmap &amp; Implementation Milestones</h3>
+<ul>
+<li><strong>Phase 1 - Preparation:</strong> Define system requirements, main functions, user scope, number of reports, and audio processing needs.</li>
+<li><strong>Phase 2 - Architecture Design:</strong> Design the AWS architecture including frontend, backend, database, storage, queue, speech-to-text, email, security, and monitoring.</li>
+<li><strong>Phase 3 - Infrastructure Deployment:</strong> Use Infrastructure as Code to create the necessary AWS resources.</li>
+<li><strong>Phase 4 - Application Development:</strong> Complete the frontend, backend, RDS connection, file upload, report creation, and Transcribe processing.</li>
+<li><strong>Phase 5 - Testing:</strong> Test access through CloudFront, requests through WAF/ALB, backend connection, database, SQS, Transcribe, and SES.</li>
+<li><strong>Phase 6 - Presentation and Optimization:</strong> Present the system, collect results, and delete resources after testing to save costs.</li>
+<li><strong>After Deployment:</strong> Upgrade the system toward production if needed, including Multi-AZ, multiple EC2 instances, Redis Adapter, CloudWatch Agent, SNS Alarm, and SES Production Access.</li>
+</ul>
+<hr>
+<h3 id="6-budget-estimation">6. Budget Estimation</h3>
+<h4 id="infrastructure-costs">Infrastructure Costs</h4>
+<p><em>(Assumption: 50 users, ~100 reports/month, ~30 minutes of audio recording/month — demo/MVP environment, region ap-southeast-1)</em></p>
+<ul>
+<li><strong>Amazon EC2</strong> (t3.small — backend + Transcribe worker): 15,49 USD/month ($0,021/hour × 730 hours).</li>
+<li><strong>Amazon RDS MySQL</strong> (db.t3.micro, 20 GB gp3, Single-AZ): 15,62 USD/month ($0,018/hour × 730 hours + 20 GB × $0,115/GB).</li>
+<li><strong>NAT Gateway:</strong> 32,85 USD/month ($0,045/hour × 730 hours, excluding data transfer).</li>
+<li><strong>Application Load Balancer:</strong> 16,43 USD/month ($0,008/hour × 730 hours + minimum LCU).</li>
+<li><strong>AWS WAF</strong> (1 WebACL + 2 Managed Rule Groups): 7,00 USD/month ($5/WebACL + $1/rule group × 2).</li>
+<li><strong>Amazon CloudFront</strong> (serving frontend SPA, ~5 GB/month): 0,43 USD/month ($0,085/GB × 5 GB).</li>
+<li><strong>Amazon S3</strong> (2 buckets, ~2 GB data + versioning): 0,05 USD/month ($0,025/GB × 2 GB).</li>
+<li><strong>Amazon SQS</strong> (Transcribe queue + DLQ, ~100 jobs/month): 0,00 USD/month (within the Free Tier of 1 million requests).</li>
+<li><strong>Amazon Transcribe</strong> (~30 minutes of audio recording/month): 0,72 USD/month ($0,024/minute × 30 minutes).</li>
+<li><strong>Amazon SES</strong> (~200 emails/month): 0,02 USD/month ($0,10/1,000 emails × 0,2).</li>
+<li><strong>Amazon Cognito</strong> (~50 MAU): 0,00 USD/month (within the Free Tier of 50,000 MAU).</li>
+<li><strong>AWS Secrets Manager</strong> (3 secrets): 1,20 USD/month ($0,40/secret × 3).</li>
+<li><strong>Amazon CloudWatch</strong> (RDS logs, metrics): 0,50 USD/month (basic metrics + log storage).</li>
+</ul>
+<p>Total: ~90,31 USD/month</p>
+<hr>
+<h3 id="7-risk-assessment">7. Risk Assessment</h3>
+<h4 id="risk-matrix">Risk Matrix</h4>
+<ul>
+<li>NAT Gateway, ALB, WAF, and RDS still incur costs when there are few users: Medium impact, medium probability.</li>
+<li>EC2 fails or becomes overloaded because only one instance is running: High impact, low probability in the demo environment.</li>
+<li>RDS Single-AZ encounters an Availability Zone failure: High impact, low probability.</li>
+<li>Audio file processing fails or a Transcribe job encounters an error: Medium impact, medium probability.</li>
+<li>SES is still in Sandbox, limiting email sending capability: Medium impact, medium probability.</li>
+<li>EC2 application logs have not yet been pushed to CloudWatch Logs using CloudWatch Agent: Medium impact, medium probability.</li>
+</ul>
+<h4 id="mitigation-strategies">Mitigation Strategies</h4>
+<ul>
+<li><strong>Cost:</strong> Deploy the infrastructure only during testing and presentation, then delete resources using Infrastructure as Code.</li>
+<li><strong>EC2:</strong> Limit the Auto Scaling Group to a maximum of one instance in the demo, but it can be expanded to multiple EC2 instances in real deployment.</li>
+<li><strong>RDS:</strong> Use Single-AZ to save costs in the demo; upgrade to Multi-AZ when high availability is required.</li>
+<li><strong>Transcribe:</strong> Use Amazon SQS and DLQ to manage jobs, reducing task loss when errors occur.</li>
+<li><strong>SES:</strong> Use within the sandbox scope during the demo; request SES Production Access if deploying for real use.</li>
+<li><strong>Monitoring:</strong> CloudWatch currently collects metrics and RDS logs; add CloudWatch Agent and SNS Alarm during the upgrade phase.</li>
+</ul>
+<h4 id="contingency-plan">Contingency Plan</h4>
+<ul>
+<li>If the cloud system encounters an error, the team can recheck resources using Infrastructure as Code and redeploy the same architecture.</li>
+<li>If Transcribe encounters an error, the job can be sent to the DLQ for checking and reprocessing.</li>
+<li>If cost reduction is needed, the team can delete cost-incurring resources such as NAT Gateway, ALB, WAF, EC2, and RDS after completing testing.</li>
+<li>If SES has not been granted Production Access, the team only demonstrates the email sending function within the sandbox scope.</li>
+</ul>
+<hr>
+<h3 id="8-expected-outcomes">8. Expected Outcomes</h3>
+<h4 id="technical-improvements">Technical Improvements</h4>
+<p>VDCMS provides a report management system with a web interface, centralized database, and speech-to-text capability. The system helps users create reports more conveniently, while also supporting the team in practicing the deployment of important AWS services in an architecture close to reality.</p>
+<h4 id="long-term-value">Long-term Value</h4>
+<p>The current architecture can be used as a foundation to develop into a complete production system. In the future, the team can upgrade to two NAT Gateways for two Availability Zones, Auto Scaling with multiple EC2 instances, Amazon ElastiCache Redis for Socket.IO, RDS Multi-AZ, VPC Endpoint for S3 and AWS services, CloudWatch Agent, SNS Alarm, Cognito as the main authentication system, and SES Production Access.</p>
+<h4 id="operational-capability">Operational Capability</h4>
+<p>Thanks to the use of Infrastructure as Code, the system can be redeployed when needed for grading or testing. After completing the presentation, the team can delete all resources to avoid incurring costs. This is an approach suitable for the project environment because it balances security, scalability, and operating costs.</p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="http://localhost:1313/internship-report/1-worklog/1.12-week12/" title="Week 12 Worklog"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="http://localhost:1313/internship-report/3-blogstranslated/" title="Translated Blogs" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="http://localhost:1313/internship-report/js/clipboard.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/perfect-scrollbar.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/perfect-scrollbar.jquery.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/jquery.sticky.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/featherlight.min.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/highlight.pack.js?1784365715"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="http://localhost:1313/internship-report/js/modernizr.custom-3.6.0.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/learn.js?1784365715"></script>
+    <script src="http://localhost:1313/internship-report/js/hugo-learn.js?1784365715"></script>
+
+    <link href="http://localhost:1313/internship-report/mermaid/mermaid.css?1784365715" rel="stylesheet" />
+    <script src="http://localhost:1313/internship-report/mermaid/mermaid.js?1784365715"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function (i, s, o, g, r, a, m) {
+    i["GoogleAnalyticsObject"] = r;
+    ((i[r] =
+      i[r] ||
+      function () {
+        (i[r].q = i[r].q || []).push(arguments);
+      }),
+      (i[r].l = 1 * new Date()));
+    ((a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]));
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m);
+  })(
+    window,
+    document,
+    "script",
+    "https://www.google-analytics.com/analytics.js",
+    "ga",
+  );
+
+  ga("create", "UA-158079754-2", "auto");
+  ga("send", "pageview");
+</script>
+
+  </body>
+</html>

@@ -12,9 +12,7 @@ pre: " <b> 4.3. </b> "
 
 # Bài thu hoạch
 
-### Nội Dung Ấn Tượng
-
-#### Kỹ nghệ Nhắc Tự động: Nâng cao Chất lượng Đầu ra của Mô hình Ngôn ngữ Lớn.
+# 
 
 #### Chuyển đổi sang kiến trúc ứng dụng mới - Microservice Architecture
 

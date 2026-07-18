@@ -1,47 +1,50 @@
 ---
-title: "Sharing and Feedback"
-date: 2024-01-01
-weight: 7
-chapter: false
+title: "Feedback & Contributions"
 pre: " <b> 7. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
+### Feedback & Contributions
 
-> Here, you can freely share your personal opinions about your experience participating in the First Cloud AI Journey program. This will help the FCAJ team improve any shortcomings based on the following aspects:
+**Personal evaluation of the internship experience at the First Cloud Journey program**
 
-### Overall Evaluation
+**I. Overall assessment**
 
-**1. Working Environment**  
-The working environment is very friendly and open. FCAJ members are always willing to help whenever I encounter difficulties, even outside working hours. The workspace is tidy and comfortable, helping me focus better. However, I think it would be nice to have more social gatherings or team bonding activities to strengthen relationships.
+1. **Work environment:**
+The working environment here is very dynamic and open. Whether working on-site or remotely (WFH), I always received enthusiastic support whenever I had questions. The office space is tidy, cool, and quiet enough to maintain strong focus. However, I hope the company can organize more networking events and increase the number of internship days approved for on-site work so interns have more opportunities to bond.
 
-**2. Support from Mentor / Team Admin**  
-The mentor provides very detailed guidance, explains clearly when I don’t understand, and always encourages me to ask questions. The admin team supports administrative tasks, provides necessary documents, and creates favorable conditions for me to work effectively. I especially appreciate that the mentor allows me to try and solve problems myself instead of just giving the answer.
+2. **Support from mentors / team admin:**
+I was particularly impressed by the dedication of mentors and the team admin. The admins are thorough, help with procedures, and provide materials quickly and timely. Mentors give detailed guidance but never hand out the answers; they always encourage me to experiment and debug on my own. The flexibility to adjust pace and learning content to personal needs helped me maximize self-study without feeling constrained.
 
-**3. Relevance of Work to Academic Major**  
-The tasks I was assigned align well with the knowledge I learned at university, while also introducing me to new areas I had never encountered before. This allowed me to both strengthen my foundational knowledge and gain practical skills.
+3. **Match between tasks and academic major:**
+At first, I worried that cloud infrastructure topics might not align closely with my major in Cybersecurity. However, after diving into network architecture and AWS services, I found a strong alignment. The internship not only strengthened my system security foundation but also broadened my view to new technology trends (such as Cloud-Native and Serverless) that I had not encountered in class.
 
-**4. Learning & Skill Development Opportunities**  
-During the internship, I learned many new skills such as using project management tools, teamwork skills, and professional communication in a corporate environment. The mentor also shared valuable real-world experiences that helped me better plan my career path.
+4. **Opportunities for learning & skill development:**
+Throughout the program, I gained a large amount of practical knowledge. Beyond theory, I learned how to deploy a complete cloud system from scratch. The motto “learn by doing” helped me gain hands-on experience and progress quickly. Moreover, the professional working style and practical experience shared by senior colleagues helped clarify my upcoming career path.
 
-**5. Company Culture & Team Spirit**  
-The company culture is very positive: everyone respects each other, works seriously but still keeps things enjoyable. When there are urgent projects, everyone works together and supports one another regardless of their position. This made me feel like a real part of the team, even as an intern.
+5. **Culture & team spirit:**
+The company culture strikes a good balance between friendliness and professional discipline. Within the team, work is distributed reasonably according to each member’s strengths, and everyone strives to complete their tasks well. The active support from colleagues made me feel truly part of the team, even as an intern.
 
-**6. Internship Policies / Benefits**  
-The company provides an internship allowance and offers flexible working hours when needed. In addition, having the opportunity to join internal training sessions is a big plus.
+6. **Policies / benefits for interns:**
+The company offers flexible schedules that help me balance school and internship. Guidance materials are provided in detail. Especially valuable are opportunities to attend training sessions and internal events, which allowed me to learn new ideas and deep technical knowledge from experts.
 
----
+**II. Additional questions**
 
-### Additional Questions
-- What did you find **most satisfying** during your internship?  
-- What do you think the company **should improve** for future interns?  
-- If recommending to a friend, would you **suggest they intern here**? Why or why not?  
+- **What did you like most during the internship?**
+I appreciated the professional work environment, the dedicated support from mentors and admins, and especially the chance to work hands-on with cloud services to gain invaluable experience.
 
----
+- **What should the company improve for future interns?**
+I suggest optimizing the registration system so interns have more chances to work on-site. Also, internal materials and tutorial videos should be updated to reflect changes in the AWS Console and feature updates.
 
-### Suggestions & Expectations
-- Do you have any suggestions to improve the internship experience?  
-- Would you like to continue this program in the future?  
-- Any other comments (free sharing):
+- **Would you recommend this internship to friends? Why?**
+Definitely yes. This is a highly practical environment. The internship helps participants gain valuable skills and experience, providing a solid stepping stone for future careers in technology.
+
+**III. Suggestions & wishes**
+
+- **Any suggestions to improve the internship experience?**
+As mentioned, updating documents and tutorial videos to align with the current AWS interface would be helpful. Overall, my experience in the program was very fulfilling and excellent.
+
+- **Would you like to continue with this program in the future?**
+I would gladly participate again if a suitable opportunity arises.
+
+- **Other feedback (free form):**
+I have no additional comments at this time.

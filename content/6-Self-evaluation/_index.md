@@ -21,17 +21,17 @@ To objectively reflect on the internship process, I would like to self-assess ba
 | No. | Criteria | Description | Good | Fair | Average |
 | --- | --- | --- | --- | --- | --- |
 | 1 | **Technical knowledge and skills** | Industry understanding, applying knowledge to practice, tool proficiency, work quality | ☐ | ✅ | ☐ |
-| 2 | **Learning agility** | Absorbing new knowledge, fast learner | ☐ | ✅ | ☐ |
-| 3 | **Proactiveness** | Self-researching, taking on tasks without waiting for instructions | ☐ | ✅ | ☐ |
+| 2 | **Learning agility** | Absorbing new knowledge, fast learner | ✅ | ☐ | ☐ |
+| 3 | **Proactiveness** | Self-researching, taking on tasks without waiting for instructions | ✅ | ☐ | ☐ |
 | 4 | **Sense of responsibility** | Completing work on time, ensuring quality | ✅ | ☐ | ☐ |
 | 5 | **Discipline** | Complying with punctuality, regulations, workflows | ✅ | ☐ | ☐ |
 | 6 | **Desire for advancement** | Willingness to receive feedback and self-improve | ✅ | ☐ | ☐ |
 | 7 | **Communication** | Presenting ideas, reporting work clearly | ☐ | ✅ | ☐ |
 | 8 | **Team collaboration** | Working effectively with colleagues, participating in the team | ☐ | ✅ | ☐ |
-| 9 | **Professional conduct** | Respecting colleagues, partners, working environment | ✅ | ☐ | ☐ |
-| 10 | **Problem-solving mindset** | Identifying problems, proposing solutions, creativity | ✅ | ☐ | ☐ |
-| 11 | **Contribution to project/org** | Work performance, improvement initiatives, recognition from the team | ✅ | ☐ | ☐ |
-| 12 | **Overall** | General assessment of the entire internship process | ✅ | ☐ | ☐ |
+| 9 | **Professional conduct** | Respecting colleagues, partners, working environment | ☐ | ✅ | ☐ |
+| 10 | **Problem-solving mindset** | Identifying problems, proposing solutions, creativity | ☐ | ✅ | ☐ |
+| 11 | **Contribution to project/org** | Work performance, improvement initiatives, recognition from the team | ☐ | ✅ | ☐ |
+| 12 | **Overall** | General assessment of the entire internship process | ☐ | ✅ | ☐ |
 
 ### Areas for Improvement
 
