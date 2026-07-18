@@ -6,8 +6,6 @@ chapter: false
 pre: " <b> 5. </b> "
 ---
 
-# WORKSHOP
-
 ## HỆ THỐNG QUẢN LÝ CÔNG TRƯỜNG ĐIỀU KHIỂN BẰNG GIỌNG NÓI (VDCMS) TRÊN AWS
 
 #### Tổng quan

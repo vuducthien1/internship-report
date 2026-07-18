@@ -6,8 +6,6 @@ chapter: false
 pre: " <b> 5. </b> "
 ---
 
-# WORKSHOP
-
 ## VOICE-DRIVEN CONSTRUCTION MANAGEMENT SYSTEM (VDCMS) ON AWS
 
 #### Overview
