@@ -1,5 +1,5 @@
 ---
-title: "Các bài blogs đã dịch"
+title: "Các Bài Blogs Đã Dịch"
 date: 2024-01-01
 weight: 3
 chapter: false
@@ -7,7 +7,7 @@ pre: " <b> 3. </b> "
 ---
 
 {{% notice note %}}
-📌 **Info:** Tổng hợp 4 bài blog kỹ thuật AWS đã dịch trong thời gian thực tập, xoay quanh các chủ đề networking, database, storage và container.
+📌 **Infor:** Tổng hợp 4 bài blog kỹ thuật AWS đã dịch trong thời gian thực tập, xoay quanh các chủ đề networking, database, storage và container.
 {{% /notice %}}
 
 

@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head><script src="/internship-report/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=internship-report/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.164.0">
+    <meta
+  name="description"
+  content=""
+/>
+<meta name="author" content="thienlh@thienlu.com" />
+
+    <link rel="icon" href="http://localhost:1313/internship-report/images/favicon.png" type="image/png">
+
+    <title>Blog 3 :: </title>
+
+    
+    <link href="http://localhost:1313/internship-report/css/nucleus.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/fontawesome-all.min.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/hybrid.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/featherlight.min.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/perfect-scrollbar.min.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/auto-complete.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/atom-one-dark-reasonable.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/theme.css?1784359984" rel="stylesheet">
+    <link href="http://localhost:1313/internship-report/css/hugo-theme.css?1784359984" rel="stylesheet">
+    
+    <link href="http://localhost:1313/internship-report/css/theme-workshop.css?1784359984" rel="stylesheet">
+    
+    
+
+    <script src="http://localhost:1313/internship-report/js/jquery-3.3.1.min.js?1784359984"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+
+  </head>
+  <body class="" data-url="http://localhost:1313/internship-report/vi/3-blogstranslated/3.3-blog3/">
+    <nav
+  id="sidebar"
+  class="showVisitedLinks"
+>
+   
+  <div id="header-wrapper">
+    <div id="header"><a id="logo" href="http://localhost:1313/internship-report/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#fff;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+</div>
+     <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/lunr.min.js?1784359984"></script>
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/auto-complete.js?1784359984"></script>
+<script type="text/javascript">
+    var baseurl = "http:\/\/localhost:1313\/internship-report\/";
+</script>
+<script type="text/javascript" src="http://localhost:1313/internship-report/js/search.js?1784359984"></script>
+ 
+  </div>
+
+  <div class="highlightable">
+    <ul class="topics">
+               
+<li
+  data-nav-id="/vi/1-worklog/"
+  title="Nhật ký công việc"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/">
+     <b> 1. </b> Nhật ký công việc 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/1-worklog/1.1-week1/"
+  title="Worklog Tuần 1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.1-week1/">
+     <b> 1.1. </b> Worklog Tuần 1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.2-week2/"
+  title="Worklog Tuần 2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.2-week2/">
+     <b> 1.2. </b> Worklog Tuần 2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.3-week3/"
+  title="Worklog Tuần 3"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.3-week3/">
+     <b> 1.3. </b> Worklog Tuần 3 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.4-week4/"
+  title="Worklog Tuần 4"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.4-week4/">
+     <b> 1.4. </b> Worklog Tuần 4 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.5-week5/"
+  title="Worklog Tuần 5"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.5-week5/">
+     <b> 1.5. </b> Worklog Tuần 5 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.6-week6/"
+  title="Worklog Tuần 6"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.6-week6/">
+     <b> 1.6. </b> Worklog Tuần 6 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.7-week7/"
+  title="Worklog Tuần 7"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.7-week7/">
+     <b> 1.7. </b> Worklog Tuần 7 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.8-week8/"
+  title="Worklog Tuần 8"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.8-week8/">
+     <b> 1.8. </b> Worklog Tuần 8 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.9-week9/"
+  title="Worklog Tuần 9"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.9-week9/">
+     <b> 1.9. </b> Worklog Tuần 9 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.10-week10/"
+  title="Worklog Tuần 10"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.10-week10/">
+     <b> 1.10. </b> Worklog Tuần 10 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.11-week11/"
+  title="Worklog Tuần 11"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.11-week11/">
+     <b> 1.11. </b> Worklog Tuần 11 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/1-worklog/1.12-week12/"
+  title="Worklog Tuần 12"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/1-worklog/1.12-week12/">
+     <b> 1.12 </b> Worklog Tuần 12 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/2-proposal/"
+  title="Bản đề xuất"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/2-proposal/">
+     <b> 2. </b> Bản đề xuất 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/vi/3-blogstranslated/"
+  title="Các Bài Blogs Đã Dịch"
+  class="dd-item 
+        parent
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/3-blogstranslated/">
+     <b> 3. </b> Các Bài Blogs Đã Dịch 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/3-blogstranslated/3.1-blog1/"
+  title="Blog 1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/3-blogstranslated/3.1-blog1/">
+     <b> 3.1. </b> Blog 1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/3-blogstranslated/3.2-blog2/"
+  title="Blog 2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/3-blogstranslated/3.2-blog2/">
+     <b> 3.2. </b> Blog 2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/3-blogstranslated/3.3-blog3/"
+  title="Blog 3"
+  class="dd-item 
+        
+        active
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/3-blogstranslated/3.3-blog3/">
+     <b> 3.3. </b> Blog 3 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/3-blogstranslated/3.4-blog4/"
+  title="Blog 4"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/3-blogstranslated/3.4-blog4/">
+     <b> 3.4. </b> Blog 4 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/4-eventparticipated/"
+  title="Các events đã tham gia"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/4-eventparticipated/">
+     <b> 4. </b> Các events đã tham gia 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/4-eventparticipated/4.1-event1/"
+  title="Event 1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/4-eventparticipated/4.1-event1/">
+     <b> 4.1. </b> Event 1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/4-eventparticipated/4.2-event2/"
+  title="Event 2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/4-eventparticipated/4.2-event2/">
+     <b> 4.2. </b> Event 2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/4-eventparticipated/4.3-event3/"
+  title="Event 3"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/4-eventparticipated/4.3-event3/">
+     <b> 4.3. </b> Event 3 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/5-workshop/"
+  title="Workshop"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/">
+     <b> 5. </b> Workshop 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/5-workshop/5.1-workshop-overview/"
+  title="Giới thiệu"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.1-workshop-overview/">
+     <b> 5.1. </b> Giới thiệu 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-workshop/5.2-prerequisite/"
+  title="Các điều kiện chuẩn bị"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.2-prerequisite/">
+     <b> 5.2. </b> Các điều kiện chuẩn bị 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-workshop/5.3-amazon-ses/"
+  title="Chi tiết cấu hình xác thực Email"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.3-amazon-ses/">
+     <b> 5.3. </b> Chi tiết cấu hình xác thực Email 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-workshop/5.4-cloudformation/"
+  title="Quá trình triển khai hạ tầng qua dòng lệnh"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.4-cloudformation/">
+     <b> 5.4. </b> Quá trình triển khai hạ tầng qua dòng lệnh 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-workshop/5.5-multi-service-integration/"
+  title="Xác minh tài nguyên sau khi triển khai"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.5-multi-service-integration/">
+     <b> 5.5. </b> Xác minh tài nguyên sau khi triển khai 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-workshop/5.6-system-operation-testing/"
+  title="Kịch bản kiểm thử luồng nghiệp vụ thực tế"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.6-system-operation-testing/">
+     <b> 5.6. </b> Kịch bản kiểm thử luồng nghiệp vụ thực tế 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-workshop/5.7-cleanup/"
+  title="Quy trình dọn dẹp giải phóng tài nguyên"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.7-cleanup/">
+     <b> 5.7. </b> Quy trình dọn dẹp giải phóng tài nguyên 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-workshop/5.8-additional-resources/"
+  title="Tài liệu bổ sung"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/5-workshop/5.8-additional-resources/">
+     <b> 5.8. </b> Tài liệu bổ sung 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/6-self-evaluation/"
+  title="Tự đánh giá"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/6-self-evaluation/">
+     <b> 6. </b> Tự đánh giá 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/vi/7-feedback/"
+  title="Chia sẻ, đóng góp ý kiến"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="http://localhost:1313/internship-report/vi/7-feedback/">
+     <b> 7. </b> Chia sẻ, đóng góp ý kiến 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+    </ul>
+
+     
+    <section id="shortcuts">
+      <h3>
+        More
+      </h3>
+      <ul>
+        
+        <li>
+          <a class="padding" href="http://awsstudygroup.com"
+            ><i class='fab fa-aws'></i> AWS Study Group - Blog</a
+          >
+        </li>
+        
+        <li>
+          <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj"
+            ><i class='fab fa-facebook'></i> AWS Study Group - Nhóm FB</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+     
+    <section id="prefooter">
+      <hr />
+      <ul>
+        
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+                       
+                <option
+                  id="en"
+                  value="http://localhost:1313/internship-report/3-blogstranslated/3.3-blog3/"
+                >
+                  
+                </option>
+                            
+                <option
+                  id="vi"
+                  value="http://localhost:1313/internship-report/vi/3-blogstranslated/3.3-blog3/"
+                  selected
+                >
+                  
+                </option>
+                   
+              </select>
+              <svg
+                version="1.1"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                width="255px"
+                height="255px"
+                viewBox="0 0 255 255"
+                style="enable-background: new 0 0 255 255"
+                xml:space="preserve"
+              >
+                <g>
+                  <g id="arrow-drop-down">
+                    <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </a>
+        </li>
+         
+        <li>
+          <a class="padding" href="#" data-clear-history-toggle=""
+            ><i class="fas fa-history fa-fw"></i> Clear History</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+    
+    <section id="footer"><left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>18-07-2026</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Team </b> <br>
+    <i>
+        <a href="https://www.facebook.com/groups/660548818043427" style="color:orange">First Cloud AI Journey</a>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script></section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='http://localhost:1313/internship-report/vi/'>Báo cáo thực tập</a> > <a href='http://localhost:1313/internship-report/vi/3-blogstranslated/'>Các Bài Blogs Đã Dịch</a> > Blog 3
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+  <div class="wrapper"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#vấn-đề-compute-scale-được-nhưng-ip-thì-không">Vấn đề: compute scale được, nhưng IP thì không</a></li>
+    <li><a href="#vì-sao-không-chỉ-xin-thêm-ip-hoặc-chuyển-sang-ipv6">Vì sao không chỉ xin thêm IP hoặc chuyển sang IPv6?</a></li>
+    <li><a href="#ý-tưởng-chính-của-giải-pháp">Ý tưởng chính của giải pháp</a></li>
+    <li><a href="#kiến-trúc-hoạt-động-như-thế-nào">Kiến trúc hoạt động như thế nào?</a></li>
+    <li><a href="#route-table-cần-cấu-hình-ra-sao">Route table cần cấu hình ra sao?</a></li>
+    <li><a href="#kết-quả-đạt-được">Kết quả đạt được</a></li>
+    <li><a href="#một-vài-bài-học-khi-vận-hành">Một vài bài học khi vận hành</a></li>
+    <li><a href="#khi-nào-nên-dùng-mô-hình-này">Khi nào nên dùng mô hình này?</a></li>
+    <li><a href="#kết-luận">Kết luận</a></li>
+    <li><a href="#nguồn-tham-khảo">Nguồn tham khảo</a></li>
+  </ul>
+</nav></div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Blog 3
+            </h1>
+          
+
+        
+
+
+
+	<p>📌 <strong>Infor:</strong> Blog 3 - Private NAT Gateway</p>
+<h1 id="private-nat-gateway---cách-united-airlines-giải-quyết-bài-toán-cạn-kiệt-ip-khi-hệ-thống-cần-scale-gấp">Private NAT Gateway - Cách United Airlines giải quyết bài toán cạn kiệt IP khi hệ thống cần scale gấp</h1>
+<p>Trong các hệ thống cloud quy mô lớn, đôi khi vấn đề không nằm ở việc thiếu compute, thiếu container hay thiếu serverless capacity, mà lại nằm ở một thứ rất cơ bản: <strong>địa chỉ IP</strong>.</p>
+<p><strong>United Airlines</strong> là một hãng hàng không lớn tại Mỹ, vận hành hệ thống phục vụ hàng trăm triệu hành khách mỗi năm. Khi xảy ra các sự cố như thời tiết xấu, chuyến bay bị hủy hàng loạt hoặc gián đoạn do kiểm soát không lưu, hệ thống của United cần scale rất nhanh để xử lý nhiều tác vụ cùng lúc: đặt lại vé, cập nhật hành trình, xử lý dữ liệu chuyến bay, điều phối hành lý và phân công lại phi hành đoàn.</p>
+<p>Tuy nhiên, trong môi trường <strong>hybrid network</strong> với hàng trăm AWS account kết nối về hệ thống on-premises, United gặp một giới hạn khá khó chịu: <strong>cạn kiệt địa chỉ IPv4 có thể route được</strong>.</p>
+<hr>
+<h2 id="vấn-đề-compute-scale-được-nhưng-ip-thì-không">Vấn đề: compute scale được, nhưng IP thì không</h2>
+<p>Trong AWS, nhiều workload khi chạy trong VPC sẽ cần <strong>Elastic Network Interface (ENI)</strong>. Ví dụ:</p>
+<ul>
+<li>Amazon ECS task.</li>
+<li>AWS Glue job.</li>
+<li>AWS Lambda function gắn với VPC.</li>
+</ul>
+<p>Mỗi ENI sẽ tiêu thụ một địa chỉ IP trong subnet. Với các doanh nghiệp lớn như United Airlines, dải IP private <strong>RFC 1918</strong> thường được cấp phát rất chặt chẽ để tránh trùng với on-premises, VPC khác hoặc các hệ thống mạng nội bộ.</p>
+<p>Ở trạng thái bình thường, lượng IP được cấp có thể đủ dùng. Nhưng khi xảy ra sự cố diện rộng, nhiều workload cùng scale lên một lúc. ECS task tăng, Glue job chạy nhiều hơn, Lambda function fan-out hàng loạt. Tất cả cùng lấy IP từ một pool giới hạn.</p>
+<p>Kết quả là hệ thống có thể chạm trần IP đúng lúc cần mở rộng nhất.</p>
+<p>Điểm khó là việc xin thêm dải IP routable không thể làm trong vài phút. Nó cần phối hợp với network team, cập nhật routing, firewall rule và kiểm tra tránh overlap. Với một môi trường lớn, quá trình này có thể kéo dài nhiều tuần.</p>
+<p>United cần một cách để compute có thể scale nhanh mà không bị phụ thuộc vào số lượng IP routable còn trống.</p>
+<hr>
+<h2 id="vì-sao-không-chỉ-xin-thêm-ip-hoặc-chuyển-sang-ipv6">Vì sao không chỉ xin thêm IP hoặc chuyển sang IPv6?</h2>
+<p>Trước khi chọn <strong>Private NAT Gateway</strong>, United đã cân nhắc nhiều hướng khác nhau.</p>
+<p><strong>Xin thêm RFC 1918 space</strong> là cách trực tiếp nhất, nhưng không phù hợp với nhu cầu scale đột biến vì mất nhiều thời gian phối hợp.</p>
+<p><strong>IPv6</strong> là hướng giải quyết lâu dài cho bài toán thiếu IPv4. Tuy nhiên, với một doanh nghiệp có hàng trăm account, nhiều hệ thống routing, monitoring và security policy đang dựa trên IPv4, việc chuyển đổi sang IPv6 là một quyết định lớn ở cấp tổ chức, không thể triển khai nhanh chỉ để xử lý một bài toán ngắn hạn.</p>
+<p><strong>AWS PrivateLink</strong> phù hợp khi cần expose một số service cụ thể giữa các VPC, nhưng workload của United cần outbound connectivity đến nhiều nơi: Transit Gateway, on-premises, shared services và nhiều VPC khác.</p>
+<p><strong>Amazon VPC Lattice</strong> phù hợp với mô hình service-to-service rõ ràng, nhưng bài toán của United thiên về general outbound connectivity, tức là workload cần đi đến nhiều đích khác nhau thay vì chỉ gọi một số service đã đăng ký sẵn.</p>
+<p><strong>Network renumbering</strong> có thể giải quyết tận gốc, nhưng với quy mô lớn thì đây là dự án nhiều năm.</p>
+<p>Vì vậy, United chọn Private NAT Gateway vì có thể triển khai trong vài tuần, không cần thay đổi hệ thống đích và vẫn dùng được hạ tầng IPv4 hiện tại.</p>
+<hr>
+<h2 id="ý-tưởng-chính-của-giải-pháp">Ý tưởng chính của giải pháp</h2>
+<p>Thay vì đặt tất cả workload vào các subnet dùng IP routable khan hiếm, United chuyển compute workload sang dải <code>100.64.0.0/10</code>.</p>
+<p>Đây là dải <strong>Carrier-Grade NAT</strong> theo <strong>RFC 6598</strong>. Các địa chỉ này không được route trong corporate network của United, nên có thể dùng cho compute subnet mà không cần xin cấp phát từ pool IPv4 routable truyền thống.</p>
+<p>Nhưng có một vấn đề: workload chạy trên dải <code>100.64.x.x</code> không thể tự giao tiếp ra ngoài VPC, chẳng hạn đến on-premises, shared services hoặc VPC khác qua Transit Gateway.</p>
+<p>Đây là lúc <strong>Private NAT Gateway</strong> phát huy tác dụng.</p>
+<p>Private NAT Gateway được đặt trong subnet routable. Khi workload từ subnet <code>100.64.x.x</code> gửi traffic ra ngoài, Private NAT Gateway sẽ dịch source IP từ địa chỉ non-routable sang địa chỉ routable của gateway. Sau đó traffic có thể đi tiếp qua Transit Gateway đến các hệ thống cần truy cập.</p>
+<p>Nói đơn giản:</p>
+<ul>
+<li>Compute dùng IP non-routable để không bị thiếu địa chỉ.</li>
+<li>Private NAT Gateway đứng giữa để dịch traffic ra IP routable.</li>
+<li>Hệ thống đích không cần thay đổi gì.</li>
+</ul>
+<hr>
+<h2 id="kiến-trúc-hoạt-động-như-thế-nào">Kiến trúc hoạt động như thế nào?</h2>
+<p>Mô hình của United có thể hiểu theo ba phần chính.</p>
+<p>Phần đầu tiên là <strong>non-routable compute subnets</strong> dùng dải <code>100.64.0.0/10</code>. Đây là nơi chạy ECS tasks, AWS Glue jobs và Lambda functions gắn với VPC.</p>
+<p>Phần thứ hai là <strong>routable subnets</strong>. Các subnet này vẫn dùng dải IP có thể route trong corporate network. Private NAT Gateway, load balancer hoặc các thành phần cần được truy cập trực tiếp sẽ nằm ở đây.</p>
+<p>Phần thứ ba là <strong>Transit Gateway</strong> để kết nối đến các VPC khác, shared services và hệ thống on-premises.</p>
+<p>Luồng traffic sẽ như sau:</p>
+<ol>
+<li>Workload trong subnet <code>100.64.x.x</code> gửi request ra ngoài VPC.</li>
+<li>Route table của non-routable subnet trỏ traffic mặc định về Private NAT Gateway.</li>
+<li>Private NAT Gateway dịch source IP sang IP routable của gateway.</li>
+<li>Traffic đi tiếp qua Transit Gateway đến hệ thống đích.</li>
+<li>Response quay lại Private NAT Gateway.</li>
+<li>Gateway dịch ngược về IP ban đầu của workload.</li>
+</ol>
+<p>Workload phía trong không cần biết quá trình NAT đang diễn ra. Nó vẫn gửi request như bình thường.</p>
+<hr>
+<h2 id="route-table-cần-cấu-hình-ra-sao">Route table cần cấu hình ra sao?</h2>
+<p>Về cơ bản, United dùng hai loại route table.</p>
+<p>Với <strong>subnet non-routable</strong>, các traffic nội bộ trong VPC vẫn đi local. Các dịch vụ như S3 hoặc DynamoDB có thể đi qua VPC endpoint. Còn traffic khác sẽ đi qua Private NAT Gateway.</p>
+<p>Với <strong>subnet routable</strong>, traffic mặc định có thể đi qua Transit Gateway để đến mạng doanh nghiệp, on-premises hoặc các VPC khác.</p>
+<p>Cách cấu hình này giúp tách rõ vai trò:</p>
+<ul>
+<li>Non-routable subnet dành cho compute scale lớn.</li>
+<li>Routable subnet dành cho các thành phần cần kết nối mạng rộng hơn.</li>
+<li>Private NAT Gateway làm lớp dịch địa chỉ giữa hai vùng.</li>
+</ul>
+<hr>
+<h2 id="kết-quả-đạt-được">Kết quả đạt được</h2>
+<p>Sau khi dùng Private NAT Gateway, United Airlines có thể tách việc scale compute khỏi giới hạn IP routable.</p>
+<p>Trước đây, khi xảy ra <strong>IRROPS</strong>, task hoặc function có thể fail vì subnet hết IP. Sau khi chuyển sang mô hình này, compute workload có thể scale trên non-routable subnets mà không còn bị giới hạn bởi pool IP routable khan hiếm.</p>
+<p>Thời gian bổ sung capacity cũng thay đổi đáng kể. Thay vì phải chờ nhiều tuần để xin thêm IP và cập nhật firewall, các team có thể mở rộng workload trong vài phút trên dải <code>100.64.0.0/10</code>.</p>
+<p>Điều này đặc biệt quan trọng với hàng không, vì chỉ một sự cố khiến hệ thống rebooking không scale kịp cũng có thể ảnh hưởng đến hàng chục nghìn hành khách trong thời gian ngắn.</p>
+<hr>
+<h2 id="một-vài-bài-học-khi-vận-hành">Một vài bài học khi vận hành</h2>
+<p>Có một số điểm đáng chú ý khi triển khai Private NAT Gateway ở quy mô lớn.</p>
+<p>Thứ nhất, cần triển khai NAT Gateway phù hợp theo <strong>Availability Zone</strong>. Khi traffic tăng mạnh, NAT Gateway sẽ chịu tải lớn. Một gateway có giới hạn rất cao, nhưng với hàng nghìn Lambda invocation ngắn hạn cùng gọi đến một endpoint, vẫn có thể gặp vấn đề về <strong>port exhaustion</strong>. Vì vậy cần theo dõi các chỉ số như <code>ErrorPortAllocation</code> trên CloudWatch.</p>
+<p>Thứ hai, không phải tài nguyên nào cũng nên chuyển sang non-routable subnet. Các thành phần cần được truy cập trực tiếp từ corporate network như load balancer, NAT Gateway hoặc một số interface đặc biệt vẫn nên nằm trong routable subnet.</p>
+<p>Thứ ba, NAT sẽ che mất IP gốc của workload. Hệ thống đích sẽ thấy source IP là Private NAT Gateway thay vì IP của container hoặc Lambda. Để truy vết, có thể dùng <strong>VPC Flow Logs</strong> với custom format để ghi lại cả địa chỉ trước NAT và sau NAT.</p>
+<p>Thứ tư, với <strong>Amazon EKS</strong>, United có thể dùng custom networking để pod nhận IP non-routable. Nhưng với <strong>ECS</strong>, <strong>Glue</strong> và <strong>Lambda</strong>, các dịch vụ này gắn ENI trực tiếp vào subnet được cấu hình, nên Private NAT Gateway là cách phù hợp hơn để xử lý outbound connectivity.</p>
+<hr>
+<h2 id="khi-nào-nên-dùng-mô-hình-này">Khi nào nên dùng mô hình này?</h2>
+<p>Private NAT Gateway phù hợp với các doanh nghiệp đang gặp tình trạng thiếu IPv4 trong môi trường hybrid network, đặc biệt khi:</p>
+<ul>
+<li>Có nhiều AWS account kết nối với on-premises.</li>
+<li>RFC 1918 space được cấp phát hạn chế.</li>
+<li>Workload serverless hoặc container cần scale đột biến.</li>
+<li>Việc xin thêm IP mất nhiều thời gian.</li>
+<li>Hệ thống vẫn phụ thuộc nhiều vào IPv4.</li>
+<li>Cần outbound connectivity đến nhiều VPC, shared services hoặc on-premises.</li>
+</ul>
+<p>Đây không phải là giải pháp thay thế hoàn toàn cho IPv6 trong dài hạn, nhưng là một cách thực tế để xử lý bài toán scale trong hạ tầng hiện tại.</p>
+<hr>
+<h2 id="kết-luận">Kết luận</h2>
+<p>Câu chuyện của United Airlines cho thấy một vấn đề rất thực tế trong cloud networking: đôi khi hệ thống không bị giới hạn bởi compute, mà bị giới hạn bởi địa chỉ IP.</p>
+<p>Bằng cách đưa workload sang subnet non-routable <code>100.64.0.0/10</code> và dùng Private NAT Gateway để dịch traffic ra mạng routable, United đã loại bỏ giới hạn IP khỏi quá trình scale. Các workload như ECS, AWS Glue và Lambda có thể mở rộng nhanh hơn trong những thời điểm áp lực cao mà không cần chờ cấp phát thêm IP từ network team.</p>
+<p>Theo mình, điểm đáng giá nhất của giải pháp này là tính thực dụng. Nó không yêu cầu thay đổi lớn ở hệ thống đích, không cần tái kiến trúc mạng trong nhiều năm và có thể triển khai trên hạ tầng IPv4 hiện tại.</p>
+<p>Với các tổ chức lớn đang gặp bài toán thiếu IP trong môi trường hybrid AWS, Private NAT Gateway là một hướng hay đáng cân nhắc.</p>
+<hr>
+<h2 id="nguồn-tham-khảo">Nguồn tham khảo</h2>
+<p><a href="https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-united-airlines-solved-ip-exhaustion-with-private-nat-gateway/">How United Airlines solved IP exhaustion with Private NAT Gateway</a></p>
+<hr>
+<p><img src="https://hoaithoai.github.io/images/Blog/blog3-3.png" alt=""><img src="https://hoaithoai.github.io/images/Blog/blog3-2.png" alt=""><img src="https://hoaithoai.github.io/images/Blog/blog3-1.png" alt=""></p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="http://localhost:1313/internship-report/vi/3-blogstranslated/3.2-blog2/" title="Blog 2"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="http://localhost:1313/internship-report/vi/3-blogstranslated/3.4-blog4/" title="Blog 4" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="http://localhost:1313/internship-report/js/clipboard.min.js?1784359984"></script>
+    <script src="http://localhost:1313/internship-report/js/perfect-scrollbar.min.js?1784359984"></script>
+    <script src="http://localhost:1313/internship-report/js/perfect-scrollbar.jquery.min.js?1784359984"></script>
+    <script src="http://localhost:1313/internship-report/js/jquery.sticky.js?1784359984"></script>
+    <script src="http://localhost:1313/internship-report/js/featherlight.min.js?1784359984"></script>
+    <script src="http://localhost:1313/internship-report/js/highlight.pack.js?1784359984"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="http://localhost:1313/internship-report/js/modernizr.custom-3.6.0.js?1784359984"></script>
+    <script src="http://localhost:1313/internship-report/js/learn.js?1784359984"></script>
+    <script src="http://localhost:1313/internship-report/js/hugo-learn.js?1784359984"></script>
+
+    <link href="http://localhost:1313/internship-report/mermaid/mermaid.css?1784359984" rel="stylesheet" />
+    <script src="http://localhost:1313/internship-report/mermaid/mermaid.js?1784359984"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function (i, s, o, g, r, a, m) {
+    i["GoogleAnalyticsObject"] = r;
+    ((i[r] =
+      i[r] ||
+      function () {
+        (i[r].q = i[r].q || []).push(arguments);
+      }),
+      (i[r].l = 1 * new Date()));
+    ((a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]));
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m);
+  })(
+    window,
+    document,
+    "script",
+    "https://www.google-analytics.com/analytics.js",
+    "ga",
+  );
+
+  ga("create", "UA-158079754-2", "auto");
+  ga("send", "pageview");
+</script>
+
+  </body>
+</html>

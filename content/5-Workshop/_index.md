@@ -5,27 +5,22 @@ weight: 5
 chapter: false
 pre: " <b> 5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# WORKSHOP
+
+## VOICE-DRIVEN CONSTRUCTION MANAGEMENT SYSTEM (VDCMS) ON AWS
 
 #### Overview
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
-
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
-
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+This workshop focuses on automating the full deployment and operation lifecycle of the VDCMS (Voice-Driven Construction Management System) — a solution for managing construction-site progress and safety through intelligent voice recognition. It addresses a real construction-site problem: helping engineers create reports by voice, automatically converting speech to text, and syncing data to the Cloud for instant management approval.
 
 #### Content
 
-1. [Workshop overview](5.1-Workshop-overview)
-2. [Prerequiste](5.2-Prerequiste/)
-3. [Access S3 from VPC](5.3-S3-vpc/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
-5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+1. [Workshop Overview](5.1-Workshop-overview/)
+2. [Prerequisite](5.2-Prerequisite/)
+3. [Detailed Email Authentication Configuration](5.3-Amazon-SES/)
+4. [Infrastructure Deployment Process via Command Line](5.4-CloudFormation/)
+5. [Post-Deployment Resource Status Validation](5.5-Multi-Service-Integration/)
+6. [Real-world Business Flow Testing Scenario](5.6-System-Operation-Testing/)
+7. [Resource Cleanup and Decommissioning Process](5.7-Cleanup/)
+8. [Additional Resources](5.8-Additional-Resources/)

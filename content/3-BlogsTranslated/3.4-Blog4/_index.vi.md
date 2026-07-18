@@ -1,15 +1,12 @@
 ---
-
 title: "Blog 4"
 date: 2026-07-09
 weight: 4
 chapter: false
 pre: " <b> 3.4. </b> "
-----------------------
+---
 
-{{% notice note %}}
 📌 **Infor:** Blog 4 - Amazon EKS Version Rollbacks
-{{% /notice %}}
 
 # Amazon EKS Version Rollbacks - Vĩnh biệt nỗi lo "sập cụm" mỗi khi nâng cấp Kubernetes
 
@@ -73,8 +70,7 @@ Tính năng **Kubernetes Version Rollbacks** trên **Amazon EKS** đã giải qu
 
 ## Link chi tiết bài viết
 
-https://aws.amazon.com/blogs/aws/upgrade-amazon-eks-clusters-with-confidence-using-kubernetes-version-rollbacks/
+[Upgrade Amazon EKS clusters with confidence using Kubernetes version rollbacks](https://aws.amazon.com/blogs/aws/upgrade-amazon-eks-clusters-with-confidence-using-kubernetes-version-rollbacks/)
 
 ---
-
-<img src="/images/Blog/blog4.png" style="max-width:100%; margin-bottom:16px;" />
+![](https://hoaithoai.github.io/images/Blog/blog4.png)

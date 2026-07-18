@@ -5,15 +5,18 @@ weight : 1
 chapter : false
 pre : " <b> 5.1. </b> "
 ---
+#### Tổng quan Workshop
 
-#### Giới thiệu về VPC Endpoint
+#### Giới thiệu bài Lab
+Workshop này tập trung vào việc tự động hóa toàn bộ quy trình triển khai và vận hành hệ thống VDCMS (Voice-Driven Construction Management System) – giải pháp quản lý tiến độ và an toàn công trường thông qua công nghệ nhận diện giọng nói thông minh. Hệ thống giải quyết bài toán thực tế tại các công trường xây dựng: giúp kỹ sư lập báo cáo nhanh bằng lời thoại, tự động chuyển đổi thành văn bản và đồng bộ hóa dữ liệu lên Cloud để cấp quản lý phê duyệt tức thời.
 
-+ Điểm cuối VPC (endpoint) là thiết bị ảo. Chúng là các thành phần VPC có thể mở rộng theo chiều ngang, dự phòng và có tính sẵn sàng cao. Chúng cho phép giao tiếp giữa tài nguyên điện toán của bạn và dịch vụ AWS mà không gây ra rủi ro về tính sẵn sàng.
-+ Tài nguyên điện toán đang chạy trong VPC có thể truy cập Amazon S3 bằng cách sử dụng điểm cuối Gateway. Interface Endpoint  PrivateLink có thể được sử dụng bởi tài nguyên chạy trong VPC hoặc tại TTDL.
+#### Mục tiêu kỹ thuật
 
-#### Tổng quan về workshop
-Trong workshop này, bạn sẽ sử dụng hai VPC.
-+ **"VPC Cloud"** dành cho các tài nguyên cloud như Gateway endpoint và EC2 instance để kiểm tra.
-+ **"VPC On-Prem"** mô phỏng môi trường truyền thống như nhà máy hoặc trung tâm dữ liệu của công ty. Một EC2 Instance chạy phần mềm StrongSwan VPN đã được triển khai trong "VPC On-prem" và được cấu hình tự động để thiết lập đường hầm VPN Site-to-Site với AWS Transit Gateway. VPN này mô phỏng kết nối từ một vị trí tại TTDL (on-prem) với AWS cloud. Để giảm thiểu chi phí, chỉ một phiên bản VPN được cung cấp để hỗ trợ workshop này. Khi lập kế hoạch kết nối VPN cho production workloads của bạn, AWS khuyên bạn nên sử dụng nhiều thiết bị VPN để có tính sẵn sàng cao.
+- Xác thực thành công cấu hình giao thức gửi nhận email an toàn trên Cloud thông qua Amazon SES.
+- Thực hiện tư duy Hạ tầng dạng mã nguồn (IaC) để triển khai tự động, đồng bộ cụm tài nguyên phức tạp bằng AWS CloudFormation thay vì cấu hình thủ công từng dịch vụ.
+- Phân phối ứng dụng Frontend phi máy chủ (Serverless) với hiệu năng cao, độ trễ thấp thông qua sự kết hợp giữa Amazon S3 và Amazon CloudFront.
+- Đánh giá tính toàn vẹn của một kiến trúc Cloud Production đa tầng bao gồm: Máy chủ mã nguồn ứng dụng Backend (EC2), Cơ sở dữ liệu quan hệ (RDS Aurora), Quản lý định danh phiên đăng nhập (Cognito), Bảo mật thông tin mã hóa (Secrets Manager), Hàng đợi bất đồng bộ (SQS) và Tường lửa ứng dụng web (WAF).
 
-![overview](/images/5-Workshop/5.1-Workshop-overview/diagram1.png)
+#### Sơ đồ kiến trúc triển khai hệ thống (Architecture Diagram)
+
+![Sơ đồ kiến trúc](https://hoaithoai.github.io/images/2-Proposal/vdcms_architecture.png)

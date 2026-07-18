@@ -7,7 +7,7 @@ pre: " <b> 3. </b> "
 ---
 
 {{% notice note %}}
-📌 **Info:** A collection of 4 AWS technical blogs translated during the internship, covering networking, database, storage, and container topics.
+📌 **Infor:** A collection of 4 AWS technical blogs translated during the internship, covering networking, database, storage, and container topics.
 {{% /notice %}}
 
 

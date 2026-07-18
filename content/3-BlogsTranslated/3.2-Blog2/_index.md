@@ -4,11 +4,9 @@ date: 2026-07-08
 weight: 2
 chapter: false
 pre: " <b> 3.2. </b> "
-----------------------
+---
 
-{{% notice note %}}
 📌 **Infor:** Blog 2 - Logical Replication trong Amazon RDS for PostgreSQL 18
-{{% /notice %}}
 
 # Logical Replication in Amazon RDS for PostgreSQL 18 - Notable Improvements
 
@@ -36,10 +34,10 @@ This model is very suitable when data needs to be synchronized between different
 
 Before PostgreSQL 18, logical replication had several limitations:
 
-* **Generated columns were not replicated** → easily causing missing data on the subscriber.
-* **Conflicts were difficult to track** → logs had to be read and the cause had to be inferred manually.
-* **Forgotten replication slots** → retained WAL for a long time, increasing storage usage.
-* **Two-phase commit was difficult to change** → sometimes requiring the subscription to be dropped and the data to be synchronized again from the beginning.
+- **Generated columns were not replicated** → easily causing missing data on the subscriber.
+- **Conflicts were difficult to track** → logs had to be read and the cause had to be inferred manually.
+- **Forgotten replication slots** → retained WAL for a long time, increasing storage usage.
+- **Two-phase commit was difficult to change** → sometimes requiring the subscription to be dropped and the data to be synchronized again from the beginning.
 
 PostgreSQL 18 solves almost all of these issues.
 
@@ -67,10 +65,10 @@ PostgreSQL 18 adds more **conflict counters** in the `pg_stat_subscription_stats
 
 You can clearly identify types of errors such as:
 
-* Duplicate key on `INSERT`.
-* `UPDATE`/`DELETE` on a row that does not exist.
-* Conflicts caused by replication origin.
-* Violations of multiple unique constraints.
+- Duplicate key on `INSERT`.
+- `UPDATE`/`DELETE` on a row that does not exist.
+- Conflicts caused by replication origin.
+- Violations of multiple unique constraints.
 
 For example, if `confl_insert_exists` increases, it means the subscriber already has data that duplicates the data sent by the publisher.
 
@@ -133,9 +131,9 @@ If a slot remains idle for too long, PostgreSQL will automatically invalidate th
 
 Some points to note:
 
-* Default = `0`, meaning it is not enabled.
-* It can be changed without a reboot.
-* It is applied when a checkpoint runs.
+- Default = `0`, meaning it is not enabled.
+- It can be changed without a reboot.
+- It is applied when a checkpoint runs.
 
 This helps reduce the risk of disk full issues caused by forgotten slots.
 
@@ -145,12 +143,12 @@ This helps reduce the risk of disk full issues caused by forgotten slots.
 
 When using the new features, keep in mind:
 
-* Generated columns are only replicated if they are **STORED**.
-* The subscriber should use a normal column, not a generated column.
-* Some conflict counters related to replication origin require `track_commit_timestamp` to be enabled on the subscriber.
-* Other counters such as duplicate key on `INSERT` or `UPDATE`/`DELETE` on a row that does not exist can still be monitored without enabling this parameter.
-* Logical replication does not synchronize sequences → this should be checked if promoting the subscriber.
-* It is recommended to use the same PostgreSQL 18 version to take full advantage of the features.
+- Generated columns are only replicated if they are **STORED**.
+- The subscriber should use a normal column, not a generated column.
+- Some conflict counters related to replication origin require `track_commit_timestamp` to be enabled on the subscriber.
+- Other counters such as duplicate key on `INSERT` or `UPDATE`/`DELETE` on a row that does not exist can still be monitored without enabling this parameter.
+- Logical replication does not synchronize sequences → this should be checked if promoting the subscriber.
+- It is recommended to use the same PostgreSQL 18 version to take full advantage of the features.
 
 ---
 
@@ -158,12 +156,12 @@ When using the new features, keep in mind:
 
 These improvements are especially useful when:
 
-* Synchronizing data to a read replica or reporting system.
-* Migrating databases.
-* Separating read/write workloads.
-* Running multiple subscribers for different purposes.
-* Wanting clearer conflict control.
-* Avoiding WAL growth caused by forgotten slots.
+- Synchronizing data to a read replica or reporting system.
+- Migrating databases.
+- Separating read/write workloads.
+- Running multiple subscribers for different purposes.
+- Wanting clearer conflict control.
+- Avoiding WAL growth caused by forgotten slots.
 
 In **RDS** or **Aurora** environments, these improvements make logical replication significantly easier to operate.
 
@@ -181,7 +179,7 @@ If you are using **Amazon RDS for PostgreSQL** or **Aurora PostgreSQL-Compatible
 
 ## Reference article link
 
-https://aws.amazon.com/vi/blogs/database/logical-replication-improvements-in-amazon-rds-for-postgresql-18/
----
+[Logical Replication Improvements in Amazon RDS for PostgreSQL 18](https://aws.amazon.com/vi/blogs/database/logical-replication-improvements-in-amazon-rds-for-postgresql-18/)
 
-<img src="/images/Blog/blog2.png" style="max-width:100%; margin-bottom:16px;" />
+---
+![](https://hoaithoai.github.io/images/Blog/blog2.png)

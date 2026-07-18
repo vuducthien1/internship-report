@@ -87,6 +87,11 @@ app.get('/health', async (_req, res) => {
     }
 });
 
+// Suppress browser favicon 404s by returning no-content for requests to /favicon.ico
+app.get('/favicon.ico', (_req, res) => {
+    res.status(204).end();
+});
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 

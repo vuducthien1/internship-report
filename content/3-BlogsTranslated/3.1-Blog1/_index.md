@@ -4,11 +4,9 @@ date: 2024-07-07
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
-----------------------
+---
 
-{{% notice note %}}
 📌 **Infor:** Blog 1 - Amazon VPC Lattice
-{{% /notice %}}
 
 # Amazon VPC Lattice - When microservices no longer have to take a long detour to communicate with each other
 
@@ -64,12 +62,12 @@ VPC Lattice helps significantly reduce latency, simplify network architecture, a
 
 The main benefits can be summarized as follows:
 
-* Reduces latency when services communicate with each other.
-* Simplifies the network architecture between microservices.
-* Limits the need for traffic to go through the Internet.
-* Improves security control with Auth Policy.
-* Fits systems with multiple environments and multiple AWS accounts.
-* Provides good support for serverless architectures using AWS Lambda.
+- Reduces latency when services communicate with each other.
+- Simplifies the network architecture between microservices.
+- Limits the need for traffic to go through the Internet.
+- Improves security control with Auth Policy.
+- Fits systems with multiple environments and multiple AWS accounts.
+- Provides good support for serverless architectures using AWS Lambda.
 
 ---
 
@@ -91,9 +89,7 @@ If you are building a serverless or microservices system on AWS, especially when
 
 ## Reference link
 
-* [How IAG accelerated service-to-service communication with Amazon VPC Lattice](https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-iag-accelerated-service-to-service-communication-with-amazon-vpc-lattice/)
+[How IAG accelerated service-to-service communication with Amazon VPC Lattice](https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-iag-accelerated-service-to-service-communication-with-amazon-vpc-lattice/)
+
 ---
-
-<img src="/images/Blog/blog1-1.png" style="max-width:100%; margin-bottom:16px;" />
-
-<img src="/images/Blog/blog1-2.png" style="max-width:100%; margin-bottom:16px;" />
+![](https://hoaithoai.github.io/images/Blog/blog1-1.png)![](https://hoaithoai.github.io/images/Blog/blog1-2.png)

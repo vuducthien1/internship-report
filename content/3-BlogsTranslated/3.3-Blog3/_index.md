@@ -4,11 +4,9 @@ date: 2026-07-08
 weight: 3
 chapter: false
 pre: " <b> 3.3. </b> "
-----------------------
+---
 
-{{% notice note %}}
 📌 **Infor:** Blog 3 - Private NAT Gateway
-{{% /notice %}}
 
 # Private NAT Gateway - How United Airlines solved IP exhaustion when the system needed to scale urgently
 
@@ -24,9 +22,9 @@ However, in a **hybrid network** environment with hundreds of AWS accounts conne
 
 In AWS, many workloads running inside a VPC require an **Elastic Network Interface (ENI)**. For example:
 
-* Amazon ECS tasks.
-* AWS Glue jobs.
-* AWS Lambda functions attached to a VPC.
+- Amazon ECS tasks.
+- AWS Glue jobs.
+- AWS Lambda functions attached to a VPC.
 
 Each ENI consumes one IP address in the subnet. For large enterprises like United Airlines, private IP ranges under **RFC 1918** are often allocated very carefully to avoid overlap with on-premises networks, other VPCs, or internal network systems.
 
@@ -111,9 +109,9 @@ For the **routable subnet**, default traffic can go through Transit Gateway to r
 
 This configuration clearly separates responsibilities:
 
-* Non-routable subnets are used for large-scale compute.
-* Routable subnets are used for components that need broader network connectivity.
-* Private NAT Gateway acts as the address translation layer between the two areas.
+- Non-routable subnets are used for large-scale compute.
+- Routable subnets are used for components that need broader network connectivity.
+- Private NAT Gateway acts as the address translation layer between the two areas.
 
 ---
 
@@ -147,12 +145,12 @@ Fourth, with **Amazon EKS**, United can use custom networking so that pods recei
 
 Private NAT Gateway is suitable for enterprises facing IPv4 shortage in a hybrid network environment, especially when:
 
-* There are many AWS accounts connected to on-premises.
-* RFC 1918 space is allocated with strict limitations.
-* Serverless or container workloads need to scale suddenly.
-* Requesting additional IPs takes a long time.
-* The system still depends heavily on IPv4.
-* Outbound connectivity is needed to multiple VPCs, shared services, or on-premises systems.
+- There are many AWS accounts connected to on-premises.
+- RFC 1918 space is allocated with strict limitations.
+- Serverless or container workloads need to scale suddenly.
+- Requesting additional IPs takes a long time.
+- The system still depends heavily on IPv4.
+- Outbound connectivity is needed to multiple VPCs, shared services, or on-premises systems.
 
 This is not a complete long-term replacement for IPv6, but it is a practical way to solve the scaling problem within the current infrastructure.
 
@@ -172,10 +170,7 @@ For large organizations facing IP shortage problems in a hybrid AWS environment,
 
 ## Reference source
 
-https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-united-airlines-solved-ip-exhaustion-with-private-nat-gateway/
+[How United Airlines solved IP exhaustion with Private NAT Gateway](https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-united-airlines-solved-ip-exhaustion-with-private-nat-gateway/)
 
 ---
-
-<img src="/images/Blog/blog3-3.png" style="max-width:100%; margin-bottom:16px;" />
-<img src="/images/Blog/blog3-2.png" style="max-width:100%; margin-bottom:16px;" />
-<img src="/images/Blog/blog3-1.png" style="max-width:100%; margin-bottom:16px;" />
+![](https://hoaithoai.github.io/images/Blog/blog3-3.png)![](https://hoaithoai.github.io/images/Blog/blog3-2.png)![](https://hoaithoai.github.io/images/Blog/blog3-1.png)

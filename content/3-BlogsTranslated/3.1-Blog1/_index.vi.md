@@ -6,13 +6,9 @@ chapter: false
 pre: " <b> 3.1. </b> "
 ---
 
-
-{{% notice note %}}
 📌 **Infor:** Blog 1 - Amazon VPC Lattice
-{{% /notice %}}
 
 # Amazon VPC Lattice - Khi microservices không còn phải đi vòng để giao tiếp với nhau
-
 Chào mọi người, hôm nay mình chia sẻ nhanh một case study từ AWS về cách **Insurance Australia Group (IAG)** dùng **Amazon VPC Lattice** để cải thiện giao tiếp giữa các service trong kiến trúc serverless.
 
 IAG là một công ty bảo hiểm lớn tại Úc và New Zealand, vận hành nhiều hệ thống phục vụ khách hàng như mua bảo hiểm, quản lý hợp đồng và các dịch vụ liên quan. Họ xây dựng nền tảng trên AWS theo hướng serverless với nhiều microservices chạy bằng **AWS Lambda**. Khi số lượng service tăng lên, việc các service gọi qua lại bắt đầu gây ra vấn đề về hiệu năng và độ phức tạp.
@@ -65,12 +61,12 @@ VPC Lattice giúp giảm latency rõ rệt, đơn giản hóa kiến trúc mạn
 
 Các lợi ích chính có thể tóm tắt như sau:
 
-* Giảm độ trễ khi các service giao tiếp với nhau.
-* Đơn giản hóa kiến trúc mạng giữa các microservices.
-* Hạn chế việc traffic phải đi qua Internet.
-* Tăng khả năng kiểm soát bảo mật bằng Auth Policy.
-* Phù hợp với hệ thống nhiều môi trường và nhiều AWS account.
-* Hỗ trợ tốt cho kiến trúc serverless sử dụng AWS Lambda.
+- Giảm độ trễ khi các service giao tiếp với nhau.
+- Đơn giản hóa kiến trúc mạng giữa các microservices.
+- Hạn chế việc traffic phải đi qua Internet.
+- Tăng khả năng kiểm soát bảo mật bằng Auth Policy.
+- Phù hợp với hệ thống nhiều môi trường và nhiều AWS account.
+- Hỗ trợ tốt cho kiến trúc serverless sử dụng AWS Lambda.
 
 ---
 
@@ -89,14 +85,12 @@ Amazon VPC Lattice giúp IAG giải quyết bài toán quen thuộc trong micros
 Nếu bạn đang xây dựng hệ thống serverless hoặc microservices trên AWS, đặc biệt khi số lượng service bắt đầu nhiều lên, VPC Lattice là một lựa chọn hay ho rất đáng cân nhắc.
 
 ---
+
 ## Link tham khảo
 
-https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-iag-accelerated-service-to-service-communication-with-amazon-vpc-lattice/
-
+[https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-iag-accelerated-service-to-service-communication-with-amazon-vpc-lattice/](https://aws.amazon.com/vi/blogs/networking-and-content-delivery/how-iag-accelerated-service-to-service-communication-with-amazon-vpc-lattice/)
 
 ---
-
-
-<img src="/images/Blog/blog1-1.png" style="max-width:100%; margin-bottom:16px;" />
+![](https://hoaithoai.github.io/images/Blog/blog1-1.png)![](https://hoaithoai.github.io/images/Blog/blog1-2.png)
 
 <img src="/images/Blog/blog1-2.png" style="max-width:100%; margin-bottom:16px;" />
